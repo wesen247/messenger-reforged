@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="280.0" style="-fx-background-color: #55555D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="67.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+         <children>
+            <MenuBar layoutX="215.0" layoutY="1.0" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #55555D;">
+              <menus>
+                <Menu mnemonicParsing="false">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Create new group" />
+                        <MenuItem mnemonicParsing="false" text="Log out" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Actions-arrow-down-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ImageView fitHeight="52.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/meeting-1453895_960_720.png" />
+               </image>
+               <rotationAxis>
+                  <Point3D z="5.0" />
+               </rotationAxis>
+            </ImageView>
+         </children>
+      </Pane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="33.0" layoutY="78.0" stroke="#0fc409" strokeType="INSIDE" width="280.0">
+         <fill>
+            <RadialGradient centerX="0.23977690203925495" centerY="0.4682539803641183" radius="0.5">
+               <stops>
+                  <Stop color="#0d9006" />
+                  <Stop color="#0d9006" offset="0.4005102040816326" />
+                  <Stop color="#086205" offset="0.9323979591836736" />
+                  <Stop color="#086205" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Text fill="WHITE" layoutX="14.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Groups" wrappingWidth="50.0">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <Pane layoutY="112.0" prefHeight="183.0" prefWidth="280.0">
+         <children>
+            <ScrollBar layoutX="266.0" orientation="VERTICAL" prefHeight="183.0" prefWidth="14.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></ScrollBar>
+         </children>
+      </Pane>
+      <Pane layoutY="329.0" prefHeight="183.0" prefWidth="280.0">
+         <children>
+            <ScrollBar layoutX="266.0" orientation="VERTICAL" prefHeight="183.0" prefWidth="14.0" />
+         </children>
+      </Pane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="33.0" layoutY="295.0" stroke="#0fc409" strokeType="INSIDE" width="280.0">
+         <fill>
+            <RadialGradient centerX="0.2174720693255003" centerY="0.41428571428571426" radius="0.5">
+               <stops>
+                  <Stop color="#0d9006" />
+                  <Stop color="#0d9006" offset="0.3469387755102041" />
+                  <Stop color="#086205" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <Text fill="WHITE" layoutX="14.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Online" wrappingWidth="50.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
