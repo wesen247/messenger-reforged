@@ -5,7 +5,7 @@ public class GroupMessage {
 	private Group receiver;
 	private User sender;
 	
-	public GroupMessage(String message, Group receiver, User sender) {
+	public GroupMessage(String message, User sender, Group receiver) {
 		this.message = message;
 		this.receiver = receiver;
 		this.sender = sender;

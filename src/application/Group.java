@@ -6,12 +6,13 @@ public class Group {
 	private ArrayList<String> fileLog = new ArrayList<String>();
 	private ArrayList<User> groupMembers = new ArrayList<User>();
 	private ArrayList<GroupMessage> groupMessages = new ArrayList<GroupMessage>();
-	//private ArrayList<Event> eventObjects = new ArrayList<Event>();
+	private ArrayList<Event> events = new ArrayList<Event>();
 
-	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog) {
+	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog, ArrayList<Event> events) {
 		this.groupMembers = groupMembers;
 		this.groupMessages = groupMessages;
 		this.fileLog = fileLog;
+		this.events = events;
 	}
 	
 	public ArrayList<User> getGroupMembers() {
@@ -26,7 +27,7 @@ public class Group {
 		return fileLog;
 	}
 
-//	public ArrayList<Event> getEventObjects() {
-//		return eventObjects;
-//	}
+	public ArrayList<Event> getEvents() {
+		return events;
+	}
 }
