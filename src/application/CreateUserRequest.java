@@ -1,29 +1,35 @@
 package application;
-
-import java.util.ArrayList;
-
+/**
+ * Entity, used to create new user
+ * @author André Ruben Amir
+ *
+ */
 public class CreateUserRequest {
-	private User user;
+	private String password;
 	private String name;
-	private boolean userExists;
-	private ArrayList<User> allUsers = new ArrayList<User>();
 
-	public CreateUserRequest(String user) {
-		if(userExists(user)==false) {
-			allUsers.add(new User(user));
-		}
+	/**
+	 * @author André Ruben Amir
+	 * @param name
+	 * @param password
+	 */
+	public CreateUserRequest(String name, String password) {
+		this.name = name;
+		this.password = password;
 	}
-
-	
-	public boolean userExists(String user) {
-		String existingUser;
-		for(int i = 0; i < allUsers.size(); i++) {
-			existingUser = allUsers.get(i).getName();
-			if(user==existingUser) {
-				return true;
-			}
-		}
-		return false;
+	/**
+	 * @author André Ruben Amir
+	 * @return Name of user
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @author André Ruben Amir
+	 * @return User password
+	 */
+	public String getPassword() {
+		return password;
 	}
 }
 
