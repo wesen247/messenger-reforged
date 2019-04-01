@@ -1,7 +1,7 @@
 package application;
 /**
  * 
- * @author Ruben, Amir
+ * @author Ruben, Amir, André
  *
  */
 public class Response {
