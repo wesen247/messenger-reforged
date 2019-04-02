@@ -6,20 +6,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class StartMenuUI extends Application {
+public class MainUI extends Application {
 	
 	private Parent content;
 	private FXMLLoader loader = new FXMLLoader();
 	private Parent root;
 	private Scene scene;
 
-	public StartMenuUI() {
+	public MainUI() {
 
 	}
 
 	public void start(Stage stage) throws Exception {
 
-		root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
 		scene = new Scene(root);
 
 		stage.setTitle("Login");
