@@ -87,7 +87,22 @@
       </Pane>
       <TextArea editable="false" layoutX="202.0" layoutY="80.0" prefHeight="310.0" prefWidth="511.0" />
       <TextField layoutX="202.0" layoutY="411.0" prefHeight="42.0" prefWidth="380.0" promptText="Type message..." />
-      <Button layoutX="588.0" layoutY="419.0" mnemonicParsing="false" text="Send" />
-      <Button layoutX="640.0" layoutY="419.0" mnemonicParsing="false" text="Attach" />
+      <Button layoutX="588.0" layoutY="419.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="34.0">
+         <graphic>
+            <ImageView fitHeight="18.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/ladda%20ned.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="632.0" layoutY="419.0" mnemonicParsing="false">
+         <graphic>
+            <ImageView fx:id="attachButton" fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/648747-star-ratings-512.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
