@@ -1,5 +1,7 @@
 package application;
 
+import javafx.application.Application;
+
 public class ClientController {
 	private LoginUI loginUI;
 	private	GroupChatUI groupChatUI;
@@ -15,7 +17,8 @@ public class ClientController {
 	}
 
 	public void start() {
-
+		initializeLoginUI();
+		
 	}
 
 	public void initializeMainUI() {
@@ -23,7 +26,7 @@ public class ClientController {
 	}
 
 	public void initializeLoginUI() {
-
+		Application.launch(LoginUI.class);
 	}
 
 	public void initializePrivateChatUI() {
@@ -76,5 +79,7 @@ public class ClientController {
 	public static void main(String[] args) {
 		ClientController controller = new ClientController();
 		controller.start();
+		
 	}
+	
 }
