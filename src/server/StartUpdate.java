@@ -1,6 +1,8 @@
 package server;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class represents a StartUpdate. A StartUpdateObject contains all
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 public class StartUpdate {
 
 	private ArrayList<User> onlineUsers;
-	private ArrayList<User> allUsers;
+	private ConcurrentHashMap<String,User> allUsers;
 	private ArrayList<Group> groups;
 	private User user;
 	/**
@@ -25,7 +27,7 @@ public class StartUpdate {
 	 * @param groups      ArrayList with all the groups
 	 */
 
-	public StartUpdate(ArrayList<User> onlineUsers, ArrayList<User> allUsers, ArrayList<Group> groups, User user) {
+	public StartUpdate(ArrayList<User> onlineUsers, ConcurrentHashMap<String,User> allUsers, ArrayList<Group> groups, User user) {
 
 		this.onlineUsers = onlineUsers;
 		this.allUsers = allUsers;
@@ -39,9 +41,9 @@ public class StartUpdate {
 
 	}
 
-	public ArrayList<User> getAllUsers() {
+	public Iterator<User> getAllUsers() {
 
-		return allUsers;
+		return allUsers.values().iterator();
 
 	}
 
