@@ -72,7 +72,10 @@
             </ScrollPane>
          </children>
       </Pane>
-      <Pane layoutY="329.0" prefHeight="183.0" prefWidth="280.0" />
+      <Pane layoutY="329.0" prefHeight="183.0" prefWidth="280.0">
+         <children>
+            <ScrollPane prefHeight="183.0" prefWidth="280.0" />
+         </children></Pane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="33.0" layoutY="295.0" stroke="#0fc409" strokeType="INSIDE" width="280.0">
          <fill>
             <RadialGradient centerX="0.2174720693255003" centerY="0.41428571428571426" radius="0.5">
