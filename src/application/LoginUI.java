@@ -1,12 +1,37 @@
 package application;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class LoginUI {
-	FXMLLoader loader = new FXMLLoader();
-	loader.setLocation(getClass().getResource("/application/LgInUI.fxml"));
-	Parent content = loader.load();
+public class LoginUI extends Application {
 	
+	private Parent content;
+	private FXMLLoader loader = new FXMLLoader();
+	private Parent root;
+	private Scene scene;
+
+	public LoginUI() {
+
+	}
+
+	public void start(Stage stage) throws Exception {
+
+		root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
+		scene = new Scene(root, 300, 275);
+
+		stage.setTitle("Login");
+		stage.setScene(scene);
+		stage.show();
+
+	}
+
+	public static void main(String[] args) {
+
+		launch(args);
+
+	}
 
 }
