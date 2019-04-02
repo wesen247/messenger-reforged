@@ -1,4 +1,4 @@
-package server;
+package application;
 
 /**
  * Entity, Used to add various object to the server

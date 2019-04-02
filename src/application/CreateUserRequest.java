@@ -1,4 +1,4 @@
-package server;
+package application;
 /**
  * Entity, used to create new user
  * @author André Ruben Amir
