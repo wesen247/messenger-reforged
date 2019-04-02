@@ -1,8 +1,13 @@
 package application;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
+import java.net.Socket;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import javafx.application.Application;
 
@@ -16,13 +21,26 @@ public class ClientController {
 	private User user;
 	private Data data;
 	private ObjectOutputStream oos;
+	private Socket socket;
 
 	public ClientController() {
 
 	}
 
 	public void start() {
-		initializeLoginUI();
+		try {
+			String ip = JOptionPane.showInputDialog("Ange IP");
+			int socketNbr = Integer.parseInt(JOptionPane.showInputDialog("Ange socket"));
+			socket = new Socket(ip, socketNbr);
+			oos = new ObjectOutputStream(socket.getOutputStream());
+			oos.flush();
+			initializeLoginUI();
+		} catch(ConnectException c) {
+			c.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void initializeMainUI() {
@@ -104,6 +122,28 @@ public class ClientController {
 		}
 	}
 
+	public void sendFile(File file, String groupName, String filename) {
+		String type = "file:" + groupName + ":" + filename;
+		try {
+			oos.writeObject(new AddObjectRequest(type, file, user));
+			oos.flush();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addEvent(Event event) {
+		String type = "Event";
+		try {
+			oos.writeObject(new AddObjectRequest(type, event, user));
+			oos.flush();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void addGroupMember(String groupName, User userToAdd) {
 		String type = "addGroupMember:" + groupName;
 		try {
@@ -112,13 +152,6 @@ public class ClientController {
 		}
 		catch(IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	private class ServerSpeaker extends Thread {
-
-		public void run() {
-
 		}
 	}
 
