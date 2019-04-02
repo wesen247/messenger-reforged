@@ -20,12 +20,12 @@ public class LoginUI extends Application {
 	public void start(Stage stage) throws Exception {
 
 		root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
-		scene = new Scene(root, 300, 275);
+		scene = new Scene(root);
 
 		stage.setTitle("Login");
 		stage.setScene(scene);
 		stage.show();
-
+	
 	}
 
 	public static void main(String[] args) {
