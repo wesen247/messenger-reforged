@@ -19,7 +19,7 @@ public class GroupChatUI extends Application {
 
 	public void start(Stage stage) throws Exception {
 
-		root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/application/ChattWindowGroup.fxml"));
 		scene = new Scene(root);
 
 		stage.setTitle("Login");
