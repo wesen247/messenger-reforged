@@ -10,8 +10,8 @@ public class ClientController {
 	private User user;
 	private Data data;
 
-	public ClientController(Data data) {
-		this.data = data;
+	public ClientController() {
+		
 	}
 
 	public void start() {
@@ -74,8 +74,7 @@ public class ClientController {
 	}
 	
 	public static void main(String[] args) {
-		Data data = new Data();
-		ClientController controller = new ClientController(data);
+		ClientController controller = new ClientController();
 		controller.start();
 	}
 }
