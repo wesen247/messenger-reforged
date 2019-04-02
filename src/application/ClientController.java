@@ -23,10 +23,6 @@ public class ClientController {
 	private ObjectOutputStream oos;
 	private Socket socket;
 
-	public ClientController() {
-
-	}
-
 	public void start() {
 		try {
 			String ip = JOptionPane.showInputDialog("Ange IP");
