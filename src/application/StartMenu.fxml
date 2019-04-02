@@ -63,18 +63,22 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-      <Pane layoutY="112.0" prefHeight="183.0" prefWidth="280.0">
+      <Pane layoutY="112.0" prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
          <children>
-            <ScrollPane prefHeight="200.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+            <ScrollPane prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
                <content>
-                  <ListView prefHeight="181.0" prefWidth="279.0" style="-fx-background-color: #55555D;" />
+                  <ListView prefHeight="183.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
                </content>
             </ScrollPane>
          </children>
       </Pane>
-      <Pane layoutY="329.0" prefHeight="183.0" prefWidth="280.0">
+      <Pane layoutY="329.0" prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
          <children>
-            <ScrollPane prefHeight="183.0" prefWidth="280.0" />
+            <ScrollPane prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+               <content>
+                  <ListView prefHeight="182.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
+               </content>
+            </ScrollPane>
          </children></Pane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="33.0" layoutY="295.0" stroke="#0fc409" strokeType="INSIDE" width="280.0">
          <fill>
