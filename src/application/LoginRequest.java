@@ -1,4 +1,4 @@
-package application;
+package server;
 
 /**
  * This class represents a LoginRequest that can be sent to a server for access.

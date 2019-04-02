@@ -1,4 +1,4 @@
-package application;
+package server;
 /**
  * 
  * @author Ruben, Amir, André

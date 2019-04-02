@@ -1,4 +1,4 @@
-package application;
+package server;
 
 import java.util.ArrayList;
 /**
@@ -40,5 +40,8 @@ public class User {
 	
 	public ArrayList<User> getFriends() {
 		return friendList;
+	}
+	public void addGroup(String groupName) {
+		memberOfGroups.add(groupName);
 	}
 }
