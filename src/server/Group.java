@@ -8,6 +8,12 @@ public class Group {
 	private ArrayList<GroupMessage> groupMessages = new ArrayList<GroupMessage>();
 	private ArrayList<Event> events = new ArrayList<Event>();
 
+	/**Constructor for groups containing several users.
+	 * @param groupMembers
+	 * @param groupMessages
+	 * @param fileLog
+	 * @param events
+	 */
 	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog, ArrayList<Event> events) {
 		this.groupMembers = groupMembers;
 		this.groupMessages = groupMessages;
