@@ -6,6 +6,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,7 +27,7 @@
                   <items>
                     <MenuItem fx:id="btnCreateNewGroup" mnemonicParsing="false" onAction="#buttonCreateNewGroup" text="Create new group" />
                         <MenuItem fx:id="logOutBtn" mnemonicParsing="false" onAction="#buttonLogOut" text="Log out" />
-                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" onAction="#setText" text="Close" />
                   </items>
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -67,7 +68,7 @@
          <children>
             <ScrollPane prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
                <content>
-                  <ListView fx:id="listViewGroups" prefHeight="183.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
+                  <TextArea fx:id="textFieldGroups" prefHeight="200.0" prefWidth="200.0" />
                </content>
             </ScrollPane>
          </children>
@@ -76,7 +77,7 @@
          <children>
             <ScrollPane prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
                <content>
-                  <ListView prefHeight="182.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
+                  <ListView fx:id="listViewOnline" prefHeight="182.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
                </content>
             </ScrollPane>
          </children></Pane>

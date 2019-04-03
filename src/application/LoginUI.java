@@ -1,17 +1,18 @@
 package application;
 
+
 import java.io.IOException;
 
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -36,19 +37,23 @@ public class LoginUI extends Application {
 	@FXML
 	private Button btnCreateGroup;
 	@FXML
-	private TextField groupNameTextField;
+	private TextArea groupNameTextField;
+	@FXML
+	private Button buttonCancelGroup;
+	@FXML
+	private TextArea textFieldGroups;
 
 	private ClientController ctr;
 	private FXMLLoader loader = new FXMLLoader();
 	private Parent root;
 	private Scene scene;
 
+	private ObservableList ol;
 	private Stage stage1 = new Stage();
 	Button button;
 
 	public LoginUI() {
 
-		System.out.println("konsturktorn");
 		ClientController ct = new ClientController();
 		this.ctr = ct;
 	}
@@ -110,6 +115,9 @@ public class LoginUI extends Application {
 			e.printStackTrace();
 		}
 
+		
+		
+		
 	}
 
 	public void buttonCancel() {
@@ -193,7 +201,6 @@ public class LoginUI extends Application {
 		stage1.show();
 
 		Stage stage = (Stage) pane.getScene().getWindow();
-
 		stage.close();
 
 	}
@@ -216,9 +223,33 @@ public class LoginUI extends Application {
 		stage1.show();
 
 		Stage stage = (Stage) btnCreateGroup.getScene().getWindow();
-
 		stage.close();
 
 	}
 
+	public void buttonCancelGroup() {
+
+		try {
+			root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		scene = new Scene(root);
+		stage1.setTitle("Login");
+		stage1.setScene(scene);
+		stage1.show();
+
+		Stage stage = (Stage) buttonCancelGroup.getScene().getWindow();
+		stage.close();
+
+	}
+
+	public void setText() {
+		
+		textFieldGroups.setText("hej");
+		
+		
+	}
+	
 }
