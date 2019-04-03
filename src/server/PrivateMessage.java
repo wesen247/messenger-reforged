@@ -43,5 +43,4 @@ public class PrivateMessage {
 	public User getReceiver() {
 		return receiver;
 	}
-
 }
