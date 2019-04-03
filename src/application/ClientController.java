@@ -41,6 +41,7 @@ public class ClientController {
 
 	public void initializeMainUI() {
 		Application.launch(MainUI.class);
+
 	}
 
 	public void initializeLoginUI() {
@@ -56,6 +57,7 @@ public class ClientController {
 	}
 
 	public void initializeCreateGroupUI() {
+		System.out.println("Tjena");
 		Application.launch(CreateGroupUI.class);
 	}
 

@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="366.0" style="-fx-background-color: #55555D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="366.0" style="-fx-background-color: #55555D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginUI">
    <children>
       <Pane prefHeight="55.0" prefWidth="366.0">
          <children>
@@ -32,13 +32,13 @@
             </Text>
          </children>
       </Pane>
-      <TextField layoutX="34.0" layoutY="104.0" prefHeight="25.0" prefWidth="210.0" promptText="Choose username..." />
-      <PasswordField layoutX="34.0" layoutY="188.0" prefHeight="25.0" prefWidth="210.0" promptText="choose password..." />
+      <TextField fx:id="usernameTextField" layoutX="34.0" layoutY="104.0" prefHeight="25.0" prefWidth="210.0" promptText="Choose username..." />
+      <PasswordField fx:id="passwordTextField" layoutX="34.0" layoutY="188.0" prefHeight="25.0" prefWidth="210.0" promptText="choose password..." />
       <Text fill="WHITE" layoutX="44.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" />
       <Text fill="WHITE" layoutX="44.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
       <Button layoutX="54.0" layoutY="272.0" mnemonicParsing="false" text="Upload image" />
       <Text fill="WHITE" layoutX="44.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose image:" />
-      <Button layoutX="49.0" layoutY="329.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Create " />
-      <Button layoutX="149.0" layoutY="329.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Cancel" />
+      <Button fx:id="createUserBtn" layoutX="49.0" layoutY="329.0" mnemonicParsing="false" onAction="#buttonCreate" prefHeight="25.0" prefWidth="67.0" text="Create " />
+      <Button fx:id="btnCancel" layoutX="149.0" layoutY="329.0" mnemonicParsing="false" onAction="#buttonCancel" prefHeight="25.0" prefWidth="67.0" text="Cancel" />
    </children>
 </AnchorPane>

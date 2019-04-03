@@ -11,7 +11,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="282.0" prefWidth="386.0" style="-fx-background-color: #55555D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="282.0" prefWidth="386.0" style="-fx-background-color: #55555D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginUI">
+  	
    <children>
       <Pane opacity="0.55" prefHeight="48.0" prefWidth="386.0">
          <children>
@@ -39,7 +40,7 @@
       <TextField layoutX="58.0" layoutY="87.0" prefHeight="25.0" prefWidth="205.0" />
       <PasswordField layoutX="58.0" layoutY="170.0" prefHeight="25.0" prefWidth="205.0" />
       <Text fill="WHITE" layoutX="58.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
-      <Button layoutX="39.0" layoutY="231.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Log in" />
-      <Button layoutX="186.0" layoutY="231.0" mnemonicParsing="false" text="Create new account" />
+      <Button fx:id="loginButton" layoutX="39.0" layoutY="231.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="25.0" prefWidth="121.0" text="Log in" />
+      <Button fx:id="createNewUserBtn" layoutX="186.0" layoutY="231.0" mnemonicParsing="false" onAction="#createNewUser" text="Create new account" />
    </children>
 </AnchorPane>
