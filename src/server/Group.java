@@ -2,6 +2,9 @@ package server;
 
 import java.util.ArrayList;
 
+/**This entity class holds attributes and methods for Group. 
+ * @author Zacharias
+ */
 public class Group {
 	private ArrayList<String> fileLog = new ArrayList<String>();
 	private ArrayList<User> groupMembers = new ArrayList<User>();
@@ -9,6 +12,12 @@ public class Group {
 	private ArrayList<Event> events = new ArrayList<Event>();
 	private String groupName;
 
+	/**Constructor for groups containing several users.
+	 * @param groupMembers ArrayList that holds the users in the group.
+	 * @param groupMessages ArrayList that holds messages for the group.
+	 * @param fileLog ArrayList of Strings containing which files held by server.
+	 * @param events ArrayList containing events planned by the group.
+	 */
 	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog, ArrayList<Event> events, String Groupname) {
 		this.groupMembers = groupMembers;
 		this.groupMessages = groupMessages;

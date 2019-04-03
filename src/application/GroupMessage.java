@@ -1,5 +1,10 @@
 package application;
 
+/**
+ * Entity class for group messages.
+ * 
+ * @author Zacharias
+ */
 public class GroupMessage {
 	private String message;
 	private Group receiver;
