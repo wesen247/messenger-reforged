@@ -36,4 +36,8 @@ public class Group {
 	public ArrayList<Event> getEvents() {
 		return events;
 	}
+	
+	public void addMember(User user) {
+		groupMembers.add(user);
+	}
 }
