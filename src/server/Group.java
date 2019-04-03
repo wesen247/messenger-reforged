@@ -7,12 +7,14 @@ public class Group {
 	private ArrayList<User> groupMembers = new ArrayList<User>();
 	private ArrayList<GroupMessage> groupMessages = new ArrayList<GroupMessage>();
 	private ArrayList<Event> events = new ArrayList<Event>();
+	private String groupName;
 
-	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog, ArrayList<Event> events) {
+	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog, ArrayList<Event> events, String Groupname) {
 		this.groupMembers = groupMembers;
 		this.groupMessages = groupMessages;
 		this.fileLog = fileLog;
 		this.events = events;
+		this.groupName = groupName;
 	}
 	
 	public ArrayList<User> getGroupMembers() {
@@ -33,5 +35,8 @@ public class Group {
 	
 	public void addMember(User user) {
 		groupMembers.add(user);
+	}
+	public String getGroupName() {
+		return groupName;
 	}
 }

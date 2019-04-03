@@ -46,7 +46,7 @@ public class UserHandler {
 		}
 		return false;
 	} 	
-	
+
 	public void createStartUpdate(String name) {
 		Iterator<UserClient> tempIterator = connectedUsers.values().iterator();
 		ArrayList<User> onlineUsers = new ArrayList<User>();
@@ -71,7 +71,9 @@ public class UserHandler {
 	}
 
 	public void send(User receiver, Object sendObject) {
-		connectedUsers.get(receiver.getName()).addToBuffer(sendObject);	
+		if(connectedUsers.containsKey(receiver.getName())) {
+			connectedUsers.get(receiver.getName()).addToBuffer(sendObject);	
+		}
 	}
 	public void disconnect(String user) {
 		connectedUsers.remove(user);
