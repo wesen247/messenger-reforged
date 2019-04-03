@@ -22,7 +22,7 @@ public class GroupHandler {
 			groups.put(group.getGroupName(), group);
 			groupUpdate(group);
 		}else {
-			controller.send(group.getGroupMembers().get(0), new Response("createUserFailed", "Name already taken"));
+			controller.send(group.getGroupMembers().get(0), new Response("createGroupFailed", "Name already taken"));
 		}
 	}
 	public void groupUpdate(Group group) {

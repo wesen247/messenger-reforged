@@ -18,11 +18,15 @@ public class Group {
 	 * @param fileLog ArrayList of Strings containing which files held by server.
 	 * @param events ArrayList containing events planned by the group.
 	 */
-	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog, ArrayList<Event> events, String Groupname) {
+	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog, ArrayList<Event> events, String groupName) {
 		this.groupMembers = groupMembers;
 		this.groupMessages = groupMessages;
 		this.fileLog = fileLog;
 		this.events = events;
+		this.groupName = groupName;
+	}
+	
+	public Group(String groupName) {
 		this.groupName = groupName;
 	}
 	

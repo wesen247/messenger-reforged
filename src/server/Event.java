@@ -22,4 +22,16 @@ public class Event {
 		this.date = date;
 		this.comment = comment;
 	}
+	public Group getGroup() {
+		return group;
+	}
+	public User getUser() {
+		return user;
+	}
+	public int getDate() {
+		return date;
+	}
+	public String getComment() {
+		return comment;
+	}
 }

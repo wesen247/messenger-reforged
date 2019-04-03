@@ -56,6 +56,7 @@ public class UserClient {
 			try {
 				while(!Thread.interrupted()) {
 					oos.writeObject(sendBuffer.get());
+					oos.flush();
 				}
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
