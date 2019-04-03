@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import javafx.application.Application;
-
+/**
+ * Controller class
+ * @author Ruben
+ *
+ */
 public class ClientController {
 	private LoginUI loginUI;
 	private	GroupChatUI groupChatUI;
@@ -22,7 +26,9 @@ public class ClientController {
 	private Data data;
 	private ObjectOutputStream oos;
 	private Socket socket;
-
+/**
+ * Starts the connection with the server
+ */
 	public void start() {
 		try {
 			String ip = JOptionPane.showInputDialog("Ange IP");
@@ -30,7 +36,6 @@ public class ClientController {
 			socket = new Socket(ip, socketNbr);
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			oos.flush();
-			initializeLoginUI();
 		} catch(ConnectException c) {
 			c.printStackTrace();
 		} catch(IOException e) {
@@ -38,33 +43,10 @@ public class ClientController {
 		}
 
 	}
-
-	public void initializeMainUI() {
-		Application.launch(MainUI.class);
-
-	}
-
-	public void initializeLoginUI() {
-		Application.launch(LoginUI.class);
-	}
-
-	public void initializePrivateChatUI() {
-		Application.launch(PrivateChatUI.class);
-	}
-
-	public void initializeCreateNewUserUI() {
-		Application.launch(CreateNewUserUI.class);
-	}
-
-	public void initializeCreateGroupUI() {
-		System.out.println("Tjena");
-		Application.launch(CreateGroupUI.class);
-	}
-
-	public void initializeGroupChatUI() {
-		Application.launch(GroupChatUI.class);
-	}
-
+/**
+ * Creates an new group object and sends it to the server
+ * @param groupName
+ */
 	public void createNewGroup(String groupName) {
 		ArrayList<User> users = new ArrayList<User>();
 		users.add(user);
@@ -79,7 +61,11 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * Creates an new account
+ * @param name
+ * @param password
+ */
 	public void createNewUser(String name, String password) {
 		try {
 			oos.writeObject(new CreateUserRequest(name, password));
@@ -89,7 +75,11 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * Sends a group message
+ * @param message
+ * @param group
+ */
 	public void createGroupMessage(String message, Group group) {
 		try {
 			oos.writeObject(new GroupMessage(message, user, group));
@@ -99,7 +89,11 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * Sends a private message
+ * @param message
+ * @param reciever
+ */
 	public void createPrivateMessage(String message, User reciever) {
 		try {
 			oos.writeObject(new PrivateMessage(message, user, reciever));
@@ -109,7 +103,11 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * Sends a log in request to the server
+ * @param userName
+ * @param password
+ */
 	public void logIn(String userName, String password) {
 		try {
 			oos.writeObject(new LoginRequest(userName, password));
@@ -119,7 +117,12 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * Sends a file to a group
+ * @param file
+ * @param groupName
+ * @param filename
+ */
 	public void sendFile(File file, String groupName, String filename) {
 		String type = "file:" + groupName + ":" + filename;
 		try {
@@ -130,7 +133,10 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * Adds a event to a group
+ * @param event
+ */
 	public void addEvent(Event event) {
 		String type = "Event";
 		try {
@@ -141,7 +147,11 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * Adds a user to the group
+ * @param groupName
+ * @param userToAdd
+ */
 	public void addGroupMember(String groupName, User userToAdd) {
 		String type = "addGroupMember:" + groupName;
 		try {
@@ -151,12 +161,6 @@ public class ClientController {
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void main(String[] args) {
-		ClientController controller = new ClientController();
-		controller.start();
-
 	}
 
 }
