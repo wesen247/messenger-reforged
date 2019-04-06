@@ -15,6 +15,7 @@ public class Buffer<T> {
 		while(buffer.isEmpty()) {
 			wait();
 		}
+		System.out.println("tråd hämtar task");
 		return buffer.removeFirst();
 	}
 	

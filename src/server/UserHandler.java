@@ -1,9 +1,12 @@
 package server;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserHandler {
@@ -23,7 +26,7 @@ public class UserHandler {
 		}
 	}
 
-	public boolean newUser(CreateUserRequest user, Socket socket) {
+	public boolean newUser(CreateUserRequest user, Socket socket, ObjectOutputStream oos, ObjectInputStream ois) {
 
 		if (allUsers.containsKey(user.getName())) {
 			return false;
@@ -31,18 +34,24 @@ public class UserHandler {
 
 		passwordHashmap.put(user.getName(), user.getPassword());
 		allUsers.put(user.getName(),new User(user.getName(), new ArrayList<String>(),new ArrayList<User>()));
-		connectedUsers.put(user.getName(), new UserClient(controller, socket, this, allUsers.get(user.getName())));
+		connectedUsers.put(user.getName(), new UserClient(controller, socket, this, allUsers.get(user.getName()), oos, ois));
 		createStartUpdate(user.getName());
 		sendUserUpdate();
 		return true;
 	}
 
-	public boolean attemptLogin(LoginRequest login, Socket socket) {
-		if(passwordHashmap.get(login.getName()) == login.getPassword()) {
-			connectedUsers.put(login.getName(), new UserClient(controller, socket, this, allUsers.get(login.getName())));
-			createStartUpdate(login.getName());
-			sendUserUpdate();
-			return true;
+	public boolean attemptLogin(LoginRequest login, Socket socket, ObjectOutputStream oos, ObjectInputStream ois) {//Fixa try catch
+		try {
+			if(passwordHashmap.get(login.getName()).equals(login.getPassword())) {
+				System.out.println(login.getPassword());
+				connectedUsers.put(login.getName(), new UserClient(controller, socket, this, allUsers.get(login.getName()), oos, ois));
+				createStartUpdate(login.getName());
+				sendUserUpdate();
+				return true;
+			}
+		}
+		catch(NullPointerException e) {
+			//Fixa
 		}
 		return false;
 	} 	
@@ -64,9 +73,19 @@ public class UserHandler {
 		send(user, tempStartUpdate);
 	}
 	public void sendUserUpdate() {
-		ArrayList<User> onlineUsers= new ArrayList<User>((Collection<User>) connectedUsers.keySet().iterator());
+		ArrayList<String> onlineUsers = new ArrayList<String>();
+		Iterator<String> onlineUserIterator = connectedUsers.keySet().iterator();
+		try {
+			while(connectedUsers.keySet().iterator().hasNext()) {
+
+				onlineUsers.add(onlineUserIterator.next());
+			}
+		}catch(NoSuchElementException e) {
+
+		}
+		UserUpdate tempUserUpdate = new UserUpdate(onlineUsers);
 		for(int i = 0; i<connectedUsers.keySet().size();i++) {
-			send(onlineUsers.get(i), onlineUsers);
+			send(new User(onlineUsers.get(i)), tempUserUpdate);
 		}
 	}
 

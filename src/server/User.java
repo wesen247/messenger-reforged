@@ -1,12 +1,17 @@
 package server;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * Entity class, Class with user information
  * @author Zacharias André Ruben Amir
  *
  */
-public class User {
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4193667861507882544L;
 	private String name;
 	private String password;
 	private ArrayList<User> friendList;

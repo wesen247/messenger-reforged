@@ -1,10 +1,17 @@
 package server;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author Ruben, Amir, André
  *
  */
-public class Response {
+public class Response implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4945600552280641508L;
 	private String type;
 	private Object responseObject;
 	/**

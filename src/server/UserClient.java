@@ -14,18 +14,16 @@ public class UserClient {
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
 
-	public UserClient(ServerController controller, Socket socket, UserHandler userHandler, User user) {
+	public UserClient(ServerController controller, Socket socket, UserHandler userHandler, User user, ObjectOutputStream oos, ObjectInputStream ois) {
 		this.controller = controller;
 		this.sendBuffer = new Buffer<Object>();
 		this.socket = socket;
 		this.userHandler = userHandler;
 		this.user = user;
-		try {
-			ois = new ObjectInputStream(socket.getInputStream());
-			oos = new ObjectOutputStream(socket.getOutputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+			this.oos = oos;
+			this.ois = ois;
+	
 		controller.addTask(new UserListener());
 		controller.addTask(new UserSender());
 	}

@@ -1,5 +1,6 @@
 package server;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,8 +13,12 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  */
 
-public class StartUpdate {
+public class StartUpdate implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1821886971134191409L;
 	private ArrayList<User> onlineUsers;
 	private ConcurrentHashMap<String,User> allUsers;
 	private ArrayList<Group> groups;

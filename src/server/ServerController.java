@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import server.TestClassForServer.TestConnection;
+
 public class ServerController {
 	private UserHandler userHandler;
 	private GroupHandler groupHandler;
@@ -16,8 +18,11 @@ public class ServerController {
 		groupHandler = new GroupHandler(useBackup, this);
 		taskBuffer = new Buffer<Runnable>();
 		for(int i = 0;i<5+maximumUsers*2;i++) {
-			new Worker();
+			new Worker().start();;
+			System.out.println("New worker started "+i);
 		}
+		System.out.println("----------------------------------------------------");
+		addTask(new IncommningConnections());
 	}
 	public Group getGroup(String Group) {
 		return groupHandler.getGroup(Group);
@@ -52,15 +57,9 @@ public class ServerController {
 			groupHandler.newMessage((GroupMessage) incomming);
 		}
 		else if(incomming instanceof PrivateMessage) {
-			send(//Slutade Här);
+			PrivateMessage message = (PrivateMessage) incomming;
+			send(message.getReceiver(),message);
 		}
-		else if(incomming instanceof ) {
-
-		}
-		else if(incomming instanceof ) {
-
-		}
-
 
 	}
 
@@ -72,6 +71,7 @@ public class ServerController {
 		public void run() {
 			while(true) {
 				try {
+					System.out.println("tråd klar med task");
 					taskBuffer.get().run();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -83,8 +83,12 @@ public class ServerController {
 		public void run() {
 			try {
 				ServerSocket serverSocket = new ServerSocket(5434);
+				Runnable runnable;
 				while(true) {
-					addTask(new LoginHandler(serverSocket.accept()));
+					System.out.println("Lyssnar efter användare");
+					runnable = new LoginHandler(serverSocket.accept());
+					addTask(runnable);
+					System.out.println("Task added");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -98,33 +102,43 @@ public class ServerController {
 		private ObjectInputStream ois;
 		private ObjectOutputStream oos;
 		public LoginHandler(Socket socket) {
-			this.socket = socket;
+			System.out.println("LoginHandler skapad");
+			this.socket = socket;		
+		}
+		public void run() {
 			try {
 				ois = new ObjectInputStream(socket.getInputStream());
 				oos = new ObjectOutputStream(socket.getOutputStream());
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-		}
-		public void run() {
+			
 			boolean accepted = false;
+			System.out.println("Lyssnar på login eller användare från klient");
 			Object fromUser;
 			while(!accepted) {
 				try {
 					fromUser = ois.readObject();
-
+					System.out.println("LoginHandler: Objekt Motaget");
 					if(fromUser instanceof CreateUserRequest) {
-						if(userHandler.newUser((CreateUserRequest) fromUser, socket)) {
+						System.out.println("LoginHandler: Type CreateUserRequest");
+						if(userHandler.newUser((CreateUserRequest) fromUser, socket, oos, ois)) {
 							accepted = true;
+							System.out.println("LoginHandler: CreateUserRequest lyckad");
 						}else {
+							System.out.println("LoginHandler: CreateUserRequest misslyckad");
 							oos.writeObject(new Response("createUserFailed", "User creation failed"));
 							oos.flush();
 						}
 					}
 					else if(fromUser instanceof LoginRequest) {
-						if(userHandler.attemptLogin((LoginRequest) fromUser, socket)) {
+						System.out.println("LoginHandler: Type LoginRequest");
+						if(userHandler.attemptLogin((LoginRequest) fromUser, socket, oos, ois)) {
 							accepted = true;
+							System.out.println("LoginHandler: LoginRequest godkänd");
 						}else {
+							System.out.println("LoginHandler: LoginRequest misslyckad");
 							oos.writeObject(new Response("loginFailed", "Login failed"));
 							oos.flush();
 						}
