@@ -31,7 +31,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <TextField fx:id="groupNameTextField" layoutX="14.0" layoutY="90.0" prefHeight="25.0" prefWidth="227.0" promptText="Choose group name" />
+      <TextField fx:id="groupNameTextField" layoutX="14.0" layoutY="90.0" prefHeight="25.0" prefWidth="227.0" promptText="Choose group name" style="-fx-background-color: #55555D; -fx-border-color: #ffff;" />
       <Text fill="WHITE" layoutX="10.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose image:">
          <font>
             <Font name="System Bold" size="12.0" />
