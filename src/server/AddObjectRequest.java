@@ -1,11 +1,17 @@
 package server;
 
+import java.io.Serializable;
+
 /**
  * Entity, Used to add various object to the server
  * @author André Ruben Amir
  *
  */
-public class AddObjectRequest {
+public class AddObjectRequest implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6528534663913798173L;
 	private User user;
 	private String type;
 	private Object objectToAdd;

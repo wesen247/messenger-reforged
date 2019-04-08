@@ -27,17 +27,22 @@ public class GroupHandler {
 	}
 	public void groupUpdate(Group group) {
 		for(int i = 0; i < group.getGroupMembers().size(); i++) {
+			System.out.println("Skickar uppdatering");
 			controller.send(group.getGroupMembers().get(i), group);
 		}
 	}
 	public void addMember(Group group, User user) {
-		groups.get(group.getGroupName()).addMember(user);		
-		groupUpdate(group);
+		groups.get(group.getGroupName()).addMember(user);
+		groupUpdate(groups.get(group.getGroupName()));
 	}
-	public void addEvent(String groupName, Event event) {
+	public synchronized void addEvent(String groupName, Event event) {
 		if(groups.containsKey(groupName)) {
-			groups.get(groupName).getEvents().add(event);
+			groups.get(groupName).addEvent(event);
+			System.out.println(groups.get(groupName).getEvents().size());
+			groupUpdate(groups.get(groupName));
 		}
+		System.out.println("adding group event "+groups.get(groupName).getEvents().size());
+		
 	}
 	public void newMessage(GroupMessage message) {
 		groups.get(message.getReceiver().getGroupName()).getGroupMessages().add(message);

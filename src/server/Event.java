@@ -1,14 +1,21 @@
 package server;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author Ruben, Amir, Andrè
  *
  */
-public class Event {
+public class Event implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2913196604089749918L;
 	private Group group;
 	private User user;
 	private int date;
-	private String comment = " ";
+	private String comment;
 	/**
 	 * 
 	 * @param group

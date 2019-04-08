@@ -1,9 +1,15 @@
 package server;
 
+import java.io.Serializable;
+
 /**This is an entity class for messages between more than two users.
  * @author Zacharias
  */
-public class GroupMessage {
+public class GroupMessage implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8274923273246040101L;
 	private String message;
 	private Group receiver;
 	private User sender;

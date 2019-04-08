@@ -1,9 +1,15 @@
 package server;
 
+import java.io.Serializable;
+
 /**This is an entity class for messages between two users.
  * @author Zacharias
  */
-public class PrivateMessage {
+public class PrivateMessage implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4599011839314319577L;
 	private String message;
 	private User receiver;
 	private User sender;

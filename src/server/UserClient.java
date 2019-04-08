@@ -44,8 +44,10 @@ public class UserClient {
 					controller.newObjectFromUser(incomming);
 				}
 			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
+				System.err.println(user.getName()+" Disconnected");
 				userHandler.disconnect(user.getName());
+				
+				
 			}
 		}
 	}
@@ -53,11 +55,12 @@ public class UserClient {
 		public void run() {
 			try {
 				while(!Thread.interrupted()) {
+					oos.reset();
 					oos.writeObject(sendBuffer.get());
 					oos.flush();
 				}
 			} catch (IOException | InterruptedException e) {
-				e.printStackTrace();
+				System.err.println(user.getName()+" Socket stängde");
 			}
 		}
 	}

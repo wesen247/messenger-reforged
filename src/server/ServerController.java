@@ -1,12 +1,12 @@
 package server;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import server.TestClassForServer.TestConnection;
 
 public class ServerController {
 	private UserHandler userHandler;
@@ -33,19 +33,21 @@ public class ServerController {
 	}
 
 	public void newObjectFromUser(Object incomming) {
-
+		System.out.println("Servercontroller motagit object");
 		if(incomming instanceof AddObjectRequest) {
+			System.out.println("Type AddObjectRequest");
 			AddObjectRequest request = (AddObjectRequest) incomming;
 			String[] splitType = request.getType().split(":");
-			if(splitType[0] == "file") {
+			if(splitType[0].equals("file")) {
 				//Måste ta reda på hur skicka filer ska ske
 
 			}
-			else if(splitType[0] == "addGroupMember") {
+			else if(splitType[0].equals( "addGroupMember")) {
+				System.out.println("Type AddGroupMember");
 				groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
 				userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1]);
 			}
-			else if(splitType[0] == "event") {
+			else if(splitType[0].equals("event")) {
 				Event event = (Event) request.getObjectToAdd();
 				groupHandler.addEvent(event.getGroup().getGroupName(), event);
 			}
@@ -87,8 +89,9 @@ public class ServerController {
 				while(true) {
 					System.out.println("Lyssnar efter användare");
 					runnable = new LoginHandler(serverSocket.accept());
+					System.out.println("Användare hittad");
 					addTask(runnable);
-					System.out.println("Task added");
+
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -107,18 +110,21 @@ public class ServerController {
 		}
 		public void run() {
 			try {
-				ois = new ObjectInputStream(socket.getInputStream());
-				oos = new ObjectOutputStream(socket.getOutputStream());
+				
+				ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+				oos.flush();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+
 			boolean accepted = false;
 			System.out.println("Lyssnar på login eller användare från klient");
 			Object fromUser;
-			while(!accepted) {
-				try {
+			try {
+				while(!accepted) {
+
 					fromUser = ois.readObject();
 					System.out.println("LoginHandler: Objekt Motaget");
 					if(fromUser instanceof CreateUserRequest) {
@@ -143,9 +149,11 @@ public class ServerController {
 							oos.flush();
 						}
 					}
-				} catch (ClassNotFoundException | IOException e) {
-					e.printStackTrace();
+
 				}
+			} catch (ClassNotFoundException | IOException e) {
+				
+				System.err.println("Användare avbröt inloggning");
 			}
 		}
 	}

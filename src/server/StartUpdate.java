@@ -46,9 +46,9 @@ public class StartUpdate implements Serializable{
 
 	}
 
-	public Iterator<User> getAllUsers() {
+	public ArrayList<User> getAllUsers() {
 
-		return allUsers.values().iterator();
+		return new ArrayList<User>(allUsers.values());
 
 	}
 

@@ -1,11 +1,16 @@
 package server;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**This entity class holds attributes and methods for Group. 
  * @author Zacharias
  */
-public class Group {
+public class Group implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6422444925604930837L;
 	private ArrayList<String> fileLog = new ArrayList<String>();
 	private ArrayList<User> groupMembers = new ArrayList<User>();
 	private ArrayList<GroupMessage> groupMessages = new ArrayList<GroupMessage>();
@@ -48,6 +53,9 @@ public class Group {
 	
 	public void addMember(User user) {
 		groupMembers.add(user);
+	}
+	public void addEvent(Event event) {
+		this.events.add(event);
 	}
 	public String getGroupName() {
 		return groupName;

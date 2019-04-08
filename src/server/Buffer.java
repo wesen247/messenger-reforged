@@ -8,14 +8,12 @@ public class Buffer<T> {
 	public synchronized void put(T obj) {
 		buffer.addLast(obj);
 		notifyAll();
-		
 	}
 	
 	public synchronized T get() throws InterruptedException {
 		while(buffer.isEmpty()) {
 			wait();
 		}
-		System.out.println("tråd hämtar task");
 		return buffer.removeFirst();
 	}
 	
