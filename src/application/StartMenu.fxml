@@ -27,7 +27,7 @@
                   <items>
                     <MenuItem fx:id="btnCreateNewGroup" mnemonicParsing="false" onAction="#buttonCreateNewGroup" text="Create new group" />
                         <MenuItem fx:id="logOutBtn" mnemonicParsing="false" onAction="#buttonLogOut" text="Log out" />
-                        <MenuItem mnemonicParsing="false" onAction="#setText" text="Close" />
+                        <MenuItem mnemonicParsing="false" onAction="#setText" text="Settings" />
                   </items>
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
