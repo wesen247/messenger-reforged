@@ -17,11 +17,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="280.0" style="-fx-background-color: #55555D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginUI">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="280.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginUI">
    <children>
-      <Pane fx:id="pane" prefHeight="67.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+      <Pane fx:id="pane" prefHeight="67.0" prefWidth="280.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;">
          <children>
-            <MenuBar layoutX="215.0" layoutY="1.0" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #55555D;">
+            <MenuBar layoutX="215.0" layoutY="1.0" prefHeight="36.0" prefWidth="56.0" style="-fx-background-color: #55555D;">
               <menus>
                 <Menu mnemonicParsing="false">
                   <items>

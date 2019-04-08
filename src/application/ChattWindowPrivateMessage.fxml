@@ -11,7 +11,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="583.0" style="-fx-background-color: #55555D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="583.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="55.0" prefWidth="583.0" style="-fx-background-color: #0FC409;">
          <children>
@@ -35,6 +35,6 @@
       </Pane>
       <TextArea editable="false" layoutX="50.0" layoutY="85.0" prefHeight="238.0" prefWidth="476.0" />
       <TextField layoutX="50.0" layoutY="342.0" prefHeight="45.0" prefWidth="367.0" promptText="type message..." />
-      <Button layoutX="433.0" layoutY="352.0" mnemonicParsing="false" text="send" />
+      <Button layoutX="433.0" layoutY="352.0" mnemonicParsing="false" style="-fx-border-color: #0FC409;" text="send" />
    </children>
 </AnchorPane>
