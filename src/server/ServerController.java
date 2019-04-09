@@ -12,24 +12,29 @@ public class ServerController {
 	private UserHandler userHandler;
 	private GroupHandler groupHandler;
 	private Buffer<Runnable> taskBuffer;
-
+	private IncommningConnections connect;
 	public ServerController(boolean useBackup, int maximumUsers) {
 		userHandler = new UserHandler(useBackup,this);
 		groupHandler = new GroupHandler(useBackup, this);
 		taskBuffer = new Buffer<Runnable>();
+		
 		for(int i = 0;i<5+maximumUsers*2;i++) {
 			new Worker().start();;
 			System.out.println("New worker started "+i);
 		}
 		System.out.println("----------------------------------------------------");
-		addTask(new IncommningConnections());
+		addTask(connect = new IncommningConnections());
 	}
+	
 	public Group getGroup(String Group) {
 		return groupHandler.getGroup(Group);
 	}
 
 	public void addTask(Runnable task) {
 		taskBuffer.put(task);
+	}
+	public void kill() {
+		connect.kill();
 	}
 
 	public void newObjectFromUser(Object incomming) {
@@ -62,7 +67,9 @@ public class ServerController {
 			PrivateMessage message = (PrivateMessage) incomming;
 			send(message.getReceiver(),message);
 		}
-
+		else if(incomming instanceof ObjectRequest) {
+			//Här skickas filen 
+		}
 	}
 
 	public void send(User receiver, Object sendObject) {
@@ -81,25 +88,32 @@ public class ServerController {
 			}
 		}
 	}
+	
 	public class IncommningConnections implements Runnable{
+		ServerSocket serverSocket;
+		public void kill() {
+			try {
+				serverSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		public void run() {
 			try {
-				ServerSocket serverSocket = new ServerSocket(5434);
+				serverSocket = new ServerSocket(5434);
 				Runnable runnable;
 				while(true) {
 					System.out.println("Lyssnar efter användare");
 					runnable = new LoginHandler(serverSocket.accept());
 					System.out.println("Användare hittad");
 					addTask(runnable);
-
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-				//gör backup
-				System.exit(0);
 			}
 		}
 	}
+	
 	public class LoginHandler implements Runnable{
 		private Socket socket;
 		private ObjectInputStream ois;
@@ -110,7 +124,6 @@ public class ServerController {
 		}
 		public void run() {
 			try {
-				
 				ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 				oos.flush();
@@ -118,13 +131,11 @@ public class ServerController {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
 			boolean accepted = false;
 			System.out.println("Lyssnar på login eller användare från klient");
 			Object fromUser;
 			try {
 				while(!accepted) {
-
 					fromUser = ois.readObject();
 					System.out.println("LoginHandler: Objekt Motaget");
 					if(fromUser instanceof CreateUserRequest) {
@@ -149,7 +160,6 @@ public class ServerController {
 							oos.flush();
 						}
 					}
-
 				}
 			} catch (ClassNotFoundException | IOException e) {
 				

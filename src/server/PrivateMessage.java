@@ -14,7 +14,6 @@ public class PrivateMessage implements Serializable{
 	private User receiver;
 	private User sender;
 
-	
 	/**Constructor for private messages.
 	 * @param message String sent to another user.
 	 * @param sender User who sent the message.
@@ -26,7 +25,6 @@ public class PrivateMessage implements Serializable{
 		this.sender = sender;
 	}
 	
-	
 	/**
 	 * @return String message.
 	 */
@@ -34,14 +32,12 @@ public class PrivateMessage implements Serializable{
 		return message;
 	}
 	
-	
 	/**
 	 * @return User: Author of message.
 	 */
 	public User getSender() {
 		return sender;
 	}
-	
 	
 	/**
 	 * @return User that receives the message.

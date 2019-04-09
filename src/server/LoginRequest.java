@@ -7,7 +7,6 @@ import java.io.Serializable;
  * 
  * @author Amir,André, Ruben
  */
-
 public class LoginRequest implements Serializable{
 
 	/**
@@ -22,7 +21,6 @@ public class LoginRequest implements Serializable{
 	 * @param name     Username
 	 * @param password Password
 	 */
-
 	public LoginRequest(String name, String password) {
 		this.name = name;
 		this.password = password;
@@ -41,9 +39,6 @@ public class LoginRequest implements Serializable{
 	 * @return returns the password.
 	 */
 	public String getPassword() {
-
 		return password;
-
 	}
-
 }

@@ -33,7 +33,6 @@ public class StartUpdate implements Serializable{
 	 */
 
 	public StartUpdate(ArrayList<User> onlineUsers, ConcurrentHashMap<String,User> allUsers, ArrayList<Group> groups, User user) {
-
 		this.onlineUsers = onlineUsers;
 		this.allUsers = allUsers;
 		this.groups = groups;
@@ -41,24 +40,18 @@ public class StartUpdate implements Serializable{
 	}
 
 	public ArrayList<User> getOnlineUsers() {
-
 		return onlineUsers;
-
 	}
 
 	public ArrayList<User> getAllUsers() {
-
 		return new ArrayList<User>(allUsers.values());
-
 	}
 
 	public ArrayList<Group> getGroups() {
-
 		return groups;
 	}
 	
 	public User getUser() {
 		return user;
 	}
-
 }

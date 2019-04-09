@@ -8,9 +8,7 @@ import java.io.Serializable;
  *
  */
 public class CreateUserRequest implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 8993208953585133772L;
 	private String password;
 	private String name;

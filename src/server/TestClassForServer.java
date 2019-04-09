@@ -10,8 +10,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class TestClassForServer {
+	private ServerController controller;
 	public static void main(String args[]) {
-		new ServerController(false, 100);//startar server
 		new TestClassForServer();
 
 	}
@@ -22,16 +22,33 @@ public class TestClassForServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		controller = new ServerController(false, 20);//startar server
 		//avkommentera det som ska testas
 		new AddEventInGroup();
-//		new TestConnection();
-//		new TestLogin();
-//  	new LoginMany();
-//		new SendPm();
-//		new AddGroupMemberRequest();
-//		new SendGroupMessage();
-//		new CreateGroup();
+		controller.kill();
+		controller = new ServerController(false, 20);
+		new TestConnection();
+		controller.kill();
+		controller = new ServerController(false, 20);
+		new TestLogin();
+		controller.kill();
+		controller = new ServerController(false, 20);
+		new LoginMany();
+		controller.kill();
+		controller = new ServerController(false, 20);
+		new SendPm();
+		controller.kill();
+		controller = new ServerController(false, 20);
+		new AddGroupMemberRequest();
+		controller.kill();
+		controller = new ServerController(false, 20);
+		new SendGroupMessage();
+		controller.kill();
+		controller = new ServerController(false, 20);
+		new CreateGroup();
+		controller.kill();
+		controller = new ServerController(false, 20);
+		System.exit(0);
 	}
 
 
@@ -47,9 +64,7 @@ public class TestClassForServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		}
-
 	}
 	public class TestLogin {
 		public Socket socket;
@@ -160,8 +175,7 @@ public class TestClassForServer {
 				System.out.println(s1.getUsers());
 				UserUpdate s2 = (UserUpdate) ois.readObject();
 				System.out.println(s2.getUsers());
-				UserUpdate s3 = (UserUpdate) ois.readObject();
-				System.out.println(s3.getUsers());
+				
 
 			} catch (IOException | InterruptedException | ClassNotFoundException e) {
 				e.printStackTrace();
@@ -206,7 +220,6 @@ public class TestClassForServer {
 				//Skriver ut meddelande
 				System.out.println(message.getMessage());
 
-				Thread.sleep(1000);
 			}catch(Exception e) {
 
 			}

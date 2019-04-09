@@ -20,10 +20,8 @@ public class UserClient {
 		this.socket = socket;
 		this.userHandler = userHandler;
 		this.user = user;
-
-			this.oos = oos;
-			this.ois = ois;
-	
+		this.oos = oos;
+		this.ois = ois;
 		controller.addTask(new UserListener());
 		controller.addTask(new UserSender());
 	}
@@ -35,6 +33,7 @@ public class UserClient {
 	public void addToBuffer(Object sendObject) {
 		sendBuffer.put(sendObject);
 	}
+	
 	public class UserListener implements Runnable{
 		public void run() {
 			Object incomming;
@@ -46,11 +45,10 @@ public class UserClient {
 			} catch (ClassNotFoundException | IOException e) {
 				System.err.println(user.getName()+" Disconnected");
 				userHandler.disconnect(user.getName());
-				
-				
 			}
 		}
 	}
+	
 	public class UserSender implements Runnable {
 		public void run() {
 			try {

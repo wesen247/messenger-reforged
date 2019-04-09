@@ -46,6 +46,7 @@ public class User implements Serializable{
 	public ArrayList<User> getFriends() {
 		return friendList;
 	}
+	
 	public void addGroup(String groupName) {
 		memberOfGroups.add(groupName);
 	}

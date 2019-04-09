@@ -25,23 +25,20 @@ public class GroupMessage implements Serializable{
 		this.sender = sender;
 	}
 	
-	
 	/**
 	 * @return String message.
 	 */
 	public String getMessage() {
 		return message;
 	}
-	
-	
+		
 	/**
-	 * @return User: Author of message.
+	 * @return User Author of message.
 	 */
 	public User getSender() {
 		return sender;
 	}
 
-	
 	/**
 	 * @return Group with receivers of the message.
 	 */

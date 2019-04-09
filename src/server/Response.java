@@ -16,8 +16,8 @@ public class Response implements Serializable {
 	private Object responseObject;
 	/**
 	 * 
-	 * @param type
-	 * @param responseObject
+	 * @param type Type of response
+	 * @param responseObject The response
 	 */
 	public Response(String type, Object responseObject) {
 		this.type = type;
@@ -25,14 +25,14 @@ public class Response implements Serializable {
 	}
 	/**
 	 * 
-	 * @return
+	 * @return type Type of response
 	 */
 	public String getType() {
 		return type;
 	}
 	/**
 	 * 
-	 * @return
+	 * @return responseObject The response
 	 */
 	public Object getResponse() {
 		return responseObject;
