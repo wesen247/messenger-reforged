@@ -1,6 +1,5 @@
 package application;
 
-
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -37,17 +36,21 @@ public class LoginUI extends Application {
 	@FXML
 	private Button btnCreateGroup;
 	@FXML
-	private TextArea groupNameTextField;
+	private TextField groupNameTextField;
 	@FXML
 	private Button buttonCancelGroup;
 	@FXML
 	private TextArea textFieldGroups;
+	@FXML
+	private TextField usernameTextField1;
+	@FXML
+	private TextField passwordField1;
 
 	private ClientController ctr;
 	private FXMLLoader loader = new FXMLLoader();
 	private Parent root;
 	private Scene scene;
-
+	private Parent root1;
 	private ObservableList ol;
 	private Stage stage1 = new Stage();
 	Button button;
@@ -76,23 +79,27 @@ public class LoginUI extends Application {
 
 	public void buttonLogin() {
 
-		System.out.println("funkar");
+		String username = usernameTextField1.getText();
+		String password = passwordField1.getText();
+
+		System.out.println(username + password);
 
 		try {
 
-			Parent root1 = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
-			Stage stage = new Stage();
-			stage.setTitle("HHAHAH");
-			stage.setScene(new Scene(root1));
-			stage.show();
-
-			Stage stage1 = (Stage) loginButton.getScene().getWindow();
-			stage1.close();
+			root1 = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
 
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		Stage stage = new Stage();
+		stage.setTitle("HHAHAH");
+		stage.setScene(new Scene(root1));
+		stage.show();
+
+		Stage stage1 = (Stage) loginButton.getScene().getWindow();
+		stage1.close();
 
 		System.out.println("closed");
 	}
@@ -115,9 +122,6 @@ public class LoginUI extends Application {
 			e.printStackTrace();
 		}
 
-		
-		
-		
 	}
 
 	public void buttonCancel() {
@@ -147,6 +151,8 @@ public class LoginUI extends Application {
 		String username = usernameTextField.getText();
 		String password = passwordTextField.getText();
 
+		System.out.println(username);
+		System.out.println(password);
 		try {
 
 			root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
@@ -246,10 +252,9 @@ public class LoginUI extends Application {
 	}
 
 	public void setText() {
-		
+
 		textFieldGroups.setText("hej");
-		
-		
+
 	}
-	
+
 }
