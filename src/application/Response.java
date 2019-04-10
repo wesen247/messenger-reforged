@@ -1,16 +1,23 @@
 package application;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author Ruben, Amir, André
  *
  */
-public class Response {
+public class Response implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4945600552280641508L;
 	private String type;
 	private Object responseObject;
 	/**
 	 * 
-	 * @param type
-	 * @param responseObject
+	 * @param type Type of response
+	 * @param responseObject The response
 	 */
 	public Response(String type, Object responseObject) {
 		this.type = type;
@@ -18,14 +25,14 @@ public class Response {
 	}
 	/**
 	 * 
-	 * @return
+	 * @return type Type of response
 	 */
 	public String getType() {
 		return type;
 	}
 	/**
 	 * 
-	 * @return
+	 * @return responseObject The response
 	 */
 	public Object getResponse() {
 		return responseObject;

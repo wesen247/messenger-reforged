@@ -9,15 +9,13 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 public class MainUI<T> extends Application {
-	
+
 	private Parent content;
 	private FXMLLoader loader = new FXMLLoader();
 	private Parent root;
 	private Scene scene;
 	private ListView listViewGroups;
-	
-	
-	
+
 	public MainUI() {
 
 	}
@@ -30,16 +28,14 @@ public class MainUI<T> extends Application {
 		stage.setTitle("Login");
 		stage.setScene(scene);
 		stage.show();
-		
-	
-		
-		
-		
+
 	}
 
 	public static void main(String[] args) {
 
 		launch(args);
+
+		
 
 	}
 

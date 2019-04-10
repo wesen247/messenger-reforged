@@ -1,13 +1,18 @@
 package application;
 
+import java.io.Serializable;
+
 /**
  * This class represents a LoginRequest that can be sent to a server for access.
  * 
  * @author Amir,André, Ruben
  */
+public class LoginRequest implements Serializable{
 
-public class LoginRequest {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 839876300401227423L;
 	private String name;
 	private String password;
 
@@ -16,7 +21,6 @@ public class LoginRequest {
 	 * @param name     Username
 	 * @param password Password
 	 */
-
 	public LoginRequest(String name, String password) {
 		this.name = name;
 		this.password = password;
@@ -35,9 +39,6 @@ public class LoginRequest {
 	 * @return returns the password.
 	 */
 	public String getPassword() {
-
 		return password;
-
 	}
-
 }

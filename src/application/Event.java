@@ -1,14 +1,19 @@
 package application;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author Ruben, Amir, Andrè
  *
  */
-public class Event {
+public class Event implements Serializable{
+
+	private static final long serialVersionUID = 2913196604089749918L;
 	private Group group;
 	private User user;
 	private int date;
-	private String comment = " ";
+	private String comment;
 	/**
 	 * 
 	 * @param group
@@ -21,5 +26,17 @@ public class Event {
 		this.user = user;
 		this.date = date;
 		this.comment = comment;
+	}
+	public Group getGroup() {
+		return group;
+	}
+	public User getUser() {
+		return user;
+	}
+	public int getDate() {
+		return date;
+	}
+	public String getComment() {
+		return comment;
 	}
 }

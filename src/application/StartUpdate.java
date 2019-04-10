@@ -1,5 +1,6 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,8 +13,12 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  */
 
-public class StartUpdate {
+public class StartUpdate implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1821886971134191409L;
 	private ArrayList<User> onlineUsers;
 	private ConcurrentHashMap<String,User> allUsers;
 	private ArrayList<Group> groups;
@@ -28,7 +33,6 @@ public class StartUpdate {
 	 */
 
 	public StartUpdate(ArrayList<User> onlineUsers, ConcurrentHashMap<String,User> allUsers, ArrayList<Group> groups, User user) {
-
 		this.onlineUsers = onlineUsers;
 		this.allUsers = allUsers;
 		this.groups = groups;
@@ -36,24 +40,18 @@ public class StartUpdate {
 	}
 
 	public ArrayList<User> getOnlineUsers() {
-
 		return onlineUsers;
-
 	}
 
-	public Iterator<User> getAllUsers() {
-
-		return allUsers.values().iterator();
-
+	public ArrayList<User> getAllUsers() {
+		return new ArrayList<User>(allUsers.values());
 	}
 
 	public ArrayList<Group> getGroups() {
-
 		return groups;
 	}
 	
 	public User getUser() {
 		return user;
 	}
-
 }

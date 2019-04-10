@@ -54,12 +54,15 @@ public class LoginUI extends Application {
 	private ObservableList ol;
 	private Stage stage1 = new Stage();
 	Button button;
+	private int i = 0;
 
 	public LoginUI() {
 
-		ClientController ct = new ClientController();
-		this.ctr = ct;
+		this.ctr = SingletonController.getController();
+
 	}
+
+	
 
 	public void start(Stage stage) throws Exception {
 
@@ -74,7 +77,7 @@ public class LoginUI extends Application {
 	public static void main(String[] args) {
 
 		launch(args);
-
+		new Data();
 	}
 
 	public void buttonLogin() {
@@ -102,6 +105,7 @@ public class LoginUI extends Application {
 		stage1.close();
 
 		System.out.println("closed");
+
 	}
 
 	public void createNewUser() {
@@ -151,8 +155,11 @@ public class LoginUI extends Application {
 		String username = usernameTextField.getText();
 		String password = passwordTextField.getText();
 
+		ctr.createNewUser(username, password);
+
 		System.out.println(username);
 		System.out.println(password);
+
 		try {
 
 			root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));

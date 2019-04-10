@@ -1,5 +1,6 @@
 package application;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.InetAddress;
@@ -13,7 +14,7 @@ public class Data {
 	public Data() {
 
 		try {
-			socket = new Socket(InetAddress.getLocalHost(), 1234);
+			socket = new Socket(InetAddress.getLocalHost(),5343);
 
 		} catch (IOException e) {
 
@@ -28,8 +29,8 @@ public class Data {
 			
 			try {
 			
-				ois = new ObjectInputStream(socket.getInputStream());
-			
+				ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+				
 			} catch (IOException e) {
 
 				e.printStackTrace();
