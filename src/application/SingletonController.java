@@ -6,5 +6,4 @@ public class SingletonController {
 	public static ClientController getController() {
 		return controller;
 	}
-
 }

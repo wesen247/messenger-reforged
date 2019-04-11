@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +26,7 @@ public class LoginUI extends Application {
 	@FXML
 	private Pane pane;
 	@FXML
-	private Button loginButton;
+	private Button btnLogIn;
 	@FXML
 	private Button createNewUserBtn;
 	@FXML
@@ -32,7 +34,7 @@ public class LoginUI extends Application {
 	@FXML
 	private MenuItem menu;
 	@FXML
-	private Button createUserBtn;
+	private Button btnCreateUser;
 	@FXML
 	private Button btnCreateGroup;
 	@FXML
@@ -42,9 +44,9 @@ public class LoginUI extends Application {
 	@FXML
 	private TextArea textFieldGroups;
 	@FXML
-	private TextField usernameTextField1;
+	private TextField logInUsernameField;
 	@FXML
-	private TextField passwordField1;
+	private TextField logInPasswordField;
 
 	private ClientController ctr;
 	private FXMLLoader loader = new FXMLLoader();
@@ -56,13 +58,13 @@ public class LoginUI extends Application {
 	Button button;
 	private int i = 0;
 
+	private boolean loginRequest = false;
+
 	public LoginUI() {
 
 		this.ctr = SingletonController.getController();
 
 	}
-
-	
 
 	public void start(Stage stage) throws Exception {
 
@@ -82,17 +84,20 @@ public class LoginUI extends Application {
 
 	public void buttonLogin() {
 
-		String username = usernameTextField1.getText();
-		String password = passwordField1.getText();
+		String username = logInUsernameField.getText();
+		String password = logInPasswordField.getText();
+		ctr.logIn(username, password);
 
-		System.out.println(username + password);
+	}
+
+	public void logInTrue() {
 
 		try {
 
 			root1 = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
@@ -101,10 +106,15 @@ public class LoginUI extends Application {
 		stage.setScene(new Scene(root1));
 		stage.show();
 
-		Stage stage1 = (Stage) loginButton.getScene().getWindow();
+		Stage stage1 = (Stage) btnLogIn.getScene().getWindow();
 		stage1.close();
 
-		System.out.println("closed");
+		System.out.println("logged in");
+	}
+
+	public void loginFalse(String response) {
+
+		JOptionPane.showMessageDialog(null, response);
 
 	}
 
@@ -174,7 +184,7 @@ public class LoginUI extends Application {
 		stage1.setScene(scene);
 		stage1.show();
 
-		Stage stage = (Stage) createUserBtn.getScene().getWindow();
+		Stage stage = (Stage) btnCreateUser.getScene().getWindow();
 
 		stage.close();
 	}
@@ -258,9 +268,9 @@ public class LoginUI extends Application {
 
 	}
 
-	public void setText() {
+	public void setText(String user) {
 
-		textFieldGroups.setText("hej");
+		textFieldGroups.setText(user);
 
 	}
 

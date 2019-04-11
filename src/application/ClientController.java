@@ -20,14 +20,17 @@ import javafx.application.Application;
  *
  */
 public class ClientController {
-	private LoginUI loginUI;
+	private LoginUI loginUI = new LoginUI();
+
 	private GroupChatUI groupChatUI;
 	private MainUI mainUI;
 	private CreateGroupUI createGroupUI;
 	private CreateNewUserUI createNewUserUI;
 	private PrivateChatUI privateChatUI;
 	private User user;
-	private Data data;
+
+	private Data data = new Data(loginUI);
+
 	private ObjectOutputStream oos;
 	private Socket socket;
 
@@ -38,11 +41,11 @@ public class ClientController {
 		try {
 //			String ip = JOptionPane.showInputDialog("Ange IP");
 //			int socketNbr = Integer.parseInt(JOptionPane.showInputDialog("Ange socket"));
-			
-			socket = new Socket(InetAddress.getLocalHost(),5434);
+
+			socket = new Socket(InetAddress.getLocalHost(), 5434);
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			oos.flush();
-	
+
 		} catch (ConnectException c) {
 			c.printStackTrace();
 		} catch (IOException e) {
@@ -78,9 +81,7 @@ public class ClientController {
 	 */
 	public void createNewUser(String name, String password) {
 		try {
-			
-			
-			
+
 			oos.writeObject(new CreateUserRequest(name, password));
 			oos.flush();
 		} catch (IOException e) {
