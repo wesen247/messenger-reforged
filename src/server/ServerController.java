@@ -7,12 +7,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import entity.*;
 
 public class ServerController {
 	private UserHandler userHandler;
 	private GroupHandler groupHandler;
 	private Buffer<Runnable> taskBuffer;
 	private IncommningConnections connect;
+	/**
+	 * Constructor
+	 * @param useBackup If true it will load a backup stored locally
+	 * @param maximumUsers Number of maximum users. Decides how many threads that will be created.
+	 * @author André
+	 */
 	public ServerController(boolean useBackup, int maximumUsers) {
 		userHandler = new UserHandler(useBackup,this);
 		groupHandler = new GroupHandler(useBackup, this);
@@ -22,25 +29,44 @@ public class ServerController {
 			new Worker().start();;
 			System.out.println("New worker started "+i);
 		}
-		System.out.println("----------------------------------------------------");
 		addTask(connect = new IncommningConnections());
 	}
 	
-	public Group getGroup(String Group) {
-		return groupHandler.getGroup(Group);
+	/**
+	 * Returns a group with the same name as the parameter group
+	 * @param group The name of the group
+	 * @return group the group
+	 * @author André
+	 */
+	public Group getGroup(String group) {
+		return groupHandler.getGroup(group);
 	}
 
+	/**
+	 * Adds a runnable to the taskbuffer to be executed
+	 * @param task task to be executed
+	 * @author André	
+	 */
 	public void addTask(Runnable task) {
+		System.out.println("Task added to buffer");
 		taskBuffer.put(task);
 	}
+	
+	/**
+	 * Kills the server
+	 * @author André
+	 */
 	public void kill() {
 		connect.kill();
 	}
-
+	/**
+	 * Receives a object from a user with instructions 
+	 * @param incomming The object
+	 * @author André
+	 */
 	public void newObjectFromUser(Object incomming) {
 		System.out.println("Servercontroller motagit object");
 		if(incomming instanceof AddObjectRequest) {
-			System.out.println("Type AddObjectRequest");
 			AddObjectRequest request = (AddObjectRequest) incomming;
 			String[] splitType = request.getType().split(":");
 			if(splitType[0].equals("file")) {
@@ -48,7 +74,6 @@ public class ServerController {
 
 			}
 			else if(splitType[0].equals( "addGroupMember")) {
-				System.out.println("Type AddGroupMember");
 				groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
 				userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1]);
 			}
@@ -71,26 +96,43 @@ public class ServerController {
 			//Här skickas filen 
 		}
 	}
-
+	/**
+	 * Sends an object to a user
+	 * @param receiver User thats should receive the object
+	 * @param sendObject the object
+	 * @author André
+	 */
 	public void send(User receiver, Object sendObject) {
 		userHandler.send(receiver, sendObject);
 	}
-
+	/**
+	 * Worker class. Waits for task in taskBuffer
+	 * @author andre
+	 *
+	 */
 	public class Worker extends Thread{
 		public void run() {
 			while(true) {
 				try {
-					System.out.println("tråd klar med task");
 					taskBuffer.get().run();
+					System.out.println("tråd klar med task");
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 	}
-	
+	/**
+	 * Listens for users to connect.
+	 * @author andre
+	 *
+	 */
 	public class IncommningConnections implements Runnable{
 		ServerSocket serverSocket;
+		/**
+		 * Kills the server
+		 * @author André
+		 */
 		public void kill() {
 			try {
 				serverSocket.close();
@@ -114,6 +156,11 @@ public class ServerController {
 		}
 	}
 	
+	/**
+	 * Listens for LoginRequest or CreateUserRequest from user.
+	 * @author andre
+	 *
+	 */
 	public class LoginHandler implements Runnable{
 		private Socket socket;
 		private ObjectInputStream ois;
@@ -162,7 +209,6 @@ public class ServerController {
 					}
 				}
 			} catch (ClassNotFoundException | IOException e) {
-				
 				System.err.println("Användare avbröt inloggning");
 			}
 		}

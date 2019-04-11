@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import entity.*;
 
 public class TestClassForServer {
 	private ServerController controller;
@@ -22,32 +23,36 @@ public class TestClassForServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		controller = new ServerController(false, 20);//startar server
-		//avkommentera det som ska testas
-		new AddEventInGroup();
-		controller.kill();
-		controller = new ServerController(false, 20);
-		new TestConnection();
-		controller.kill();
-		controller = new ServerController(false, 20);
-		new TestLogin();
-		controller.kill();
+//		controller = new ServerController(false, 20);//startar server
+//		new AddEventInGroup();
+//		controller.kill();
+//		
+//		controller = new ServerController(false, 20);
+//		new TestConnection();
+//		controller.kill();
+//		
+//		controller = new ServerController(false, 20);
+//		new TestLogin();
+//		controller.kill();
+//		
 		controller = new ServerController(false, 20);
 		new LoginMany();
 		controller.kill();
-		controller = new ServerController(false, 20);
-		new SendPm();
-		controller.kill();
-		controller = new ServerController(false, 20);
-		new AddGroupMemberRequest();
-		controller.kill();
-		controller = new ServerController(false, 20);
-		new SendGroupMessage();
-		controller.kill();
-		controller = new ServerController(false, 20);
-		new CreateGroup();
-		controller.kill();
-		controller = new ServerController(false, 20);
+//		
+//		controller = new ServerController(false, 20);
+//		new SendPm();
+//		controller.kill();
+//		
+//		controller = new ServerController(false, 20);
+//		new AddGroupMemberRequest();
+//		controller.kill();
+//		
+//		controller = new ServerController(false, 20);
+//		new SendGroupMessage();
+//		controller.kill();
+//		
+//		controller = new ServerController(false, 20);
+//		new CreateGroup();
 		System.exit(0);
 	}
 

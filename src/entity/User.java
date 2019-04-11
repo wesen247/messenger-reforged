@@ -1,7 +1,9 @@
-package server;
+package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javafx.scene.image.Image;
 /**
  * Entity class, Class with user information
  * @author Zacharias André Ruben Amir
@@ -16,6 +18,7 @@ public class User implements Serializable{
 	private String password;
 	private ArrayList<User> friendList;
 	private ArrayList<String> memberOfGroups;
+	private Image userImage;
 	
 	public User(String name) {
 		this.name = name;
