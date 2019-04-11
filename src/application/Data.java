@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import entity.*;
+import javafx.application.Platform;
 
 public class Data {
 	private LoginUI loginUI;
@@ -18,9 +20,22 @@ public class Data {
 	private ArrayList<GroupMessage> listGM = new ArrayList<GroupMessage>();
 	private ArrayList<UserUpdate> listUserUpdate = new ArrayList<UserUpdate>();
 
-	public Data(LoginUI loginUI) {
-
+	public Data(LoginUI loginUI,Socket socket) {
+	
 		this.loginUI = loginUI;
+
+		try {
+			this.socket = socket;
+			
+			ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}		
+		
+		
+		new ServerListener().start();
 	}
 
 	public ArrayList<Response> getListResponse() {
@@ -71,19 +86,7 @@ public class Data {
 		listUserUpdate.add(userUpdate);
 	}
 
-	public Data() {
-
-		try {
-
-			socket = new Socket(InetAddress.getLocalHost(), 5343);
-			ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-
-	}
+	
 
 	private class ServerListener extends Thread {
 
@@ -105,14 +108,11 @@ public class Data {
 						Response response = (Response) object;
 						setListResponse(response);
 
-						if (response.getType().equals("loginSuccessful")) {
+						if (response.getType().equals("loginFailed")) {
 
-							loginUI.logInTrue();
-							loginUI.setText(getListUserUpdate().get(0).getUsers().get(0));
+							String res = (String) object;
 
-						} else if (response.getType().equals("loginFailed")) {
-
-							loginUI.loginFalse(response.getType());
+							loginUI.loginFalse(res);
 
 						}
 
@@ -143,7 +143,13 @@ public class Data {
 					}
 
 					else if (object instanceof StartUpdate) {
-
+					
+						
+						 
+									loginUI.logInTrue();
+							
+						
+						
 						StartUpdate startUpdate = (StartUpdate) object;
 
 					}

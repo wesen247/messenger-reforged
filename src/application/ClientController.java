@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -9,9 +10,15 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileSystemView;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import entity.*;
 
 /**
  * Controller class
@@ -28,8 +35,8 @@ public class ClientController {
 	private CreateNewUserUI createNewUserUI;
 	private PrivateChatUI privateChatUI;
 	private User user;
-
-	private Data data = new Data(loginUI);
+	private BufferedImage bImage;
+	private Data data;
 
 	private ObjectOutputStream oos;
 	private Socket socket;
@@ -39,12 +46,13 @@ public class ClientController {
 	 */
 	public ClientController() {
 		try {
-//			String ip = JOptionPane.showInputDialog("Ange IP");
-//			int socketNbr = Integer.parseInt(JOptionPane.showInputDialog("Ange socket"));
-
+			// String ip = JOptionPane.showInputDialog("Ange IP");
+			// int socketNbr = Integer.parseInt(JOptionPane.showInputDialog("Ange socket"));
+			System.out.println("Rövhål");
 			socket = new Socket(InetAddress.getLocalHost(), 5434);
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			oos.flush();
+			data = new Data(loginUI, socket);
 
 		} catch (ConnectException c) {
 			c.printStackTrace();
@@ -79,11 +87,18 @@ public class ClientController {
 	 * @param name
 	 * @param password
 	 */
+
+	public void setPicture(BufferedImage image) {
+
+		this.bImage = image;
+	}
+
 	public void createNewUser(String name, String password) {
 		try {
 
-			oos.writeObject(new CreateUserRequest(name, password));
+			oos.writeObject(new CreateUserRequest(name, password, bImage));
 			oos.flush();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

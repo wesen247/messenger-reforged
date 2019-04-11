@@ -1,4 +1,4 @@
-package application;
+package entity;
 
 /**
  * This class represents a object-request that can be sent to the server.
