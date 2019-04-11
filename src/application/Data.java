@@ -20,21 +20,20 @@ public class Data {
 	private ArrayList<GroupMessage> listGM = new ArrayList<GroupMessage>();
 	private ArrayList<UserUpdate> listUserUpdate = new ArrayList<UserUpdate>();
 
-	public Data(LoginUI loginUI,Socket socket) {
-	
+	public Data(LoginUI loginUI, Socket socket) {
+
 		this.loginUI = loginUI;
 
 		try {
 			this.socket = socket;
-			
+
 			ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 
 		} catch (IOException e) {
 
 			e.printStackTrace();
-		}		
-		
-		
+		}
+
 		new ServerListener().start();
 	}
 
@@ -85,8 +84,6 @@ public class Data {
 	public void setListUserUpdate(UserUpdate userUpdate) {
 		listUserUpdate.add(userUpdate);
 	}
-
-	
 
 	private class ServerListener extends Thread {
 
@@ -145,11 +142,9 @@ public class Data {
 					else if (object instanceof StartUpdate) {
 					
 						
-						 
-									loginUI.logInTrue();
-							
-						
-						
+					
+						System.out.println("Startupdate skickad");
+
 						StartUpdate startUpdate = (StartUpdate) object;
 
 					}

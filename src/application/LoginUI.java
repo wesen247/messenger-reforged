@@ -56,15 +56,19 @@ public class LoginUI extends Application {
 	private TextField logInUsernameField;
 	@FXML
 	private TextField logInPasswordField;
+	@FXML
+	private Pane paneCreateUser;
 
 	private ClientController ctr;
+
 	private FXMLLoader loader = new FXMLLoader();
-	private Parent root;
+
 	private Scene scene;
-	private Parent root1;
+
 	private ObservableList ol;
-	private Stage stage1 = new Stage();
+
 	Button button;
+
 	private int i = 0;
 	private Parent root2;
 	private boolean loginRequest = false;
@@ -77,11 +81,11 @@ public class LoginUI extends Application {
 
 	public void start(Stage stage) throws Exception {
 
-		root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
 		scene = new Scene(root);
-		stage1.setTitle("Login");
-		stage1.setScene(scene);
-		stage1.show();
+		stage.setTitle("Login");
+		stage.setScene(scene);
+		stage.show();
 
 	}
 
@@ -97,55 +101,12 @@ public class LoginUI extends Application {
 		String password = logInPasswordField.getText();
 		ctr.logIn(username, password);
 
-
-
-
-
 	}
 
 	public void logInTrue() {
 
+		
 
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				// if you change the UI, do it here !
-
-				try {
-					System.out.println("hej123123");
-					root2 = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
-
-				} catch (IOException e) {
-
-					e.printStackTrace();
-				}
-
-				Stage stage = new Stage();
-				stage.setTitle("HHAHAH");
-				stage.setScene(new Scene(root2));
-				stage.show();
-
-
-				try {
-					Stage stage1 = (Stage) btnCancel.getScene().getWindow();
-					stage1.close();
-				} catch (Exception e) {
-				
-				}
-
-
-
-				try {
-					Stage stage2 = (Stage) btnLogIn.getScene().getWindow();
-					stage2.close();
-				} catch (Exception e) {
-				
-				}
-
-
-				System.out.println("logged in");
-			}
-		});
 	}
 
 	public void loginFalse(String response) {
@@ -155,6 +116,7 @@ public class LoginUI extends Application {
 	}
 
 	public void createNewUser() {
+
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -162,11 +124,10 @@ public class LoginUI extends Application {
 
 				try {
 
-					Parent createNewUserRoot = FXMLLoader
-							.load(getClass().getResource("/application/CreateUserUI.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/application/CreateUserUI.fxml"));
 					Stage stage = new Stage();
 					stage.setTitle("Create new user");
-					stage.setScene(new Scene(createNewUserRoot));
+					stage.setScene(new Scene(root));
 					stage.show();
 
 					Stage stage1 = (Stage) btnLogIn.getScene().getWindow();
@@ -188,18 +149,17 @@ public class LoginUI extends Application {
 
 				try {
 
-					root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
+					scene = new Scene(root);
+					Stage stage1 = new Stage();
+					stage1.setTitle("Login");
+					stage1.setScene(scene);
+					stage1.show();
 
 				} catch (IOException e) {
 
 					e.printStackTrace();
 				}
-
-				scene = new Scene(root);
-
-				stage1.setTitle("Login");
-				stage1.setScene(scene);
-				stage1.show();
 
 				Stage stage = (Stage) btnCancel.getScene().getWindow();
 				stage.close();
@@ -208,36 +168,31 @@ public class LoginUI extends Application {
 	}
 
 	public void buttonCreate() {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				// if you change the UI, do it here !
+		Parent root;
 
-				String username = usernameTextField.getText();
-				String password = passwordTextField.getText();
+		String username = usernameTextField.getText();
+		String password = passwordTextField.getText();
+		ctr.createNewUser(username, password);
 
-				ctr.createNewUser(username, password);
+		Stage stage1 = (Stage) createNewUserBtn.getScene().getWindow();
+		stage1.close();
 
-				//				System.out.println(username);
-				//				System.out.println(password);
-				//
-				//				try {
-				//
-				//					root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
-				//
-				//				} catch (IOException e) {
-				//
-				//					e.printStackTrace();
-				//				}
-				//
-				//				scene = new Scene(root);
-				//				stage1.setTitle("Login");
-				//				stage1.setScene(scene);
-				//				stage1.show();
+		try {
+		
+			Platform.setImplicitExit(false);
+			root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
 
+			Stage stage = new Stage();
+			stage.setTitle("Start Menu");
+			stage.setScene(new Scene(root));
+			stage.show();
+			System.out.println("FUNKAR");
 
-			}
-		});
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
 	}
 
 	public void buttonLogOut() {
@@ -247,16 +202,18 @@ public class LoginUI extends Application {
 				// if you change the UI, do it here !
 
 				try {
-					root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
+
+					Parent root = FXMLLoader.load(getClass().getResource("/application/LgInUI.fxml"));
+					scene = new Scene(root);
+					Stage stage1 = new Stage();
+					stage1.setTitle("Login");
+					stage1.setScene(scene);
+					stage1.show();
+
 				} catch (IOException e) {
 
 					e.printStackTrace();
 				}
-
-				scene = new Scene(root);
-				stage1.setTitle("Login");
-				stage1.setScene(scene);
-				stage1.show();
 
 				Stage stage = (Stage) pane.getScene().getWindow();
 
@@ -272,16 +229,19 @@ public class LoginUI extends Application {
 				// if you change the UI, do it here !
 
 				try {
-					root = FXMLLoader.load(getClass().getResource("/application/CreateGroup.fxml"));
+
+					Parent root = FXMLLoader.load(getClass().getResource("/application/CreateGroup.fxml"));
+
+					scene = new Scene(root);
+					Stage stage1 = new Stage();
+					stage1.setTitle("Login");
+					stage1.setScene(scene);
+					stage1.show();
+
 				} catch (IOException e) {
 
 					e.printStackTrace();
 				}
-
-				scene = new Scene(root);
-				stage1.setTitle("Login");
-				stage1.setScene(scene);
-				stage1.show();
 
 				Stage stage = (Stage) pane.getScene().getWindow();
 				stage.close();
@@ -300,16 +260,17 @@ public class LoginUI extends Application {
 				// if you change the UI, do it here !
 
 				try {
-					root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
+					scene = new Scene(root);
+					Stage stage1 = new Stage();
+					stage1.setTitle("Login");
+					stage1.setScene(scene);
+					stage1.show();
+
 				} catch (IOException e) {
 
 					e.printStackTrace();
 				}
-
-				scene = new Scene(root);
-				stage1.setTitle("Login");
-				stage1.setScene(scene);
-				stage1.show();
 
 				Stage stage = (Stage) btnCreateGroup.getScene().getWindow();
 				stage.close();
@@ -324,15 +285,18 @@ public class LoginUI extends Application {
 				// if you change the UI, do it here !
 
 				try {
-					root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
+
+					scene = new Scene(root);
+					Stage stage1 = new Stage();
+					stage1.setTitle("Login");
+					stage1.setScene(scene);
+					stage1.show();
+
 				} catch (IOException e) {
 
 					e.printStackTrace();
 				}
-				scene = new Scene(root);
-				stage1.setTitle("Login");
-				stage1.setScene(scene);
-				stage1.show();
 
 				Stage stage = (Stage) buttonCancelGroup.getScene().getWindow();
 				stage.close();
@@ -357,10 +321,10 @@ public class LoginUI extends Application {
 		}
 
 	}
-	//	public void setText() {
+	// public void setText() {
 	//
-	//		textFieldGroups.setText("tja");
+	// textFieldGroups.setText("tja");
 	//
-	//	}
+	// }
 
 }

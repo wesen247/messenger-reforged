@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="366.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginUI">
    <children>
-      <Pane prefHeight="55.0" prefWidth="366.0">
+      <Pane fx:id="paneCreateUser" prefHeight="55.0" prefWidth="366.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="55.0" stroke="#0fc409" strokeType="INSIDE" width="366.0">
                <fill>
