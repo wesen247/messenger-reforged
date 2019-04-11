@@ -12,16 +12,16 @@ public class UserUpdate implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 8773089714932468315L;
-	private ArrayList<String> onlineUsers;
+	private ArrayList<User> onlineUsers;
 	/**
 	 * @author André Ruben Amir
 	 * @param onlineUser	All Online Users
 	 */
-	public UserUpdate(ArrayList<String> onlineUser) {
+	public UserUpdate(ArrayList<User> onlineUser) {
 		this.onlineUsers = onlineUser;
 	}
 	
-	public ArrayList<String> getUsers(){
+	public ArrayList<User> getUsers(){
 		return onlineUsers;
 	}
 

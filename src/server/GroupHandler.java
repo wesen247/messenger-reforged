@@ -87,6 +87,7 @@ public class GroupHandler {
 	 */
 	public void newMessage(GroupMessage message) {
 		groups.get(message.getReceiver().getGroupName()).getGroupMessages().add(message);
+		System.out.println("Number of messages in group "+groups.get(message.getReceiver().getGroupName()).getGroupMessages().size());
 		Group group = groups.get(message.getReceiver().getGroupName());
 		for(int i = 0; i<group.getGroupMembers().size();i++) {
 			controller.send(group.getGroupMembers().get(i), message);

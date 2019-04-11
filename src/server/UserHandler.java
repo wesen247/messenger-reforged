@@ -48,7 +48,7 @@ public class UserHandler {
 		}
 
 		passwordHashmap.put(user.getName(), user.getPassword());
-		allUsers.put(user.getName(),new User(user.getName(), new ArrayList<String>(),new ArrayList<User>()));
+		allUsers.put(user.getName(),new User(user.getName(), new ArrayList<String>(),new ArrayList<User>(),user.getImage()));
 		connectedUsers.put(user.getName(), new UserClient(controller, socket, this, allUsers.get(user.getName()), oos, ois));
 		createStartUpdate(user.getName());
 		sendUserUpdate();
@@ -104,19 +104,19 @@ public class UserHandler {
 	 * @author André
 	 */
 	public void sendUserUpdate() {
-		ArrayList<String> onlineUsers = new ArrayList<String>();
+		ArrayList<User> onlineUsers = new ArrayList<User>();
 		Iterator<String> onlineUserIterator = connectedUsers.keySet().iterator();
 		try {
 			while(connectedUsers.keySet().iterator().hasNext()) {
-
-				onlineUsers.add(onlineUserIterator.next());
+				onlineUsers.add(allUsers.get(onlineUserIterator.next()));
 			}
 		}catch(NoSuchElementException e) {
-
+			
 		}
 		UserUpdate tempUserUpdate = new UserUpdate(onlineUsers);
 		for(int i = 0; i<connectedUsers.keySet().size();i++) {
-			send(new User(onlineUsers.get(i)), tempUserUpdate);
+			send(new User(onlineUsers.get(i).getName()), tempUserUpdate);
+			System.out.println("UserUpdate sent");
 		}
 	}
 	/**

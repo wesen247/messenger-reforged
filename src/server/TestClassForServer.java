@@ -1,62 +1,91 @@
 package server;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
-import entity.*;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileSystemView;
+
+import entity.*;
+/**
+ * Class that tests the server
+ * @author andre
+ *
+ */
 public class TestClassForServer {
 	private ServerController controller;
+	private BufferedImage bImage;
 	public static void main(String args[]) {
 		new TestClassForServer();
 
 	}
+	/**
+	 * Constructor
+	 */
 	public TestClassForServer() {
+		try {
+			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			j.showOpenDialog(new JFrame());
+			bImage = ImageIO.read(j.getSelectedFile());
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		controller = new ServerController(false, 20);//startar server
-//		new AddEventInGroup();
-//		controller.kill();
-//		
+		//		controller = new ServerController(false, 20);//startar server
+		//		new AddEventInGroup();
+		//		controller.kill();
+		//		
+		//		controller = new ServerController(false, 20);
+		//		new TestConnection();
+		//		controller.kill();
+		//		
+		//controller = new ServerController(false, 20);
+		//	new TestLogin();
+		//		controller.kill();
+
 //		controller = new ServerController(false, 20);
-//		new TestConnection();
+//		new LoginMany();
 //		controller.kill();
-//		
-//		controller = new ServerController(false, 20);
-//		new TestLogin();
-//		controller.kill();
-//		
-		controller = new ServerController(false, 20);
-		new LoginMany();
-		controller.kill();
-//		
-//		controller = new ServerController(false, 20);
-//		new SendPm();
-//		controller.kill();
-//		
-//		controller = new ServerController(false, 20);
-//		new AddGroupMemberRequest();
-//		controller.kill();
-//		
-//		controller = new ServerController(false, 20);
-//		new SendGroupMessage();
-//		controller.kill();
-//		
-//		controller = new ServerController(false, 20);
-//		new CreateGroup();
+		////		
+		////		controller = new ServerController(false, 20);
+		//		new SendPm();
+		//		controller.kill();
+		//		
+		//		controller = new ServerController(false, 20);
+		//		new AddGroupMemberRequest();
+		//		controller.kill();
+		//		
+				controller = new ServerController(false, 20);
+				new SendGroupMessage();
+				controller.kill();
+		//		
+		//		controller = new ServerController(false, 20);
+		//		new CreateGroup();
 		System.exit(0);
 	}
 
-
+	/**
+	 * Tries to connect to the server
+	 * @author andre
+	 *
+	 */
 	public class TestConnection {
 		public Socket socket;
 		public TestConnection() {
@@ -71,6 +100,11 @@ public class TestClassForServer {
 			}
 		}
 	}
+	/**
+	 * Tries to connect to server and login
+	 * @author andre
+	 *
+	 */
 	public class TestLogin {
 		public Socket socket;
 		public TestLogin() {
@@ -79,7 +113,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 				oos.flush();
 				ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-				oos.writeObject(new CreateUserRequest("1","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("1","2",bImage));//Ändra skapande av användare
 				oos.flush();
 				StartUpdate d = (StartUpdate)ois.readObject();
 				socket.close();
@@ -103,6 +137,11 @@ public class TestClassForServer {
 		}
 
 	}
+	/**
+	 * Logins with many users
+	 * @author andre
+	 *
+	 */
 	public class LoginMany{
 		public Socket socket;
 		public LoginMany() {
@@ -111,7 +150,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(socket1.getOutputStream()));
 				oos.flush();
 				ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(socket1.getInputStream()));
-				oos.writeObject(new CreateUserRequest("1","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("1","2",bImage));//Ändra skapande av användare
 				oos.flush();
 
 
@@ -121,7 +160,7 @@ public class TestClassForServer {
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket2.getOutputStream()));
 				oos.flush();
 				ois = new ObjectInputStream(new BufferedInputStream(socket2.getInputStream()));
-				oos.writeObject(new CreateUserRequest("2","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("2","2",bImage));//Ändra skapande av användare
 				oos.flush();
 
 
@@ -131,7 +170,7 @@ public class TestClassForServer {
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket3.getOutputStream()));
 				oos.flush();
 				ois = new ObjectInputStream(new BufferedInputStream(socket3.getInputStream()));
-				oos.writeObject(new CreateUserRequest("3","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("3","2",bImage));//Ändra skapande av användare
 				oos.flush();
 
 
@@ -141,7 +180,7 @@ public class TestClassForServer {
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket4.getOutputStream()));
 				oos.flush();
 				ois = new ObjectInputStream(new BufferedInputStream(socket4.getInputStream()));
-				oos.writeObject(new CreateUserRequest("4","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("4","2",bImage));//Ändra skapande av användare
 				oos.flush();
 
 
@@ -151,7 +190,7 @@ public class TestClassForServer {
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket5.getOutputStream()));
 				oos.flush();
 				ois = new ObjectInputStream(new BufferedInputStream(socket5.getInputStream()));
-				oos.writeObject(new CreateUserRequest("5","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("5","2",bImage));//Ändra skapande av användare
 				oos.flush();
 
 
@@ -161,7 +200,7 @@ public class TestClassForServer {
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket6.getOutputStream()));
 				oos.flush();
 				ois = new ObjectInputStream(new BufferedInputStream(socket6.getInputStream()));
-				oos.writeObject(new CreateUserRequest("6","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("6","2",bImage));//Ändra skapande av användare
 				oos.flush();
 				StartUpdate s = (StartUpdate) ois.readObject();
 
@@ -180,7 +219,7 @@ public class TestClassForServer {
 				System.out.println(s1.getUsers());
 				UserUpdate s2 = (UserUpdate) ois.readObject();
 				System.out.println(s2.getUsers());
-				
+
 
 			} catch (IOException | InterruptedException | ClassNotFoundException e) {
 				e.printStackTrace();
@@ -189,6 +228,11 @@ public class TestClassForServer {
 		}
 
 	}
+	/**
+	 * Logins with two users and send a privateMessage
+	 * @author andre
+	 *
+	 */
 	public class SendPm{
 
 		public SendPm(){
@@ -198,7 +242,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(socket1.getOutputStream()));
 				oos.flush();
 				ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(socket1.getInputStream()));
-				oos.writeObject(new CreateUserRequest("1","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("1","2",bImage));//Ändra skapande av användare
 				oos.flush();
 				Thread.sleep(1000);
 
@@ -206,7 +250,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos1 = new ObjectOutputStream(new BufferedOutputStream(socket2.getOutputStream()));
 				oos1.flush();
 				ObjectInputStream ois1 = new ObjectInputStream(new BufferedInputStream(socket2.getInputStream()));
-				oos1.writeObject(new CreateUserRequest("2","2"));//Ändra skapande av användare
+				oos1.writeObject(new CreateUserRequest("2","2",bImage));//Ändra skapande av användare
 				oos1.flush();
 				Thread.sleep(1000);
 
@@ -232,6 +276,11 @@ public class TestClassForServer {
 		}
 
 	}
+	/**
+	 * Adds an event in a group
+	 * @author andre
+	 *
+	 */
 	public class AddEventInGroup{
 		public AddEventInGroup() {
 
@@ -242,7 +291,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(socket1.getOutputStream()));
 				oos.flush();
 				ObjectInputStream ois = new ObjectInputStream((socket1.getInputStream()));
-				oos.writeObject(new CreateUserRequest("1","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("1","2",bImage));//Ändra skapande av användare
 				oos.flush();
 				Thread.sleep(1000);
 
@@ -250,7 +299,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos1 = new ObjectOutputStream(new BufferedOutputStream(socket2.getOutputStream()));
 				oos1.flush();
 				ObjectInputStream ois1 = new ObjectInputStream(new BufferedInputStream(socket2.getInputStream()));
-				oos1.writeObject(new CreateUserRequest("2","2"));//Ändra skapande av användare
+				oos1.writeObject(new CreateUserRequest("2","2",bImage));//Ändra skapande av användare
 				oos1.flush();
 				Thread.sleep(1000);
 
@@ -285,6 +334,11 @@ public class TestClassForServer {
 
 		}
 	}
+	/**
+	 * Adds a User in a group
+	 * @author andre
+	 *
+	 */
 	public class AddGroupMemberRequest{
 
 		public AddGroupMemberRequest() {
@@ -294,7 +348,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(socket1.getOutputStream()));
 				oos.flush();
 				ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(socket1.getInputStream()));
-				oos.writeObject(new CreateUserRequest("1","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("1","2",bImage));//Ändra skapande av användare
 				oos.flush();
 				Thread.sleep(1000);
 
@@ -302,7 +356,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos1 = new ObjectOutputStream(new BufferedOutputStream(socket2.getOutputStream()));
 				oos1.flush();
 				ObjectInputStream ois1 = new ObjectInputStream(new BufferedInputStream(socket2.getInputStream()));
-				oos1.writeObject(new CreateUserRequest("2","2"));//Ändra skapande av användare
+				oos1.writeObject(new CreateUserRequest("2","2",bImage));//Ändra skapande av användare
 				oos1.flush();
 				Thread.sleep(1000);
 
@@ -335,6 +389,11 @@ public class TestClassForServer {
 			}
 		}
 	}
+	/**
+	 * Sends a message in a group
+	 * @author andre
+	 *
+	 */
 	public class SendGroupMessage{
 		public SendGroupMessage() {
 			try {
@@ -343,7 +402,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(socket1.getOutputStream()));
 				oos.flush();
 				ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(socket1.getInputStream()));
-				oos.writeObject(new CreateUserRequest("1","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("1","2",bImage));//Ändra skapande av användare
 				oos.flush();
 				Thread.sleep(1000);
 
@@ -351,7 +410,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos1 = new ObjectOutputStream(new BufferedOutputStream(socket2.getOutputStream()));
 				oos1.flush();
 				ObjectInputStream ois1 = new ObjectInputStream(new BufferedInputStream(socket2.getInputStream()));
-				oos1.writeObject(new CreateUserRequest("2","2"));//Ändra skapande av användare
+				oos1.writeObject(new CreateUserRequest("2","2",bImage));//Ändra skapande av användare
 				oos1.flush();
 				Thread.sleep(1000);
 
@@ -376,6 +435,8 @@ public class TestClassForServer {
 				oos.writeObject(new AddObjectRequest("addGroupMember:grupp1",new User("2"),new User("1")));
 				oos.flush();
 				oos.writeObject(new GroupMessage("hejhej",new User("1"), g));
+				oos.writeObject(new GroupMessage("hejhej",new User("1"), g));
+				oos.writeObject(new GroupMessage("hejhej",new User("1"), g));
 				oos.flush();
 				System.out.println(ois.readObject());
 				System.out.println(ois1.readObject());
@@ -383,6 +444,7 @@ public class TestClassForServer {
 				System.out.println(ois1.readObject());
 				GroupMessage message = (GroupMessage)ois.readObject();
 				System.out.println(message.getMessage());
+				
 
 
 			}catch(Exception e) {
@@ -393,6 +455,11 @@ public class TestClassForServer {
 		}
 
 	}
+	/**
+	 * Creates a group
+	 * @author andre
+	 *
+	 */
 	public class CreateGroup {
 		public CreateGroup() {
 			try {
@@ -401,7 +468,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(socket1.getOutputStream()));
 				oos.flush();
 				ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(socket1.getInputStream()));
-				oos.writeObject(new CreateUserRequest("1","2"));//Ändra skapande av användare
+				oos.writeObject(new CreateUserRequest("1","2",bImage));//Ändra skapande av användare
 				oos.flush();
 				Thread.sleep(1000);
 
@@ -409,7 +476,7 @@ public class TestClassForServer {
 				ObjectOutputStream oos1 = new ObjectOutputStream(new BufferedOutputStream(socket2.getOutputStream()));
 				oos1.flush();
 				ObjectInputStream ois1 = new ObjectInputStream(new BufferedInputStream(socket2.getInputStream()));
-				oos1.writeObject(new CreateUserRequest("2","2"));//Ändra skapande av användare
+				oos1.writeObject(new CreateUserRequest("2","2",bImage));//Ändra skapande av användare
 				oos1.flush();
 				Thread.sleep(1000);
 

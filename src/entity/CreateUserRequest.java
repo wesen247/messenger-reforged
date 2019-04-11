@@ -1,6 +1,12 @@
 package entity;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
+
+import javax.imageio.ImageIO;
 
 /**
  * Entity, used to create new user
@@ -12,15 +18,34 @@ public class CreateUserRequest implements Serializable{
 	private static final long serialVersionUID = 8993208953585133772L;
 	private String password;
 	private String name;
+	private byte[] imageInByte;
 
 	/**
 	 * @author André Ruben Amir
 	 * @param name
 	 * @param password
 	 */
-	public CreateUserRequest(String name, String password) {
+	public CreateUserRequest(String name, String password, BufferedImage image) {
 		this.name = name;
 		this.password = password;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(image, "jpg", bos );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.imageInByte = bos.toByteArray();
+	}
+	
+	public BufferedImage getImage() {
+		ByteArrayInputStream bis = new ByteArrayInputStream(imageInByte);
+		try {
+			return ImageIO.read(bis);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 	/**
 	 * @author André Ruben Amir
