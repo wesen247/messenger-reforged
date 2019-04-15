@@ -96,16 +96,10 @@ public class UIController extends Application {
 	}
 
 	public void buttonLogin() {
-
+		ctr.createSocket();
 		String username = logInUsernameField.getText();
 		String password = logInPasswordField.getText();
 		ctr.logIn(username, password);
-
-	}
-
-	public void logInTrue() {
-
-		
 
 	}
 
@@ -178,7 +172,7 @@ public class UIController extends Application {
 		stage1.close();
 
 		try {
-		
+
 			Platform.setImplicitExit(false);
 			root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
 
@@ -220,6 +214,7 @@ public class UIController extends Application {
 				stage.close();
 			}
 		});
+		ctr.closeSocket();
 	}
 
 	public void buttonCreateNewGroup() {
@@ -319,12 +314,5 @@ public class UIController extends Application {
 			e.printStackTrace();
 
 		}
-
 	}
-	// public void setText() {
-	//
-	// textFieldGroups.setText("tja");
-	//
-	// }
-
 }

@@ -19,7 +19,7 @@ public class Data {
 	private ArrayList<PrivateMessage> listPM = new ArrayList<PrivateMessage>();
 	private ArrayList<GroupMessage> listGM = new ArrayList<GroupMessage>();
 	private ArrayList<UserUpdate> listUserUpdate = new ArrayList<UserUpdate>();
-
+	private boolean alive = false;
 	public Data(UIController loginUI, Socket socket) {
 
 		this.loginUI = loginUI;
@@ -33,7 +33,7 @@ public class Data {
 
 			e.printStackTrace();
 		}
-
+		alive = true;
 		new ServerListener().start();
 	}
 
@@ -84,12 +84,25 @@ public class Data {
 	public void setListUserUpdate(UserUpdate userUpdate) {
 		listUserUpdate.add(userUpdate);
 	}
+	
+	public void createConnection(Socket socket) {
+		alive = false;
+		this.socket = socket;
+		try {
+			ois.close();
+			this.ois = new ObjectInputStream(new BufferedInputStream(this.socket.getInputStream()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		alive = true;
+		new ServerListener().start();
+	}
 
 	private class ServerListener extends Thread {
 
 		public void run() {
 
-			while (true) {
+			while (alive) {
 
 				try {
 
@@ -140,11 +153,6 @@ public class Data {
 					}
 
 					else if (object instanceof StartUpdate) {
-					
-						
-					
-						System.out.println("Startupdate skickad");
-
 						StartUpdate startUpdate = (StartUpdate) object;
 
 					}

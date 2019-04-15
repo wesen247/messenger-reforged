@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -31,7 +32,6 @@ public class ClientController {
 	private User user;
 	private BufferedImage bImage;
 	private Data data;
-
 	private ObjectOutputStream oos;
 	private Socket socket;
 
@@ -42,7 +42,6 @@ public class ClientController {
 		try {
 			// String ip = JOptionPane.showInputDialog("Ange IP");
 			// int socketNbr = Integer.parseInt(JOptionPane.showInputDialog("Ange socket"));
-			System.out.println("Rövhål");
 			socket = new Socket(InetAddress.getLocalHost(), 5343);
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			oos.flush();
@@ -187,6 +186,31 @@ public class ClientController {
 			oos.writeObject(new AddObjectRequest(type, userToAdd, user));
 			oos.flush();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void createSocket() {
+		if(this.socket.isClosed()) {
+			try {
+				this.socket = new Socket(InetAddress.getLocalHost(), 5343);
+				data.createConnection(socket);
+			} catch (UnknownHostException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		}
+
+	}
+	
+	public void closeSocket() {
+		try {
+			this.socket.close();
+		} catch (IOException e) {
+
 			e.printStackTrace();
 		}
 	}
