@@ -107,7 +107,7 @@ public class Data {
 
 						if (response.getType().equals("loginFailed")) {
 
-							String res = (String) object;
+							String res = response.getType();
 
 							loginUI.loginFalse(res);
 

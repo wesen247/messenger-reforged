@@ -49,7 +49,7 @@ public class ClientController {
 			// String ip = JOptionPane.showInputDialog("Ange IP");
 			// int socketNbr = Integer.parseInt(JOptionPane.showInputDialog("Ange socket"));
 			System.out.println("Rövhål");
-			socket = new Socket(InetAddress.getLocalHost(), 5434);
+			socket = new Socket(InetAddress.getLocalHost(), 5343);
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			oos.flush();
 			data = new Data(loginUI, socket);
