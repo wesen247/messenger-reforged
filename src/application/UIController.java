@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -67,6 +68,8 @@ public class UIController extends Application {
 
 	private ObservableList ol;
 
+
+
 	Button button;
 
 	private int i = 0;
@@ -102,11 +105,12 @@ public class UIController extends Application {
 		String password = logInPasswordField.getText();
 		ctr.logIn(username, password);
 
-		Stage stage1 = (Stage) btnLogIn.getScene().getWindow();
-		stage1.close();
+		
+
 	}
 
 	public void loginTrue() {
+
 		Platform.runLater(new Runnable() {
 			Parent root;
 
@@ -121,11 +125,14 @@ public class UIController extends Application {
 					stage.setScene(new Scene(root));
 					stage.show();
 					System.out.println("FUNKAR");
-
+					
+					
+				
 				} catch (IOException e) {
 
 					e.printStackTrace();
 				}
+
 			}
 		});
 
@@ -190,7 +197,6 @@ public class UIController extends Application {
 	}
 
 	public void buttonCreate() {
-		Parent root;
 
 		String username = usernameTextField.getText();
 		String password = passwordTextField.getText();
@@ -198,6 +204,7 @@ public class UIController extends Application {
 
 		Stage stage1 = (Stage) createNewUserBtn.getScene().getWindow();
 		stage1.close();
+
 		Platform.setImplicitExit(false);
 	}
 
