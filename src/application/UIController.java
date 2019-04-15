@@ -96,25 +96,24 @@ public class UIController extends Application {
 	}
 
 	public void buttonLogin() {
+
 		ctr.createSocket();
 		String username = logInUsernameField.getText();
 		String password = logInPasswordField.getText();
 		ctr.logIn(username, password);
-		
+
 		Stage stage1 = (Stage) btnLogIn.getScene().getWindow();
 		stage1.close();
 	}
 
 	public void loginTrue() {
-
 		Platform.runLater(new Runnable() {
 			Parent root;
 
 			public void run() {
-				
+
 				try {
 
-					Platform.setImplicitExit(false);
 					root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
 
 					Stage stage = new Stage();
@@ -122,17 +121,13 @@ public class UIController extends Application {
 					stage.setScene(new Scene(root));
 					stage.show();
 					System.out.println("FUNKAR");
-				
-					
-				
+
 				} catch (IOException e) {
 
 					e.printStackTrace();
 				}
 			}
 		});
-
-		
 
 	}
 
@@ -203,23 +198,7 @@ public class UIController extends Application {
 
 		Stage stage1 = (Stage) createNewUserBtn.getScene().getWindow();
 		stage1.close();
-
-		try {
-
-		
-			root = FXMLLoader.load(getClass().getResource("/application/StartMenu.fxml"));
-
-			Stage stage = new Stage();
-			stage.setTitle("Start Menu");
-			stage.setScene(new Scene(root));
-			stage.show();
-			System.out.println("FUNKAR");
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-
+		Platform.setImplicitExit(false);
 	}
 
 	public void buttonLogOut() {
