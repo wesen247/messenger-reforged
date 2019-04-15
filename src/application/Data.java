@@ -10,7 +10,7 @@ import entity.*;
 import javafx.application.Platform;
 
 public class Data {
-	private LoginUI loginUI;
+	private UIController loginUI;
 	private ObjectInputStream ois;
 	private Socket socket;
 	private ArrayList<Response> listResponse = new ArrayList<Response>();
@@ -20,7 +20,7 @@ public class Data {
 	private ArrayList<GroupMessage> listGM = new ArrayList<GroupMessage>();
 	private ArrayList<UserUpdate> listUserUpdate = new ArrayList<UserUpdate>();
 
-	public Data(LoginUI loginUI, Socket socket) {
+	public Data(UIController loginUI, Socket socket) {
 
 		this.loginUI = loginUI;
 

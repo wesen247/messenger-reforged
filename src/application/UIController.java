@@ -27,7 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class LoginUI extends Application {
+public class UIController extends Application {
 	@FXML
 	private TextField usernameTextField;
 	@FXML
@@ -73,7 +73,7 @@ public class LoginUI extends Application {
 	private Parent root2;
 	private boolean loginRequest = false;
 
-	public LoginUI() {
+	public UIController() {
 
 		this.ctr = SingletonController.getController();
 

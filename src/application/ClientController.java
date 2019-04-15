@@ -27,7 +27,7 @@ import entity.*;
  *
  */
 public class ClientController {
-	private LoginUI loginUI = new LoginUI();
+	private UIController loginUI = new UIController();
 
 	private GroupChatUI groupChatUI;
 	private MainUI mainUI;
