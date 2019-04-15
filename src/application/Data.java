@@ -20,6 +20,7 @@ public class Data {
 	private ArrayList<GroupMessage> listGM = new ArrayList<GroupMessage>();
 	private ArrayList<UserUpdate> listUserUpdate = new ArrayList<UserUpdate>();
 	private boolean alive = false;
+	
 	public Data(UIController loginUI, Socket socket) {
 
 		this.loginUI = loginUI;
@@ -88,7 +89,6 @@ public class Data {
 	public void createConnection(Socket socket) {
 		this.socket = socket;
 		try {
-			ois.close();
 			this.ois = new ObjectInputStream(new BufferedInputStream(this.socket.getInputStream()));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,6 +99,12 @@ public class Data {
 	
 	public void kill() {
 		alive = false;
+		try {
+			ois.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private class ServerListener extends Thread {

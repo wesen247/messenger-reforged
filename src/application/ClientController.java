@@ -193,7 +193,14 @@ public class ClientController {
 	public void createSocket() {
 		if(this.socket.isClosed()) {
 			try {
+				oos.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			try {
 				this.socket = new Socket(InetAddress.getLocalHost(), 5343);
+				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+				oos.flush();
 				data.createConnection(socket);
 			} catch (UnknownHostException e) {
 
