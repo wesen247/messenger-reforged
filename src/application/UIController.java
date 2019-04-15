@@ -68,8 +68,6 @@ public class UIController extends Application {
 
 	private ObservableList ol;
 
-
-
 	Button button;
 
 	private int i = 0;
@@ -105,7 +103,7 @@ public class UIController extends Application {
 		String password = logInPasswordField.getText();
 		ctr.logIn(username, password);
 
-		
+		btnLogIn.getScene().getWindow().hide();
 
 	}
 
@@ -125,9 +123,7 @@ public class UIController extends Application {
 					stage.setScene(new Scene(root));
 					stage.show();
 					System.out.println("FUNKAR");
-					
-					
-				
+
 				} catch (IOException e) {
 
 					e.printStackTrace();
@@ -159,8 +155,7 @@ public class UIController extends Application {
 					stage.setScene(new Scene(root));
 					stage.show();
 
-					Stage stage1 = (Stage) btnLogIn.getScene().getWindow();
-					stage1.close();
+					btnLogIn.getScene().getWindow().hide();
 
 				} catch (IOException e) {
 
@@ -190,8 +185,8 @@ public class UIController extends Application {
 					e.printStackTrace();
 				}
 
-				Stage stage = (Stage) btnCancel.getScene().getWindow();
-				stage.close();
+				btnCancel.getScene().getWindow().hide();
+
 			}
 		});
 	}
@@ -202,8 +197,7 @@ public class UIController extends Application {
 		String password = passwordTextField.getText();
 		ctr.createNewUser(username, password);
 
-		Stage stage1 = (Stage) createNewUserBtn.getScene().getWindow();
-		stage1.close();
+		createNewUserBtn.getScene().getWindow().hide();
 
 		Platform.setImplicitExit(false);
 	}
@@ -228,9 +222,8 @@ public class UIController extends Application {
 					e.printStackTrace();
 				}
 
-				Stage stage = (Stage) pane.getScene().getWindow();
+				pane.getScene().getWindow().hide();
 
-				stage.close();
 			}
 		});
 		ctr.closeSocket();
@@ -257,8 +250,8 @@ public class UIController extends Application {
 					e.printStackTrace();
 				}
 
-				Stage stage = (Stage) pane.getScene().getWindow();
-				stage.close();
+				pane.getScene().getWindow().hide();
+
 			}
 		});
 	}
@@ -286,8 +279,8 @@ public class UIController extends Application {
 					e.printStackTrace();
 				}
 
-				Stage stage = (Stage) btnCreateGroup.getScene().getWindow();
-				stage.close();
+				btnCreateGroup.getScene().getWindow().hide();
+
 			}
 		});
 	}
@@ -312,8 +305,8 @@ public class UIController extends Application {
 					e.printStackTrace();
 				}
 
-				Stage stage = (Stage) buttonCancelGroup.getScene().getWindow();
-				stage.close();
+				buttonCancelGroup.getScene().getWindow().hide();
+
 			}
 		});
 	}
