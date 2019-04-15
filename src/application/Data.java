@@ -162,8 +162,12 @@ public class Data {
 					}
 
 					else if (object instanceof StartUpdate) {
+						
 						StartUpdate startUpdate = (StartUpdate) object;
 
+						loginUI.loginTrue();
+						
+						
 					}
 				} catch (ClassNotFoundException | IOException e) {
 					e.printStackTrace();
