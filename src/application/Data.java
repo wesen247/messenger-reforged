@@ -86,7 +86,6 @@ public class Data {
 	}
 	
 	public void createConnection(Socket socket) {
-		alive = false;
 		this.socket = socket;
 		try {
 			ois.close();
@@ -96,6 +95,10 @@ public class Data {
 		}
 		alive = true;
 		new ServerListener().start();
+	}
+	
+	public void kill() {
+		alive = false;
 	}
 
 	private class ServerListener extends Thread {

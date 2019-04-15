@@ -208,6 +208,7 @@ public class ClientController {
 	
 	public void closeSocket() {
 		try {
+			data.kill();
 			this.socket.close();
 		} catch (IOException e) {
 
