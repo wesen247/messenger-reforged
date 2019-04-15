@@ -167,7 +167,6 @@ public class Data {
 
 						loginUI.loginTrue();
 						
-						
 					}
 				} catch (ClassNotFoundException | IOException e) {
 					e.printStackTrace();
