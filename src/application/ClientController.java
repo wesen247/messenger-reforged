@@ -28,12 +28,6 @@ import entity.*;
  */
 public class ClientController {
 	private UIController loginUI = new UIController();
-
-	private GroupChatUI groupChatUI;
-	private MainUI mainUI;
-	private CreateGroupUI createGroupUI;
-	private CreateNewUserUI createNewUserUI;
-	private PrivateChatUI privateChatUI;
 	private User user;
 	private BufferedImage bImage;
 	private Data data;
