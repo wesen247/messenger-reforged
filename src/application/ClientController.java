@@ -173,7 +173,6 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Adds a user to the group
 	 * 
