@@ -2,23 +2,15 @@ package application;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
-
-import javafx.event.ActionEvent;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -59,20 +51,9 @@ public class UIController extends Application {
 	private TextField logInPasswordField;
 	@FXML
 	private Pane paneCreateUser;
-
 	private ClientController ctr;
-
-	private FXMLLoader loader = new FXMLLoader();
-
 	private Scene scene;
-
-	private ObservableList ol;
-
 	Button button;
-
-	private int i = 0;
-	private Parent root2;
-	private boolean loginRequest = false;
 
 	public UIController() {
 

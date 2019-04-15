@@ -10,15 +10,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileSystemView;
-
-import javafx.application.Application;
-import javafx.application.Platform;
 import entity.*;
 
 /**
@@ -173,6 +164,7 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Adds a user to the group
 	 * 

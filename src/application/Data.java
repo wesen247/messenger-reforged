@@ -3,11 +3,9 @@ package application;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import entity.*;
-import javafx.application.Platform;
 
 public class Data {
 	private UIController loginUI;
@@ -102,7 +100,7 @@ public class Data {
 		try {
 			ois.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
@@ -164,7 +162,6 @@ public class Data {
 					else if (object instanceof StartUpdate) {
 						
 						StartUpdate startUpdate = (StartUpdate) object;
-
 						loginUI.loginTrue();
 						
 					}
