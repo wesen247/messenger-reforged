@@ -5,10 +5,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import entity.*;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class Data {
-	private UIController loginUI;
+	private Main main;
+	private LoginController loginUI;
 	private ObjectInputStream ois;
 	private Socket socket;
 	private ArrayList<Response> listResponse = new ArrayList<Response>();
@@ -18,8 +26,11 @@ public class Data {
 	private ArrayList<GroupMessage> listGM = new ArrayList<GroupMessage>();
 	private ArrayList<UserUpdate> listUserUpdate = new ArrayList<UserUpdate>();
 	private boolean alive = false;
+	private CreateUserController userController;
+	private static Data data;
+	private HashMap<String, Buffer<String>> pmBuffer = new HashMap<String, Buffer<String>>();
 	
-	public Data(UIController loginUI, Socket socket) {
+	public Data(LoginController loginUI, Socket socket) {
 
 		this.loginUI = loginUI;
 
@@ -34,8 +45,29 @@ public class Data {
 		}
 		alive = true;
 		new ServerListener().start();
+		this.data = this;
 	}
 
+	public Data(CreateUserController userController, Socket socket) {
+
+		this.userController = userController;
+		try {
+
+			this.socket = socket;
+			ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		alive = true;
+		new ServerListener().start();
+		this.data = this;
+	}
+	
+	public static Data getData() {
+		return data;
+	}
 	public ArrayList<Response> getListResponse() {
 		return listResponse;
 	}
@@ -83,7 +115,7 @@ public class Data {
 	public void setListUserUpdate(UserUpdate userUpdate) {
 		listUserUpdate.add(userUpdate);
 	}
-	
+
 	public void createConnection(Socket socket) {
 		this.socket = socket;
 		try {
@@ -94,7 +126,7 @@ public class Data {
 		alive = true;
 		new ServerListener().start();
 	}
-	
+
 	public void kill() {
 		alive = false;
 		try {
@@ -102,6 +134,16 @@ public class Data {
 		} catch (IOException e) {
 
 			e.printStackTrace();
+		}
+	}
+	
+	public Buffer<String> getMessageBuffer(String name){
+		if(pmBuffer.containsKey(name)) {
+			return pmBuffer.get(name);
+			
+		}else {
+			pmBuffer.put(name, new Buffer<String>());
+			return pmBuffer.get(name);
 		}
 	}
 
@@ -127,9 +169,8 @@ public class Data {
 
 						if (response.getType().equals("loginFailed")) {
 
-							String res = response.getType();
-
-							loginUI.loginFalse(res);
+							String res = (String) response.getResponse();
+							loginUI.loginFailed(res);
 
 						}
 
@@ -144,7 +185,13 @@ public class Data {
 					else if (object instanceof PrivateMessage) {
 
 						PrivateMessage pm = (PrivateMessage) object;
-						setListPM(pm);
+						if(pmBuffer.containsKey(pm.getSender().getName())) {
+							pmBuffer.get(pm.getSender().getName()).put(pm.getSender()+": "+pm.getMessage());
+							
+						}else {
+							pmBuffer.put(pm.getSender().getName(), new Buffer<String>());
+							pmBuffer.get(pm.getSender().getName()).put(pm.getSender()+": "+pm.getMessage());
+						}
 					}
 
 					else if (object instanceof GroupMessage) {
@@ -160,10 +207,21 @@ public class Data {
 					}
 
 					else if (object instanceof StartUpdate) {
-						
+
 						StartUpdate startUpdate = (StartUpdate) object;
-						loginUI.loginTrue();
-						
+						Platform.runLater(new Runnable() {
+
+							public void run() {
+
+								try {
+									main.showMainMenu();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+
+							}
+						});
+
 					}
 				} catch (ClassNotFoundException | IOException e) {
 					e.printStackTrace();

@@ -19,31 +19,64 @@ import entity.*;
  *
  */
 public class ClientController {
-	private UIController loginUI = new UIController();
+	private LoginController LoginController;
+	private Main main;
 	private User user;
 	private BufferedImage bImage;
 	private Data data;
 	private ObjectOutputStream oos;
 	private Socket socket;
-
+	private CreateUserController userController;
+	private User reciver;
+	private static ClientController controller;
+	
 	/**
 	 * Starts the connection with the server
 	 */
-	public ClientController() {
+	
+	public static ClientController getClient() {
+		return controller;
+	}
+
+	public ClientController(String username, String password, LoginController loginController) {
+		this.LoginController = loginController;
 		try {
-			// String ip = JOptionPane.showInputDialog("Ange IP");
-			// int socketNbr = Integer.parseInt(JOptionPane.showInputDialog("Ange socket"));
 			socket = new Socket(InetAddress.getLocalHost(), 5343);
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			oos.flush();
-			data = new Data(loginUI, socket);
+			data = new Data(LoginController, socket);
 
-		} catch (ConnectException c) {
-			c.printStackTrace();
+		} catch (UnknownHostException e) {
+
+			e.printStackTrace();
 		} catch (IOException e) {
+
 			e.printStackTrace();
 		}
 
+		logIn(username, password);
+		this.controller = this;
+	}
+
+	public String getReceiver() {
+		return reciver.getName();
+	}
+	public ClientController(String username, String password, CreateUserController userController,BufferedImage image) {
+
+		this.userController = userController;
+		try {
+
+			socket = new Socket(InetAddress.getLocalHost(), 5343);
+			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+			oos.flush();
+			data = new Data(userController, socket);
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		createNewUser(username, password,image);
+		this.controller = this;
 	}
 
 	/**
@@ -72,15 +105,13 @@ public class ClientController {
 	 * @param password
 	 */
 
-	public void setPicture(BufferedImage image) {
 
-		this.bImage = image;
-	}
 
-	public void createNewUser(String name, String password) {
+	public void createNewUser(String name, String password,BufferedImage image) {
 		try {
 
-			oos.writeObject(new CreateUserRequest(name, password, bImage));
+			oos.writeObject(new CreateUserRequest(name, password, image));
+			this.user = new User(name);
 			oos.flush();
 
 		} catch (IOException e) {
@@ -109,9 +140,9 @@ public class ClientController {
 	 * @param message
 	 * @param reciever
 	 */
-	public void createPrivateMessage(String message, User reciever) {
+	public void createPrivateMessage(String message) {
 		try {
-			oos.writeObject(new PrivateMessage(message, user, reciever));
+			oos.writeObject(new PrivateMessage(message, user, reciver));
 			oos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -124,9 +155,10 @@ public class ClientController {
 	 * @param userName
 	 * @param password
 	 */
-	public void logIn(String userName, String password) {
+	public void logIn(String username, String password) {
 		try {
-			oos.writeObject(new LoginRequest(userName, password));
+			oos.writeObject(new LoginRequest(username, password));
+			this.user = new User(username);
 			oos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -180,9 +212,9 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void createSocket() {
-		if(this.socket.isClosed()) {
+		if (this.socket.isClosed()) {
 			try {
 				oos.close();
 			} catch (IOException e1) {
@@ -203,7 +235,7 @@ public class ClientController {
 		}
 
 	}
-	
+
 	public void closeSocket() {
 		try {
 			data.kill();
@@ -213,5 +245,12 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
+
+	public void setReciver(String name) {
+		this.reciver = new User(name);
+	}
+	
+
+	
 
 }

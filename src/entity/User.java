@@ -78,4 +78,7 @@ public class User implements Serializable{
 	public void addGroup(String groupName) {
 		memberOfGroups.add(groupName);
 	}
+	public String toString() {
+		return name;
+	}
 }
