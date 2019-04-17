@@ -9,10 +9,6 @@ import java.util.HashMap;
 
 import entity.*;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class Data {
 	private Main main;

@@ -13,7 +13,6 @@ import javax.swing.filechooser.FileSystemView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 public class CreateUserController implements Initializable {

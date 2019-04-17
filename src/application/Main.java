@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 
@@ -16,7 +15,7 @@ public class Main extends Application {
 	private static AnchorPane mainPane;
 
 	public void start(Stage primaryStage) throws Exception {
-		this.privateMessage = new Stage();
+	
 		this.primaryStage = primaryStage;
 		showLogin();
 		
@@ -63,7 +62,7 @@ public class Main extends Application {
 	}
 	
 	public static void showChatWindowPrivateMessage() throws IOException {
-
+		privateMessage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/application/ChattWindowPrivateMessage.fxml"));
 		mainPane = loader.load();

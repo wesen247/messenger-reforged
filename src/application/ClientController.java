@@ -5,7 +5,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -29,11 +28,10 @@ public class ClientController {
 	private CreateUserController userController;
 	private User reciver;
 	private static ClientController controller;
-	
+
 	/**
 	 * Starts the connection with the server
 	 */
-	
 	public static ClientController getClient() {
 		return controller;
 	}
@@ -45,12 +43,9 @@ public class ClientController {
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			oos.flush();
 			data = new Data(LoginController, socket);
-
 		} catch (UnknownHostException e) {
-
 			e.printStackTrace();
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 
@@ -61,21 +56,20 @@ public class ClientController {
 	public String getReceiver() {
 		return reciver.getName();
 	}
-	public ClientController(String username, String password, CreateUserController userController,BufferedImage image) {
 
+	public ClientController(String username, String password, CreateUserController userController,
+			BufferedImage image) {
 		this.userController = userController;
 		try {
-
 			socket = new Socket(InetAddress.getLocalHost(), 5343);
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			oos.flush();
 			data = new Data(userController, socket);
 
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
-		createNewUser(username, password,image);
+		createNewUser(username, password, image);
 		this.controller = this;
 	}
 
@@ -104,10 +98,7 @@ public class ClientController {
 	 * @param name
 	 * @param password
 	 */
-
-
-
-	public void createNewUser(String name, String password,BufferedImage image) {
+	public void createNewUser(String name, String password, BufferedImage image) {
 		try {
 
 			oos.writeObject(new CreateUserRequest(name, password, image));
@@ -213,6 +204,9 @@ public class ClientController {
 		}
 	}
 
+	/**
+	 * Method that creates a socket.
+	 */
 	public void createSocket() {
 		if (this.socket.isClosed()) {
 			try {
@@ -236,6 +230,9 @@ public class ClientController {
 
 	}
 
+	/**
+	 * Method that closes the socket.
+	 */
 	public void closeSocket() {
 		try {
 			data.kill();
@@ -246,11 +243,13 @@ public class ClientController {
 		}
 	}
 
+	/**
+	 * Method that sets a reciever.
+	 * 
+	 * @param name Name of the reciever.
+	 */
 	public void setReciver(String name) {
 		this.reciver = new User(name);
 	}
-	
-
-	
 
 }
