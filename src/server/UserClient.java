@@ -82,7 +82,6 @@ public class UserClient {
 					oos.reset();
 					oos.writeObject(sendBuffer.get());
 					oos.flush();
-					System.out.println("Sent");
 				}
 			} catch (IOException | InterruptedException e) {
 				System.err.println(user.getName()+" Socket stängde");

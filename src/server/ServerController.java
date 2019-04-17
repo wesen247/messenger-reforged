@@ -8,10 +8,6 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import entity.*;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class ServerController {
 	private UserHandler userHandler;
@@ -25,7 +21,7 @@ public class ServerController {
 	 * @param useBackup    If true it will load a backup stored locally
 	 * @param maximumUsers Number of maximum users. Decides how many threads that
 	 *                     will be created.
-	 * @author AndrÃ©
+	 * @author André
 	 */
 	public ServerController(boolean useBackup, int maximumUsers) {
 		userHandler = new UserHandler(useBackup, this);
@@ -45,7 +41,7 @@ public class ServerController {
 	 * 
 	 * @param group The name of the group
 	 * @return group the group
-	 * @author AndrÃ©
+	 * @author André
 	 */
 	public Group getGroup(String group) {
 		return groupHandler.getGroup(group);
@@ -55,7 +51,7 @@ public class ServerController {
 	 * Adds a runnable to the taskbuffer to be executed
 	 * 
 	 * @param task task to be executed
-	 * @author AndrÃ©
+	 * @author André
 	 */
 	public void addTask(Runnable task) {
 		System.out.println("Task added to buffer");
@@ -65,7 +61,7 @@ public class ServerController {
 	/**
 	 * Kills the server
 	 * 
-	 * @author AndrÃ©
+	 * @author André
 	 */
 	public void kill() {
 		connect.kill();
@@ -75,7 +71,7 @@ public class ServerController {
 	 * Receives a object from a user with instructions
 	 * 
 	 * @param incomming The object
-	 * @author AndrÃ©
+	 * @author André
 	 */
 	public void newObjectFromUser(Object incomming) {
 		System.out.println("Servercontroller motagit object");
@@ -83,7 +79,7 @@ public class ServerController {
 			AddObjectRequest request = (AddObjectRequest) incomming;
 			String[] splitType = request.getType().split(":");
 			if (splitType[0].equals("file")) {
-				// MÃ¥ste ta reda pÃ¥ hur skicka filer ska ske
+				// Måste ta reda på hur skicka filer ska ske
 
 			} else if (splitType[0].equals("addGroupMember")) {
 				groupHandler.addMember(new Group(splitType[1]), (User) request.getObjectToAdd());
@@ -100,7 +96,7 @@ public class ServerController {
 			PrivateMessage message = (PrivateMessage) incomming;
 			send(message.getReceiver(), message);
 		} else if (incomming instanceof ObjectRequest) {
-			// HÃ¤r skickas filen
+			// Här skickas filen
 		}
 	}
 
@@ -109,7 +105,7 @@ public class ServerController {
 	 * 
 	 * @param receiver   User thats should receive the object
 	 * @param sendObject the object
-	 * @author AndrÃ©
+	 * @author André
 	 */
 	public void send(User receiver, Object sendObject) {
 		userHandler.send(receiver, sendObject);
@@ -126,7 +122,7 @@ public class ServerController {
 			while (true) {
 				try {
 					taskBuffer.get().run();
-					System.out.println("trÃ¥d klar med task");
+					System.out.println("tråd klar med task");
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -146,7 +142,7 @@ public class ServerController {
 		/**
 		 * Kills the server
 		 * 
-		 * @author AndrÃ©
+		 * @author André
 		 */
 		public void kill() {
 			try {
@@ -161,9 +157,9 @@ public class ServerController {
 				serverSocket = new ServerSocket(5343);
 				Runnable runnable;
 				while (true) {
-					System.out.println("Lyssnar efter anvÃ¤ndare");
+					System.out.println("Lyssnar efter användare");
 					runnable = new LoginHandler(serverSocket.accept());
-					System.out.println("AnvÃ¤ndare hittad");
+					System.out.println("Användare hittad");
 					addTask(runnable);
 				}
 			} catch (IOException e) {
@@ -198,7 +194,7 @@ public class ServerController {
 				e1.printStackTrace();
 			}
 			boolean accepted = false;
-			System.out.println("Lyssnar pÅ login eller anvÄndare frÅn klient");
+			System.out.println("Lyssnar på login eller användare från klient");
 			Object fromUser;
 			try {
 				while (!accepted) {
@@ -218,9 +214,8 @@ public class ServerController {
 						System.out.println("LoginHandler: Type LoginRequest");
 						if (userHandler.attemptLogin((LoginRequest) fromUser, socket, oos, ois)) {
 							accepted = true;
-							System.out.println("LoginHandler: LoginRequest godkÃ¤nd");
-						} else { 
-							
+							System.out.println("LoginHandler: LoginRequest godkänd");
+						} else {
 							System.out.println("LoginHandler: LoginRequest misslyckad");
 							oos.writeObject(new Response("loginFailed", "Login failed"));
 							oos.flush();
@@ -228,15 +223,13 @@ public class ServerController {
 					}
 				}
 			} catch (ClassNotFoundException | IOException e) {
-				System.err.println("AnvÃ¤ndare avbrÃ¶t inloggning");
+				System.err.println("Användare avbröt inloggning");
 			}
 		}
 	}
 
 	public static void main(String[] args) {
-
-		new ServerController(false, 57);
+		new ServerController(false, 123);
 
 	}
-
 }
