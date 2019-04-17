@@ -27,6 +27,7 @@ public class ChatWindowPrivateMessageController implements Initializable {
 
 	public void send() {
 		ClientController.getClient().createPrivateMessage(textFieldMessage.getText());
+		textFieldMessage.clear();
 	}
 
 	public void showMessage(String message) {

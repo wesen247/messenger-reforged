@@ -26,7 +26,7 @@ public class Main extends Application {
 	public static void showLogin() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/applicationn/LgInUI.fxml"));
+		loader.setLocation(Main.class.getResource("/application/LgInUI.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
@@ -42,7 +42,7 @@ public class Main extends Application {
 	public static void showCreateGroup() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/applicationn/CreateGroup.fxml"));
+		loader.setLocation(Main.class.getResource("/application/CreateGroup.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
@@ -54,7 +54,7 @@ public class Main extends Application {
 	public static void showCreateUser() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/applicationn/CreateUserUI.fxml"));
+		loader.setLocation(Main.class.getResource("/application/CreateUserUI.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
@@ -65,7 +65,7 @@ public class Main extends Application {
 	public static void showChatWindowPrivateMessage() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/applicationn/ChattWindowPrivateMessage.fxml"));
+		loader.setLocation(Main.class.getResource("/application/ChattWindowPrivateMessage.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		privateMessage.setScene(scene);
@@ -76,7 +76,7 @@ public class Main extends Application {
 	public static void showMainMenu() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/applicationn/StartMenu.fxml"));
+		loader.setLocation(Main.class.getResource("/application/StartMenu.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);

@@ -11,7 +11,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="583.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationn.ChatWindowPrivateMessageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="583.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ChatWindowPrivateMessageController">
    <children>
       <Pane prefHeight="55.0" prefWidth="583.0" style="-fx-background-color: #0FC409;">
          <children>
