@@ -12,26 +12,26 @@ import java.util.concurrent.ConcurrentHashMap;
 public class HashMapHandler {
 		private ConcurrentHashMap<String,UserClient> connectedUsers = new ConcurrentHashMap<String,UserClient>();
 		private ConcurrentHashMap<String,String> passwordHashMap = new ConcurrentHashMap<String,String>();
-		private ConcurrentHashMap<String,User> usersHashMap = new ConcurrentHashMap<String,User>();
+		private ConcurrentHashMap<String,User> allUsers = new ConcurrentHashMap<String,User>();
 
-		
+		//AllUsers
 		@SuppressWarnings("unchecked")
-		public ConcurrentHashMap<String,User> loadUsersHashMap() {
+		public ConcurrentHashMap<String,User> loadAllUsers() {
 			try {
 				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-users.txt"));
-				usersHashMap = (ConcurrentHashMap<String,User>) ois.readObject();
+				allUsers = (ConcurrentHashMap<String,User>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.err.println("Friendlist was not loaded succesfully: " + e);
 			}
-			return usersHashMap;
+			return allUsers;
 		}
 		
-		public void saveUsersHashMap() {
+		public void saveAllUsers() {
 			try {
 				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-users.txt"));
-				oos.writeObject(usersHashMap);
+				oos.writeObject(allUsers);
 				oos.flush();
 				oos.close();
 			} catch (IOException e) {
@@ -40,7 +40,7 @@ public class HashMapHandler {
 			}
 		}
 		
-		
+		//ConnectedUsers
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,UserClient> loadConnectedUsers() {
 			try {
@@ -66,7 +66,7 @@ public class HashMapHandler {
 			}
 		}
 		
-		
+		//PasswordHashMap
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,String> loadPasswordHashMap() {
 			try {
