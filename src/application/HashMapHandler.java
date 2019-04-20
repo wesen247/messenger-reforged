@@ -1,6 +1,8 @@
 package application;
 
 import server.UserClient;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,7 +20,7 @@ public class HashMapHandler {
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,User> loadAllUsers() {
 			try {
-				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-users.txt"));
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-users.txt"));
 				allUsers = (ConcurrentHashMap<String,User>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
@@ -29,8 +31,17 @@ public class HashMapHandler {
 		}
 		
 		public void saveAllUsers() {
+			File directory = new File("C:\\Messenger-reforged");
+			if(!directory.exists()) {
+				try {
+					directory.mkdir();
+				}catch(SecurityException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			try {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-users.txt"));
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-users.txt"));
 				oos.writeObject(allUsers);
 				oos.flush();
 				oos.close();
@@ -44,7 +55,7 @@ public class HashMapHandler {
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,UserClient> loadConnectedUsers() {
 			try {
-				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-connectedUsers.txt"));
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-connectedUsers.txt"));
 				connectedUsers = (ConcurrentHashMap<String,UserClient>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
@@ -55,8 +66,17 @@ public class HashMapHandler {
 		}
 		
 		public void saveConnectedUsers() {
+			File directory = new File("C:\\Messenger-reforged");
+			if(!directory.exists()) {
+				try {
+					directory.mkdir();
+				}catch(SecurityException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			try {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-connectedUsers.txt"));
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-connectedUsers.txt"));
 				oos.writeObject(connectedUsers);
 				oos.flush();
 				oos.close();
@@ -70,7 +90,7 @@ public class HashMapHandler {
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,String> loadPasswordHashMap() {
 			try {
-				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-pw.txt"));
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-pw.txt"));
 				passwordHashMap = (ConcurrentHashMap<String,String>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
@@ -80,8 +100,17 @@ public class HashMapHandler {
 		}
 		
 		public void savePasswordHashMap() {
+			File directory = new File("C:\\Messenger-reforged");
+			if(!directory.exists()) {
+				try {
+					directory.mkdir();
+				}catch(SecurityException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			try {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-pw.txt"));
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-pw.txt"));
 				oos.writeObject(connectedUsers);
 				oos.flush();
 				oos.close();

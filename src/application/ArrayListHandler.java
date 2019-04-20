@@ -1,13 +1,15 @@
 package application;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ArrayListHandler {
+public class ArrayListHandler implements Serializable {
 	private ArrayList<User> friendList = new ArrayList<User>();
 	private ArrayList<Group> groups = new ArrayList<Group>();
 	private ArrayList<GroupMessage> groupMessages = new ArrayList<GroupMessage>();
@@ -32,8 +34,17 @@ public class ArrayListHandler {
 	}
 	
 	public void saveFriendList() {
+		File directory = new File("C:\\Messenger-reforged");
+		if(!directory.exists()) {
+			try {
+				directory.mkdir();
+			}catch(SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-friendlist.txt"));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-friendlist.txt"));
 			oos.writeObject(friendList);
 			oos.flush();
 			oos.close();
@@ -47,7 +58,7 @@ public class ArrayListHandler {
 	@SuppressWarnings("unchecked")
 	public ArrayList<Group> loadGroups() {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-grouplist.txt"));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
 			groups = (ArrayList<Group>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
@@ -57,8 +68,17 @@ public class ArrayListHandler {
 	}
 	
 	public void saveGroups() {
+		File directory = new File("C:\\Messenger-reforged");
+		if(!directory.exists()) {
+			try {
+				directory.mkdir();
+			}catch(SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-grouplist.txt"));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
 			oos.writeObject(friendList);
 			oos.flush();
 			oos.close();
@@ -72,7 +92,7 @@ public class ArrayListHandler {
 	@SuppressWarnings("unchecked")
 	public ArrayList<GroupMessage> loadGroupMessages() {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-grouplist.txt"));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
 			groupMessages = (ArrayList<GroupMessage>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
@@ -82,8 +102,17 @@ public class ArrayListHandler {
 	}
 	
 	public void saveGroupMessages() {
+		File directory = new File("C:\\Messenger-reforged");
+		if(!directory.exists()) {
+			try {
+				directory.mkdir();
+			}catch(SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-grouplist.txt"));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
 			oos.writeObject(groupMessages);
 			oos.flush();
 			oos.close();
@@ -97,7 +126,7 @@ public class ArrayListHandler {
 	@SuppressWarnings("unchecked")
 	public ArrayList<String> loadFileLog() {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-fileLog.txt"));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-fileLog.txt"));
 			 fileLog = (ArrayList<String>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
@@ -107,8 +136,17 @@ public class ArrayListHandler {
 	}
 	
 	public void saveFileLog() {
+		File directory = new File("C:\\Messenger-reforged");
+		if(!directory.exists()) {
+			try {
+				directory.mkdir();
+			}catch(SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-fileLog.txt"));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-fileLog.txt"));
 			oos.writeObject(fileLog);
 			oos.flush();
 			oos.close();
@@ -122,7 +160,7 @@ public class ArrayListHandler {
 	@SuppressWarnings("unchecked")
 	public ArrayList<Event> loadEvents() {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-events.txt"));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-events.txt"));
 			 events = (ArrayList<Event>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
@@ -132,8 +170,17 @@ public class ArrayListHandler {
 	}
 	
 	public void saveEvents() {
+		File directory = new File("C:\\Messenger-reforged");
+		if(!directory.exists()) {
+			try {
+				directory.mkdir();
+			}catch(SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-events.txt"));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-events.txt"));
 			oos.writeObject(events);
 			oos.flush();
 			oos.close();
@@ -147,7 +194,7 @@ public class ArrayListHandler {
 	@SuppressWarnings("unchecked")
 	public ArrayList<String> loadMemberOfGroups() {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-memberOfGroups.txt"));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-memberOfGroups.txt"));
 			 memberOfGroups = (ArrayList<String>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
@@ -157,8 +204,17 @@ public class ArrayListHandler {
 	}
 	
 	public void saveMemberOfGroups() {
+		File directory = new File("C:\\Messenger-reforged");
+		if(!directory.exists()) {
+			try {
+				directory.mkdir();
+			}catch(SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-memberOfGroups.txt"));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-memberOfGroups.txt"));
 			oos.writeObject(memberOfGroups);
 			oos.flush();
 			oos.close();
@@ -172,7 +228,7 @@ public class ArrayListHandler {
 	@SuppressWarnings("unchecked")
 	public ArrayList<User> loadOnlineUsers() {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-onlineUsers.txt"));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-onlineUsers.txt"));
 			 onlineUsers = (ArrayList<User>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
@@ -182,8 +238,17 @@ public class ArrayListHandler {
 	}
 	
 	public void saveOnlineUsers() {
+		File directory = new File("C:\\Messenger-reforged");
+		if(!directory.exists()) {
+			try {
+				directory.mkdir();
+			}catch(SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-onlineUsers.txt"));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-onlineUsers.txt"));
 			oos.writeObject(onlineUsers);
 			oos.flush();
 			oos.close();
@@ -197,7 +262,7 @@ public class ArrayListHandler {
 	@SuppressWarnings("unchecked")
 	public ArrayList<User> loadAllUsers() {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-allUsers.txt"));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-allUsers.txt"));
 			 allUsers = (ArrayList<User>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
@@ -207,8 +272,17 @@ public class ArrayListHandler {
 	}
 	
 	public void saveAllUsers() {
+		File directory = new File("C:\\Messenger-reforged");
+		if(!directory.exists()) {
+			try {
+				directory.mkdir();
+			}catch(SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reforged-allUsers.txt"));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-allUsers.txt"));
 			oos.writeObject(allUsers);
 			oos.flush();
 			oos.close();
@@ -221,6 +295,6 @@ public class ArrayListHandler {
 	
 	public static void main(String args[]) {
 		ArrayListHandler alh = new ArrayListHandler();
-		alh.loadFriendList();
+		alh.saveFriendList();
 	}
 }
