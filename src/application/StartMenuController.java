@@ -25,6 +25,7 @@ public class StartMenuController implements Initializable {
 	private ListView<String> listViewOnline = new ListView<String>();
 	private String name;
 	private ObservableList<String> onlineUsers;
+	private Data data;
 	
 	public void createGroup() {
 		try {
@@ -52,7 +53,8 @@ public class StartMenuController implements Initializable {
 	}
 	
 	public void initialize(URL location, ResourceBundle resource) {
-		ClientController.getClient().addMenuController(this);
+		this.data = Data.getData();
+		data.addMenuController(this);
 		listViewOnline.setItems(this.onlineUsers);
 		listViewOnline.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {

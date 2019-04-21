@@ -206,6 +206,7 @@ public class Data {
 						ArrayList<User> list = userUpdate.getUsers();
 						for(int i = 0; i < userUpdate.getUsers().size(); i++) {
 							try {
+								System.out.println(list.get(i).getName());
 								mainMenuController.setOnlineList(list.get(i).getName());
 							} catch (NullPointerException e) {
 								e.printStackTrace();

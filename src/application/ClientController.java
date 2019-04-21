@@ -57,11 +57,6 @@ public class ClientController {
 	public String getReceiver() {
 		return reciver.getName();
 	}
-	
-	public void addMenuController(StartMenuController menuController) {
-		this.menuController = menuController;
-		data.addMenuController(menuController);
-	}
 
 	public ClientController(String username, String password, CreateUserController userController,
 			BufferedImage image) {
