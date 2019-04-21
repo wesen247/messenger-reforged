@@ -28,6 +28,7 @@ public class ClientController {
 	private CreateUserController userController;
 	private User reciver;
 	private static ClientController controller;
+	private StartMenuController menuController;
 
 	/**
 	 * Starts the connection with the server
@@ -55,6 +56,11 @@ public class ClientController {
 
 	public String getReceiver() {
 		return reciver.getName();
+	}
+	
+	public void addMenuController(StartMenuController menuController) {
+		this.menuController = menuController;
+		data.addMenuController(menuController);
 	}
 
 	public ClientController(String username, String password, CreateUserController userController,

@@ -23,6 +23,7 @@ public class Data {
 	private ArrayList<UserUpdate> listUserUpdate = new ArrayList<UserUpdate>();
 	private boolean alive = false;
 	private CreateUserController userController;
+	private StartMenuController mainMenuController;
 	private static Data data;
 	private HashMap<String, Buffer<String>> pmBuffer = new HashMap<String, Buffer<String>>();
 	
@@ -61,9 +62,14 @@ public class Data {
 		this.data = this;
 	}
 	
+	public void addMenuController(StartMenuController menuController) {
+		this.mainMenuController = menuController;
+	}
+	
 	public static Data getData() {
 		return data;
 	}
+	
 	public ArrayList<Response> getListResponse() {
 		return listResponse;
 	}
@@ -191,15 +197,20 @@ public class Data {
 					}
 
 					else if (object instanceof GroupMessage) {
-
 						GroupMessage gm = (GroupMessage) object;
 						setListGM(gm);
 					}
 
 					else if (object instanceof UserUpdate) {
 						UserUpdate userUpdate = (UserUpdate) object;
-						setListUserUpdate(userUpdate);
-
+						ArrayList<User> list = userUpdate.getUsers();
+						for(int i = 0; i < userUpdate.getUsers().size(); i++) {
+							try {
+								mainMenuController.setOnlineList(list.get(i).getName());
+							} catch (NullPointerException e) {
+								e.printStackTrace();
+							}
+						}
 					}
 
 					else if (object instanceof StartUpdate) {

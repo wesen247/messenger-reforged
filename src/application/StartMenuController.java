@@ -24,6 +24,7 @@ public class StartMenuController implements Initializable {
 	@FXML
 	private ListView<String> listViewOnline;
 	private String name;
+	private ObservableList<String> onlineUsers;
 	public void createGroup() {
 		try {
 			main.showCreateGroup();
@@ -37,7 +38,6 @@ public class StartMenuController implements Initializable {
 		try {
 			main.showLogin();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -46,12 +46,14 @@ public class StartMenuController implements Initializable {
 		
 	}
 	
+	public void setOnlineList(String userUpdate) {
+		this.onlineUsers.add(userUpdate);
+	}
+	
 	public void initialize(URL location, ResourceBundle resource) {
-		ObservableList<String> data = FXCollections.observableArrayList("chocolate", "blue");
-		listViewOnline.setItems(data);
-		
+		ClientController.getClient().addMenuController(this);
+		listViewOnline.setItems(this.onlineUsers);
 		listViewOnline.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-		    @Override
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 		    	name = newValue;
 		    	ClientController.getClient().setReciver(name);
