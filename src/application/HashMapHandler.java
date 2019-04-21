@@ -25,12 +25,12 @@ public class HashMapHandler {
 				ois.close();
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.err.println("Friendlist was not loaded succesfully: " + e);
+				System.err.println("All users was not loaded succesfully: " + e);
 			}
 			return allUsers;
 		}
 		
-		public void saveAllUsers() {
+		public void saveAllUsers(ConcurrentHashMap<String,User> allUsers) {
 			File directory = new File("C:\\Messenger-reforged");
 			if(!directory.exists()) {
 				try {
@@ -47,7 +47,7 @@ public class HashMapHandler {
 				oos.close();
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.err.println("Users was not saved succesfully: " + e);
+				System.err.println("All users was not saved succesfully: " + e);
 			}
 		}
 		
@@ -60,12 +60,12 @@ public class HashMapHandler {
 				ois.close();
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.err.println("Friendlist was not loaded succesfully: " + e);
+				System.err.println("Connected users was not loaded succesfully: " + e);
 			}
 			return connectedUsers;
 		}
 		
-		public void saveConnectedUsers() {
+		public void saveConnectedUsers(ConcurrentHashMap<String,UserClient> connectedUsers) {
 			File directory = new File("C:\\Messenger-reforged");
 			if(!directory.exists()) {
 				try {
@@ -99,7 +99,7 @@ public class HashMapHandler {
 			return passwordHashMap;
 		}
 		
-		public void savePasswordHashMap() {
+		public void savePasswordHashMap(ConcurrentHashMap<String,String> passwordHashMap) {
 			File directory = new File("C:\\Messenger-reforged");
 			if(!directory.exists()) {
 				try {
@@ -111,7 +111,7 @@ public class HashMapHandler {
 			
 			try {
 				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-pw.txt"));
-				oos.writeObject(connectedUsers);
+				oos.writeObject(passwordHashMap);
 				oos.flush();
 				oos.close();
 			} catch (IOException e) {
@@ -121,5 +121,6 @@ public class HashMapHandler {
 		
 		public static void main(String args[]) {
 			HashMapHandler hmh = new HashMapHandler();
+			ConcurrentHashMap<String,String> pw = new ConcurrentHashMap<String,String>();
 		}
 }

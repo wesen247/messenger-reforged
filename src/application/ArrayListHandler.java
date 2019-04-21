@@ -1,15 +1,16 @@
 package application;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ArrayListHandler implements Serializable {
+
+public class ArrayListHandler {
 	private ArrayList<User> friendList = new ArrayList<User>();
 	private ArrayList<Group> groups = new ArrayList<Group>();
 	private ArrayList<GroupMessage> groupMessages = new ArrayList<GroupMessage>();
@@ -19,11 +20,12 @@ public class ArrayListHandler implements Serializable {
 	private ArrayList<User> onlineUsers;
 	private ArrayList<User> allUsers;
 	
+	
 	//Friendlist
 	@SuppressWarnings("unchecked")
 	public ArrayList<User> loadFriendList() {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("reforged-friendlist.txt"));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-friendlist.txt"));
 			friendList = (ArrayList<User>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
@@ -33,7 +35,7 @@ public class ArrayListHandler implements Serializable {
 		return friendList;
 	}
 	
-	public void saveFriendList() {
+	public void saveFriendList(ArrayList<User> friendList) {
 		File directory = new File("C:\\Messenger-reforged");
 		if(!directory.exists()) {
 			try {
@@ -54,6 +56,7 @@ public class ArrayListHandler implements Serializable {
 		}
 	}
 	
+	
 	//Groups
 	@SuppressWarnings("unchecked")
 	public ArrayList<Group> loadGroups() {
@@ -62,7 +65,7 @@ public class ArrayListHandler implements Serializable {
 			groups = (ArrayList<Group>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
-			System.err.println("Grouplist was not loaded succesfully: " + e);
+			System.err.println("Groups was not loaded succesfully: " + e);
 		}
 		return groups;
 	}
@@ -84,9 +87,10 @@ public class ArrayListHandler implements Serializable {
 			oos.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.err.println("Grouplist was not saved succesfully: " + e);
+			System.err.println("Groups was not saved succesfully: " + e);
 		}
 	}
+	
 	
 	//GroupMessages
 	@SuppressWarnings("unchecked")
@@ -96,7 +100,7 @@ public class ArrayListHandler implements Serializable {
 			groupMessages = (ArrayList<GroupMessage>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
-			System.err.println("Grouplist was not loaded succesfully: " + e);
+			System.err.println("Group messages was not loaded succesfully: " + e);
 		}
 		return groupMessages;
 	}
@@ -118,9 +122,10 @@ public class ArrayListHandler implements Serializable {
 			oos.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.err.println("Grouplist was not saved succesfully: " + e);
+			System.err.println("Group messages was not saved succesfully: " + e);
 		}
 	}
+	
 	
 	//Filelog
 	@SuppressWarnings("unchecked")
@@ -135,7 +140,7 @@ public class ArrayListHandler implements Serializable {
 		return fileLog;
 	}
 	
-	public void saveFileLog() {
+	public void saveFileLog(ArrayList<String> fileLog) {
 		File directory = new File("C:\\Messenger-reforged");
 		if(!directory.exists()) {
 			try {
@@ -156,6 +161,7 @@ public class ArrayListHandler implements Serializable {
 		}
 	}
 	
+	
 	//Events
 	@SuppressWarnings("unchecked")
 	public ArrayList<Event> loadEvents() {
@@ -169,7 +175,7 @@ public class ArrayListHandler implements Serializable {
 		return events;
 	}
 	
-	public void saveEvents() {
+	public void saveEvents(ArrayList<Event> events) {
 		File directory = new File("C:\\Messenger-reforged");
 		if(!directory.exists()) {
 			try {
@@ -190,6 +196,7 @@ public class ArrayListHandler implements Serializable {
 		}
 	}
 	
+	
 	//MemberOfGroups
 	@SuppressWarnings("unchecked")
 	public ArrayList<String> loadMemberOfGroups() {
@@ -203,7 +210,7 @@ public class ArrayListHandler implements Serializable {
 		return memberOfGroups;
 	}
 	
-	public void saveMemberOfGroups() {
+	public void saveMemberOfGroups(ArrayList<String> memberOfGroups) {
 		File directory = new File("C:\\Messenger-reforged");
 		if(!directory.exists()) {
 			try {
@@ -224,6 +231,7 @@ public class ArrayListHandler implements Serializable {
 		}
 	}
 	
+	
 	//OnlineUsers
 	@SuppressWarnings("unchecked")
 	public ArrayList<User> loadOnlineUsers() {
@@ -237,7 +245,7 @@ public class ArrayListHandler implements Serializable {
 		return onlineUsers;
 	}
 	
-	public void saveOnlineUsers() {
+	public void saveOnlineUsers(ArrayList<User> onlineUsers) {
 		File directory = new File("C:\\Messenger-reforged");
 		if(!directory.exists()) {
 			try {
@@ -258,6 +266,7 @@ public class ArrayListHandler implements Serializable {
 		}
 	}
 	
+	
 	//AllUsers
 	@SuppressWarnings("unchecked")
 	public ArrayList<User> loadAllUsers() {
@@ -271,7 +280,7 @@ public class ArrayListHandler implements Serializable {
 		return allUsers;
 	}
 	
-	public void saveAllUsers() {
+	public void saveAllUsers(ArrayList<User> allUsers) {
 		File directory = new File("C:\\Messenger-reforged");
 		if(!directory.exists()) {
 			try {
@@ -295,6 +304,13 @@ public class ArrayListHandler implements Serializable {
 	
 	public static void main(String args[]) {
 		ArrayListHandler alh = new ArrayListHandler();
-		alh.saveFriendList();
+		ArrayList<User> fl = new ArrayList<User>();
+		User user = new User("MCGREGOR");
+		fl.add(user);
+		System.out.println(fl.get(0));
+		alh.saveFriendList(fl);
+		System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTT");
+		fl = alh.loadFriendList();
+		System.out.println(fl.get(0));
 	}
 }
