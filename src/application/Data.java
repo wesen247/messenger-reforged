@@ -233,11 +233,7 @@ public class Data {
 				} catch (ClassNotFoundException | IOException e) {
 					e.printStackTrace();
 				}
-
 			}
-
 		}
-
 	}
-
 }

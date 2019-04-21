@@ -22,9 +22,10 @@ public class StartMenuController implements Initializable {
 	private MenuItem btnSettings;
 	private Main main;
 	@FXML
-	private ListView<String> listViewOnline;
+	private ListView<String> listViewOnline = new ListView<String>();
 	private String name;
 	private ObservableList<String> onlineUsers;
+	
 	public void createGroup() {
 		try {
 			main.showCreateGroup();
@@ -47,7 +48,7 @@ public class StartMenuController implements Initializable {
 	}
 	
 	public void setOnlineList(String userUpdate) {
-		this.onlineUsers.add(userUpdate);
+		onlineUsers.add(userUpdate);
 	}
 	
 	public void initialize(URL location, ResourceBundle resource) {
