@@ -33,8 +33,9 @@ public class CreateUserController implements Initializable {
 	private String username;
 	private String password;
 	private BufferedImage image;
-	
+
 	public void initialize(URL location, ResourceBundle resource) {
+		
 	}
 
 	public void btnCreate() {
@@ -45,7 +46,7 @@ public class CreateUserController implements Initializable {
 
 	public void btnCancel() {
 		try {
-			
+
 			main.showLogin();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -54,6 +55,7 @@ public class CreateUserController implements Initializable {
 
 	public void btnUploadImage() {
 		try {
+
 			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 			j.showOpenDialog(new JFrame());
 			this.image = ImageIO.read(j.getSelectedFile());

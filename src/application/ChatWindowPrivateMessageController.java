@@ -3,11 +3,19 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Text;
 
 public class ChatWindowPrivateMessageController implements Initializable {
 	private Main main;
@@ -17,11 +25,16 @@ public class ChatWindowPrivateMessageController implements Initializable {
 	private TextField textFieldMessage;
 	@FXML
 	private TextArea chat;
-
+	@FXML
+	private ImageView userImage;
+	@FXML
+	private Text recieverName;
+	
 	private Worker worker;
 
 	public void send() {
 		ClientController.getClient().createPrivateMessage(textFieldMessage.getText());
+		showMessage(ClientController.getClient().getUser().getName() + ": " + textFieldMessage.getText());
 		textFieldMessage.clear();
 	}
 
@@ -31,10 +44,25 @@ public class ChatWindowPrivateMessageController implements Initializable {
 	}
 
 	public void initialize(URL location, ResourceBundle resource) {
+		for (int i = 0; i < Data.getData().getUser().size(); i++) {
+			if (Data.getData().getUser().get(i).getName().equals(ClientController.getClient().getReceiver())) 
+				recieverName.setText(Data.getData().getUser().get(i).getName());
+				Image image = SwingFXUtils.toFXImage(Data.getData().getUser().get(i).getImage(), null);
+				userImage.setImage(image);
+			}
+		
 		Main.getPMStage().setOnCloseRequest(e -> worker.notifyThread());
 		worker = new Worker();
 		worker.start();
 
+		textFieldMessage.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			public void handle(KeyEvent keyEvent) {
+				if (keyEvent.getCode() == KeyCode.ENTER) {
+					send();
+				}
+			}
+		});
 	}
 
 	private class Worker extends Thread {
@@ -50,6 +78,7 @@ public class ChatWindowPrivateMessageController implements Initializable {
 
 		public void run() {
 			buffer = Data.getData().getMessageBuffer(ClientController.getClient().getReceiver());
+
 			try {
 				while (!stop) {
 
@@ -59,7 +88,7 @@ public class ChatWindowPrivateMessageController implements Initializable {
 				}
 			} catch (Exception e) {
 				System.err.println("Killing old thread");
-				;
+
 			}
 		}
 	}

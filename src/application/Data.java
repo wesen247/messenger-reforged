@@ -26,6 +26,7 @@ public class Data {
 	private StartMenuController mainMenuController;
 	private static Data data;
 	private HashMap<String, Buffer<String>> pmBuffer = new HashMap<String, Buffer<String>>();
+	private ArrayList<User> list;
 	
 	public Data(LoginController loginUI, Socket socket) {
 
@@ -113,7 +114,10 @@ public class Data {
 	public ArrayList<UserUpdate> getListUserUpdate() {
 		return listUserUpdate;
 	}
-
+	public ArrayList<User> getUser(){
+		return list;
+	}
+	
 	public void setListUserUpdate(UserUpdate userUpdate) {
 		listUserUpdate.add(userUpdate);
 	}
@@ -203,15 +207,18 @@ public class Data {
 
 					else if (object instanceof UserUpdate) {
 						UserUpdate userUpdate = (UserUpdate) object;
-						ArrayList<User> list = userUpdate.getUsers();
-						for(int i = 0; i < userUpdate.getUsers().size(); i++) {
-							try {
-								System.out.println(list.get(i).getName());
-								mainMenuController.setOnlineList(list.get(i).getName());
-							} catch (NullPointerException e) {
-								e.printStackTrace();
-							}
+						list = userUpdate.getUsers();
+						
+						
+						
+						try {
+							StartMenuController.getStartMenuController().setOnlineList();
+							
+						} catch(Exception e) {
+							System.out.println("funkar");
 						}
+						
+					
 					}
 
 					else if (object instanceof StartUpdate) {

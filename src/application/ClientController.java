@@ -252,5 +252,7 @@ public class ClientController {
 	public void setReciver(String name) {
 		this.reciver = new User(name);
 	}
-
+	public User getUser() {
+		return user; 
+	}
 }

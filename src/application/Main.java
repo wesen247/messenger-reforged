@@ -15,11 +15,10 @@ public class Main extends Application {
 	private static AnchorPane mainPane;
 
 	public void start(Stage primaryStage) throws Exception {
-	
+
 		this.primaryStage = primaryStage;
 		showLogin();
-		
-		
+
 	}
 
 	public static void showLogin() throws IOException {
@@ -33,11 +32,11 @@ public class Main extends Application {
 		primaryStage.show();
 
 	}
-	
+
 	public static Stage getPMStage() {
 		return privateMessage;
 	}
-	
+
 	public static void showCreateGroup() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -60,7 +59,7 @@ public class Main extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
-	
+
 	public static void showChatWindowPrivateMessage() throws IOException {
 		privateMessage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
