@@ -5,9 +5,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import entity.*;
 
 
-public class GroupHandler {
+public class GroupHandler extends Thread {
 	private ConcurrentHashMap<String,Group> groups;
 	private ServerController controller;
+	private HashMapHandler hashMapHandler;
+
+	public static void main(String args[]) {
+		new ServerController(false, 10);
+	}
 	/**
 	 * Contructor
 	 * @param useBackup True if server should load backup saved locally
@@ -16,12 +21,28 @@ public class GroupHandler {
 	 */
 	public GroupHandler(boolean useBackup, ServerController controller) {
 		this.controller = controller;
+		hashMapHandler = new HashMapHandler();
 		if(!useBackup) {
 			groups = new ConcurrentHashMap<String,Group>();
+			start();
 		}else {
-			//Läsa in backup
+			groups = hashMapHandler.loadGroups();
+			start();
 		}
 	}
+
+	
+	/* Backup-thread.
+	 */
+	public void run() {
+		try {
+			Thread.sleep(60000);
+			hashMapHandler.saveGroups(groups);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Returns the group with the parameter as name
 	 * @param group String groupname to get

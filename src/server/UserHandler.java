@@ -8,13 +8,17 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
+
 import entity.*;
 
-public class UserHandler {
-	ConcurrentHashMap<String,String> passwordHashmap;
-	ConcurrentHashMap<String,UserClient> connectedUsers;
-	ConcurrentHashMap<String,User> allUsers;
-	ServerController controller;
+public class UserHandler extends Thread {
+	private ConcurrentHashMap<String,String> passwordHashmap;
+	private ConcurrentHashMap<String,UserClient> connectedUsers;
+	private ConcurrentHashMap<String,User> allUsers;
+	private ServerController controller;
+	private HashMapHandler hashMapHandler;
+	
+	
 	
 	/**
 	 * Contructor
@@ -24,12 +28,27 @@ public class UserHandler {
 	 */
 	public UserHandler(boolean useBackup, ServerController controller) {
 		this.controller = controller;
+		hashMapHandler = new HashMapHandler();
 		if(!useBackup) {
 			passwordHashmap = new ConcurrentHashMap<String,String>();
 			connectedUsers = new ConcurrentHashMap<String,UserClient>();
 			allUsers = new ConcurrentHashMap<String,User>();
+			start();
 		}else {
-			//här ska en sparad fil på hårddisken läsas som innehåller password hashmap samt allUsers
+			passwordHashmap = hashMapHandler.loadPasswordHashMap();
+			connectedUsers = new ConcurrentHashMap<String,UserClient>();
+			allUsers = hashMapHandler.loadAllUsers();
+			start();
+		}
+	}
+	
+	public void run() {
+		try {
+			Thread.sleep(60000);
+			hashMapHandler.savePasswordHashMap(passwordHashmap);
+			hashMapHandler.saveAllUsers(allUsers);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 	/**

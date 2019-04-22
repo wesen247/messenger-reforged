@@ -1,4 +1,4 @@
-package application;
+package server;
 
 import java.io.File;
 
@@ -9,18 +9,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import application.Event;
+import application.GroupMessage;
+import application.User;
+
 
 public class ArrayListHandler {
 	private ArrayList<User> friendList = new ArrayList<User>();
-	private ArrayList<Group> groups = new ArrayList<Group>();
 	private ArrayList<GroupMessage> groupMessages = new ArrayList<GroupMessage>();
 	private ArrayList<String> fileLog = new ArrayList<String>();
 	private ArrayList<Event> events = new ArrayList<Event>();
 	private ArrayList<String> memberOfGroups;
 	private ArrayList<User> onlineUsers;
 	private ArrayList<User> allUsers;
-	
-	
+
 	//Friendlist
 	@SuppressWarnings("unchecked")
 	public ArrayList<User> loadFriendList() {
@@ -34,17 +36,8 @@ public class ArrayListHandler {
 		}
 		return friendList;
 	}
-	
-	public void saveFriendList(ArrayList<User> friendList) {
-		File directory = new File("C:\\Messenger-reforged");
-		if(!directory.exists()) {
-			try {
-				directory.mkdir();
-			}catch(SecurityException e) {
-				e.printStackTrace();
-			}
-		}
-		
+
+	public void saveFriendList(ArrayList<User> friendList) {		
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-friendlist.txt"));
 			oos.writeObject(friendList);
@@ -56,42 +49,7 @@ public class ArrayListHandler {
 		}
 	}
 	
-	
-	//Groups
-	@SuppressWarnings("unchecked")
-	public ArrayList<Group> loadGroups() {
-		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
-			groups = (ArrayList<Group>) ois.readObject();
-			ois.close();
-		} catch (Exception e) {
-			System.err.println("Groups was not loaded succesfully: " + e);
-		}
-		return groups;
-	}
-	
-	public void saveGroups() {
-		File directory = new File("C:\\Messenger-reforged");
-		if(!directory.exists()) {
-			try {
-				directory.mkdir();
-			}catch(SecurityException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
-			oos.writeObject(friendList);
-			oos.flush();
-			oos.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.err.println("Groups was not saved succesfully: " + e);
-		}
-	}
-	
-	
+
 	//GroupMessages
 	@SuppressWarnings("unchecked")
 	public ArrayList<GroupMessage> loadGroupMessages() {
@@ -104,17 +62,8 @@ public class ArrayListHandler {
 		}
 		return groupMessages;
 	}
-	
-	public void saveGroupMessages() {
-		File directory = new File("C:\\Messenger-reforged");
-		if(!directory.exists()) {
-			try {
-				directory.mkdir();
-			}catch(SecurityException e) {
-				e.printStackTrace();
-			}
-		}
-		
+
+	public void saveGroupMessages(ArrayList<GroupMessage> groupMessages) {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
 			oos.writeObject(groupMessages);
@@ -125,31 +74,22 @@ public class ArrayListHandler {
 			System.err.println("Group messages was not saved succesfully: " + e);
 		}
 	}
-	
-	
+
+
 	//Filelog
 	@SuppressWarnings("unchecked")
 	public ArrayList<String> loadFileLog() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-fileLog.txt"));
-			 fileLog = (ArrayList<String>) ois.readObject();
+			fileLog = (ArrayList<String>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
 			System.err.println("Filelog was not loaded succesfully: " + e);
 		}
 		return fileLog;
 	}
-	
+
 	public void saveFileLog(ArrayList<String> fileLog) {
-		File directory = new File("C:\\Messenger-reforged");
-		if(!directory.exists()) {
-			try {
-				directory.mkdir();
-			}catch(SecurityException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-fileLog.txt"));
 			oos.writeObject(fileLog);
@@ -160,31 +100,22 @@ public class ArrayListHandler {
 			System.err.println("Filelog was not saved succesfully: " + e);
 		}
 	}
-	
-	
+
+
 	//Events
 	@SuppressWarnings("unchecked")
 	public ArrayList<Event> loadEvents() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-events.txt"));
-			 events = (ArrayList<Event>) ois.readObject();
+			events = (ArrayList<Event>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
 			System.err.println("Events was not loaded succesfully: " + e);
 		}
 		return events;
 	}
-	
+
 	public void saveEvents(ArrayList<Event> events) {
-		File directory = new File("C:\\Messenger-reforged");
-		if(!directory.exists()) {
-			try {
-				directory.mkdir();
-			}catch(SecurityException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-events.txt"));
 			oos.writeObject(events);
@@ -195,31 +126,22 @@ public class ArrayListHandler {
 			System.err.println("Events was not saved succesfully: " + e);
 		}
 	}
-	
-	
+
+
 	//MemberOfGroups
 	@SuppressWarnings("unchecked")
 	public ArrayList<String> loadMemberOfGroups() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-memberOfGroups.txt"));
-			 memberOfGroups = (ArrayList<String>) ois.readObject();
+			memberOfGroups = (ArrayList<String>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
 			System.err.println("Member of groups was not loaded succesfully: " + e);
 		}
 		return memberOfGroups;
 	}
-	
+
 	public void saveMemberOfGroups(ArrayList<String> memberOfGroups) {
-		File directory = new File("C:\\Messenger-reforged");
-		if(!directory.exists()) {
-			try {
-				directory.mkdir();
-			}catch(SecurityException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-memberOfGroups.txt"));
 			oos.writeObject(memberOfGroups);
@@ -230,31 +152,22 @@ public class ArrayListHandler {
 			System.err.println("Member of groups was not saved succesfully: " + e);
 		}
 	}
-	
-	
+
+
 	//OnlineUsers
 	@SuppressWarnings("unchecked")
 	public ArrayList<User> loadOnlineUsers() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-onlineUsers.txt"));
-			 onlineUsers = (ArrayList<User>) ois.readObject();
+			onlineUsers = (ArrayList<User>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
 			System.err.println("Online users was not loaded succesfully: " + e);
 		}
 		return onlineUsers;
 	}
-	
+
 	public void saveOnlineUsers(ArrayList<User> onlineUsers) {
-		File directory = new File("C:\\Messenger-reforged");
-		if(!directory.exists()) {
-			try {
-				directory.mkdir();
-			}catch(SecurityException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-onlineUsers.txt"));
 			oos.writeObject(onlineUsers);
@@ -265,31 +178,22 @@ public class ArrayListHandler {
 			System.err.println("Online users was not saved succesfully: " + e);
 		}
 	}
-	
-	
+
+
 	//AllUsers
 	@SuppressWarnings("unchecked")
 	public ArrayList<User> loadAllUsers() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-allUsers.txt"));
-			 allUsers = (ArrayList<User>) ois.readObject();
+			allUsers = (ArrayList<User>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
 			System.err.println("All users was not loaded succesfully: " + e);
 		}
 		return allUsers;
 	}
-	
+
 	public void saveAllUsers(ArrayList<User> allUsers) {
-		File directory = new File("C:\\Messenger-reforged");
-		if(!directory.exists()) {
-			try {
-				directory.mkdir();
-			}catch(SecurityException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-allUsers.txt"));
 			oos.writeObject(allUsers);
@@ -300,8 +204,8 @@ public class ArrayListHandler {
 			System.err.println("All users was not saved succesfully: " + e);
 		}
 	}
-	
-	
+
+
 	public static void main(String args[]) {
 		ArrayListHandler alh = new ArrayListHandler();
 		ArrayList<User> fl = new ArrayList<User>();

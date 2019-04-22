@@ -2,6 +2,7 @@ package server;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -21,6 +22,14 @@ public class ServerController {
 	 * @author André
 	 */
 	public ServerController(boolean useBackup, int maximumUsers) {
+		File directory = new File("C:\\Messenger-reforged\\Downloads");
+		if(!directory.exists()) {
+			try {
+				directory.mkdir();
+			}catch(SecurityException e) {
+				e.printStackTrace();
+			}
+		}
 		userHandler = new UserHandler(useBackup,this);
 		groupHandler = new GroupHandler(useBackup, this);
 		taskBuffer = new Buffer<Runnable>();
