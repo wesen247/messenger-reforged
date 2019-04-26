@@ -15,7 +15,8 @@ public class HashMapHandler {
 		//private ConcurrentHashMap<String,UserClient> connectedUsers = new ConcurrentHashMap<String,UserClient>();
 		private ConcurrentHashMap<String,String> passwordHashMap = new ConcurrentHashMap<String,String>();
 		private ConcurrentHashMap<String,User> allUsers = new ConcurrentHashMap<String,User>();
-		private ConcurrentHashMap<String,Group> groups;
+		private ConcurrentHashMap<String,Group> groups = new ConcurrentHashMap<String,Group>();
+		private ConcurrentHashMap<String,byte[]> files = new ConcurrentHashMap<String,byte[]>();
 		
 		public void hashMapHandler() {
 				 Thread thread = new Thread(new Runnable() {
@@ -110,6 +111,31 @@ public class HashMapHandler {
 				System.err.println("Groups was not saved succesfully: " + e);
 			}
 		}
+		
+		@SuppressWarnings("unchecked")
+		public ConcurrentHashMap<String,byte[]> loadFiles() {
+			try {
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-files.txt"));
+				files = (ConcurrentHashMap<String,byte[]>) ois.readObject();
+				ois.close();
+			} catch (Exception e) {
+				System.err.println("Files was not loaded succesfully: " + e);
+			}
+			return files;
+		}
+
+		public void saveFiles(ConcurrentHashMap<String,byte[]> files) {
+			try {
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-files.txt"));
+				oos.writeObject(files);
+				oos.flush();
+				oos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.err.println("Files was not saved succesfully: " + e);
+			}
+		}
+		
 		
 		public static void main(String args[]) {
 			HashMapHandler hmh = new HashMapHandler();
