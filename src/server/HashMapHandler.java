@@ -12,12 +12,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import entity.*;
 
 public class HashMapHandler {
-		private ConcurrentHashMap<String,UserClient> connectedUsers = new ConcurrentHashMap<String,UserClient>();
+		//private ConcurrentHashMap<String,UserClient> connectedUsers = new ConcurrentHashMap<String,UserClient>();
 		private ConcurrentHashMap<String,String> passwordHashMap = new ConcurrentHashMap<String,String>();
 		private ConcurrentHashMap<String,User> allUsers = new ConcurrentHashMap<String,User>();
 		private ConcurrentHashMap<String,Group> groups;
 		
-		public void HashMapHandler() {
+		public void hashMapHandler() {
 				 Thread thread = new Thread(new Runnable() {
 		             public void run() {
 		            	saveAllUsers(allUsers);
@@ -113,5 +113,6 @@ public class HashMapHandler {
 		
 		public static void main(String args[]) {
 			HashMapHandler hmh = new HashMapHandler();
+			hmh.hashMapHandler();
 		}
 }
