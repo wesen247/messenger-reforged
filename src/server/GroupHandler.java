@@ -9,6 +9,7 @@ public class GroupHandler extends Thread {
 	private ConcurrentHashMap<String,Group> groups;
 	private ServerController controller;
 	private HashMapHandler hashMapHandler;
+	private ConcurrentHashMap<String,byte[]> files;
 
 	public static void main(String args[]) {
 		new ServerController(false, 10);
@@ -24,9 +25,11 @@ public class GroupHandler extends Thread {
 		hashMapHandler = new HashMapHandler();
 		if(!useBackup) {
 			groups = new ConcurrentHashMap<String,Group>();
+			files = new ConcurrentHashMap<String, byte[]>();
 			start();
 		}else {
 			groups = hashMapHandler.loadGroups();
+			files = hashMapHandler.loadFiles();
 			start();
 		}
 	}
@@ -38,6 +41,7 @@ public class GroupHandler extends Thread {
 		try {
 			Thread.sleep(60000);
 			hashMapHandler.saveGroups(groups);
+			hashMapHandler.saveFiles(files);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -113,5 +117,24 @@ public class GroupHandler extends Thread {
 		for(int i = 0; i<group.getGroupMembers().size();i++) {
 			controller.send(group.getGroupMembers().get(i), message);
 		}
+	}
+	/**
+	 * Adds a file from a user to a group 
+	 * @param groupname Name of the group
+	 * @param filename Name of the file
+	 * @param file The file
+	 */
+	public void addFile(String groupname, String filename, byte[] file) {
+		groups.get(groupname).getFileLog().add(filename);
+		files.put(filename, file);
+		this.groupUpdate(groups.get(groupname));
+	}
+	/**
+	 * Sends file to a user
+	 * @param request Filename
+	 * @param user The user the file is sent to
+	 */
+	public void sendFile(String request, User user) {
+		controller.send(user, new Response("file",files.get(request)));
 	}
 }

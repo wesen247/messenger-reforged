@@ -33,14 +33,14 @@ public class ServerController {
 		userHandler = new UserHandler(useBackup,this);
 		groupHandler = new GroupHandler(useBackup, this);
 		taskBuffer = new Buffer<Runnable>();
-		
+
 		for(int i = 0;i<5+maximumUsers*2;i++) {
 			new Worker().start();;
 			System.out.println("New worker started "+i);
 		}
 		addTask(connect = new IncommningConnections());
 	}
-	
+
 	/**
 	 * Returns a group with the same name as the parameter group
 	 * @param group The name of the group
@@ -60,7 +60,7 @@ public class ServerController {
 		System.out.println("Task added to buffer");
 		taskBuffer.put(task);
 	}
-	
+
 	/**
 	 * Kills the server
 	 * @author André
@@ -78,19 +78,21 @@ public class ServerController {
 		if(incomming instanceof AddObjectRequest) {
 			AddObjectRequest request = (AddObjectRequest) incomming;
 			String[] splitType = request.getType().split(":");
+			
 			if(splitType[0].equals("file")) {
-				//Måste ta reda på hur skicka filer ska ske
-
+				groupHandler.addFile(splitType[1], splitType[2], (byte[])((AddObjectRequest) incomming).getObjectToAdd());
 			}
 			else if(splitType[0].equals( "addGroupMember")) {
 				groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
 				userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1]);
+
 			}
 			else if(splitType[0].equals("event")) {
 				Event event = (Event) request.getObjectToAdd();
 				groupHandler.addEvent(event.getGroup().getGroupName(), event);
 			}
 		}
+
 		else if(incomming instanceof Group) {
 			groupHandler.addGroup((Group) incomming);
 		}
@@ -102,7 +104,7 @@ public class ServerController {
 			send(message.getReceiver(),message);
 		}
 		else if(incomming instanceof ObjectRequest) {
-			//Här skickas filen 
+			groupHandler.sendFile(((ObjectRequest)incomming).getRequest(), ((ObjectRequest)incomming).getUser());
 		}
 	}
 	/**
@@ -164,7 +166,7 @@ public class ServerController {
 			}
 		}
 	}
-	
+
 	/**
 	 * Listens for LoginRequest or CreateUserRequest from user.
 	 * @author andre
