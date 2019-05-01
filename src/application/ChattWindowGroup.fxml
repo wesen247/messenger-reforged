@@ -30,7 +30,7 @@
                   </RadialGradient>
                </fill>
             </Rectangle>
-            <Text fill="WHITE" layoutX="27.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="214.13672256469727">
+            <Text fx:id="textGroupName" fill="WHITE" layoutX="27.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="214.13672256469727">
                <font>
                   <Font size="20.0" />
                </font>

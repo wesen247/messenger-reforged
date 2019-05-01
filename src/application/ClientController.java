@@ -32,6 +32,7 @@ public class ClientController {
 	private static ClientController controller;
 	private StartMenuController menuController;
 	private Group group;
+	private BufferedImage image;
 
 	/**
 	 * Starts the connection with the server
@@ -111,7 +112,7 @@ public class ClientController {
 			oos.writeObject(new CreateUserRequest(name, password, image));
 			this.user = new User(name);
 			oos.flush();
-
+			setImage(image);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -269,5 +270,13 @@ public class ClientController {
 
 	public User getUser() {
 		return user;
+	}
+
+	public void setImage(BufferedImage image) {
+		this.image = image;
+	}
+
+	public BufferedImage getImage() {
+		return this.image;
 	}
 }

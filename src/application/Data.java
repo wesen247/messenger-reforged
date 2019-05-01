@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,7 +28,8 @@ public class Data {
 	private static Data data;
 
 	private HashMap<String, Buffer<String>> pmBuffer = new HashMap<String, Buffer<String>>();
-	private static HashMap<String, ArrayList<GroupMessage>> groupMessageArrayList = new HashMap<String, ArrayList<GroupMessage>>();
+	private static HashMap<String, ArrayList<GroupMessage>> groupMessageHashMap = new HashMap<String, ArrayList<GroupMessage>>();
+	private static HashMap<String, Group> hashMapGroups = new HashMap<String, Group>();
 
 	private ArrayList<User> list;
 	private HashMap<String, ChatWindowGroupMessageController> arrayListController = new HashMap<String, ChatWindowGroupMessageController>();
@@ -155,7 +157,11 @@ public class Data {
 	}
 
 	public static HashMap<String, ArrayList<GroupMessage>> getGroupMessage() {
-		return groupMessageArrayList;
+		return groupMessageHashMap;
+	}
+
+	public static HashMap<String, Group> getGroups() {
+		return hashMapGroups;
 	}
 
 	public void addGroupListener(ChatWindowGroupMessageController controller) {
@@ -197,7 +203,9 @@ public class Data {
 
 						Group group = (Group) object;
 						setListGroup(group);
-						groupMessageArrayList.put(group.getGroupName(), group.getGroupMessages());
+						groupMessageHashMap.put(group.getGroupName(), group.getGroupMessages());
+						hashMapGroups.put(group.getGroupName(), group);
+					
 					}
 
 					else if (object instanceof PrivateMessage) {
@@ -215,17 +223,24 @@ public class Data {
 					else if (object instanceof GroupMessage) {
 						GroupMessage gm = (GroupMessage) object;
 
-						if (groupMessageArrayList.containsKey(gm.getReceiver().getGroupName())) {
-							groupMessageArrayList.get(gm.getReceiver().getGroupName()).add(gm);
+						if (groupMessageHashMap.containsKey(gm.getReceiver().getGroupName())) {
+							groupMessageHashMap.get(gm.getReceiver().getGroupName()).add(gm);
 
 						} else {
-							groupMessageArrayList.put(gm.getReceiver().getGroupName(), new ArrayList<GroupMessage>());
-							groupMessageArrayList.get(gm.getReceiver().getGroupName()).add(gm);
+							groupMessageHashMap.put(gm.getReceiver().getGroupName(), new ArrayList<GroupMessage>());
+							groupMessageHashMap.get(gm.getReceiver().getGroupName()).add(gm);
 						}
 						System.out.println(gm.getReceiver().getGroupName());
+
 						
-						arrayListController.get(gm.getReceiver().getGroupName()).update();
-						
+						Platform.runLater(new Runnable() {
+
+							public void run() {
+								arrayListController.get(gm.getReceiver().getGroupName()).update();
+
+							}
+						});
+
 					}
 
 					else if (object instanceof UserUpdate) {
@@ -242,7 +257,7 @@ public class Data {
 					}
 
 					else if (object instanceof StartUpdate) {
-
+						
 						StartUpdate startUpdate = (StartUpdate) object;
 						list = startUpdate.getOnlineUsers();
 
@@ -252,8 +267,9 @@ public class Data {
 
 						for (int i = 0; i < startUpdate.getGroups().size(); i++) {
 
-							groupMessageArrayList.put(startUpdate.getGroups().get(i).getGroupName(),
+							groupMessageHashMap.put(startUpdate.getGroups().get(i).getGroupName(),
 									startUpdate.getGroups().get(i).getGroupMessages());
+							hashMapGroups.put(startUpdate.getGroups().get(i).getGroupName(), startUpdate.getGroups().get(i));
 						}
 
 						Platform.runLater(new Runnable() {
@@ -272,7 +288,7 @@ public class Data {
 
 					}
 				} catch (ClassNotFoundException | IOException e) {
-					e.printStackTrace();
+					System.err.println("Disconnected");
 				}
 			}
 		}
