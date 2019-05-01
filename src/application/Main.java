@@ -56,7 +56,7 @@ public class Main extends Application {
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
-		primaryStage.setResizable(false);
+		primaryStage.setResizable(false); 	
 		primaryStage.show();
 	}
 

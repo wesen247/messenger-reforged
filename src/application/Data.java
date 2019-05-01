@@ -118,6 +118,9 @@ public class Data {
 		return list;
 	}
 	
+	public ArrayList<Group> getGroup(){
+		return listGroup;
+	}
 	public void setListUserUpdate(UserUpdate userUpdate) {
 		listUserUpdate.add(userUpdate);
 	}
@@ -186,6 +189,7 @@ public class Data {
 
 						Group group = (Group) object;
 						setListGroup(group);
+						
 					}
 
 					else if (object instanceof PrivateMessage) {
