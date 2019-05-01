@@ -97,6 +97,29 @@ public class UserHandler extends Thread {
 		}
 		return false;
 	} 	
+	//Nytt
+	public boolean removeUser(User user, String password) {
+		if(password.equals(passwordHashmap.get(user.getName()))) {
+			for(int i = 0; allUsers.get(user.getName()).getGroups().size() >0;i++) {
+				ArrayList<User> members = controller.getGroup(allUsers.get(user.getName()).getGroups().get(i)).getGroupMembers();
+				
+				for(int l = 0; members.size()>0 ; i++) {
+					if (members.get(i).getName().equals(user.getName())) {
+						System.out.println("Removed from group");
+						members.remove(i);
+						break;
+					}
+				}
+			}
+			
+			passwordHashmap.remove(user.getName());
+			allUsers.remove(user.getName());
+			System.out.println("User removed");
+			return true;
+		}
+		System.out.println("User remove failed");
+		return false;
+	}
 	/**
 	 * Creates a startupdate that is sent to user
 	 * @param name Name of user it is created for

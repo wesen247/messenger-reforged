@@ -91,6 +91,9 @@ public class ServerController {
 				Event event = (Event) request.getObjectToAdd();
 				groupHandler.addEvent(event.getGroup().getGroupName(), event);
 			}
+			else if(splitType[0].equals("delUser")) {
+				userHandler.removeUser(request.getUser(), (String) request.getObjectToAdd());
+			}
 		}
 
 		else if(incomming instanceof Group) {

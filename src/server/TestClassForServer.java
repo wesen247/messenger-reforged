@@ -49,7 +49,7 @@ public class TestClassForServer {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		//		controller = new ServerController(false, 20);//startar server
+			//	controller = new ServerController(false, 20);//startar server
 		//		new AddEventInGroup();
 		//		controller.kill();
 		//		
@@ -57,31 +57,31 @@ public class TestClassForServer {
 		//		new TestConnection();
 		//		controller.kill();
 		//		
-		//controller = new ServerController(false, 20);
+	//	controller = new ServerController(false, 20);
 		//	new TestLogin();
-		//		controller.kill();
+	//			controller.kill();
 
 //		controller = new ServerController(false, 20);
 //		new LoginMany();
 //		controller.kill();
 		////		
-		////		controller = new ServerController(false, 20);
-		//		new SendPm();
-		//		controller.kill();
+		//		controller = new ServerController(false, 20);
+	//			new SendPm();
+//			controller.kill();
 		//		
 		//		controller = new ServerController(false, 20);
 		//		new AddGroupMemberRequest();
 		//		controller.kill();
 //		//		
-//				controller = new ServerController(false, 20);
-//				new SendGroupMessage();
-//				controller.kill();
-//		//		
 		//		controller = new ServerController(false, 20);
-		//		new CreateGroup();
-				
+		//		new SendGroupMessage();
+	//		controller.kill();
+//		//		
 				controller = new ServerController(false, 20);
-				new SendFileInGroup();
+				new CreateGroup();
+				
+		//		controller = new ServerController(false, 20);
+		//		new SendFileInGroup();
 			//	controller.kill();
 		
 	}
@@ -268,11 +268,11 @@ public class TestClassForServer {
 				System.out.println("Read klart");
 
 				//skickar PrivateMessage
-				oos1.writeObject(new PrivateMessage("hejh ej", new User("2"), new User("1")));
+				oos1.writeObject(new PrivateMessage("Meddelande test", new User("2"), new User("1")));
 				oos1.flush();
 				PrivateMessage message = (PrivateMessage) ois.readObject();
 				//Skriver ut meddelande
-				System.out.println(message.getMessage());
+				System.err.println(message.getMessage());
 
 			}catch(Exception e) {
 
@@ -439,7 +439,7 @@ public class TestClassForServer {
 				//lägger till medlem i gruppen och skickar ett gruppmeddelande 
 				oos.writeObject(new AddObjectRequest("addGroupMember:grupp1",new User("2"),new User("1")));
 				oos.flush();
-				oos.writeObject(new GroupMessage("hejhej",new User("1"), g));
+				oos.writeObject(new GroupMessage("Meddelande motaget",new User("1"), g));
 				oos.writeObject(new GroupMessage("hejhej",new User("1"), g));
 				oos.writeObject(new GroupMessage("hejhej",new User("1"), g));
 				oos.flush();
@@ -448,7 +448,7 @@ public class TestClassForServer {
 
 				System.out.println(ois1.readObject());
 				GroupMessage message = (GroupMessage)ois.readObject();
-				System.out.println(message.getMessage());
+				System.err.println(message.getMessage());
 				
 				
 				

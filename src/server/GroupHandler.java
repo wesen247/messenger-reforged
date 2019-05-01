@@ -137,4 +137,5 @@ public class GroupHandler extends Thread {
 	public void sendFile(String request, User user) {
 		controller.send(user, new Response("file",files.get(request)));
 	}
+
 }
