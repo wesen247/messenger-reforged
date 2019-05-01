@@ -94,7 +94,6 @@ public class StartMenuController implements Initializable {
 								.equals(ClientController.getClient().getUser().getName())) {
 							onlineUsers.add(Data.getData().getUser().get(i).getName());
 						}
-
 					} catch (NullPointerException e) {
 						e.printStackTrace();
 					}
@@ -110,16 +109,12 @@ public class StartMenuController implements Initializable {
 			public void run() {
 				groupList.clear();
 				for (int i = 0; i < Data.getData().getGroup().size(); i++) {
-					
 					try {
 						groupList.add(Data.getData().getGroup().get(i).getGroupName());
 					} catch (Exception e) {
-						
 						e.printStackTrace();
 					}
-				
 				}
-
 			}
 		});
 
