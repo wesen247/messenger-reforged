@@ -68,7 +68,7 @@
          <children>
             <ScrollPane prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
                <content>
-                  <ListView prefHeight="200.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
+                  <ListView fx:id="listViewGroups" prefHeight="200.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
                </content>
             </ScrollPane>
          </children>

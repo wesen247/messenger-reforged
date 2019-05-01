@@ -26,8 +26,13 @@ public class StartMenuController implements Initializable {
 	private Main main;
 	@FXML
 	private ListView<String> listViewOnline = new ListView<String>();
+	@FXML
+	private ListView<String> listViewGroups = new ListView<String>();
+
 	private String name;
 	private ObservableList<String> onlineUsers = FXCollections.observableArrayList();
+	private ObservableList<String> groupList = FXCollections.observableArrayList();
+
 	private Data data;
 	public static StartMenuController startmenu;
 
@@ -35,8 +40,6 @@ public class StartMenuController implements Initializable {
 
 		return startmenu;
 	}
-
-
 
 	public void createGroup() {
 		try {
@@ -56,16 +59,18 @@ public class StartMenuController implements Initializable {
 	}
 
 	public void settings() {
-		//main.showSettings();
+		// main.showSettings();
 	}
 
 	public void initialize(URL location, ResourceBundle resource) {
 		setOnlineList();
+		setGroupList();
 		startmenu = this;
-			
 		this.data = Data.getData();
 		data.addMenuController(this);
 		listViewOnline.setItems(this.onlineUsers);
+		listViewGroups.setItems(this.groupList);
+
 		listViewOnline.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				name = newValue;
@@ -85,10 +90,10 @@ public class StartMenuController implements Initializable {
 				onlineUsers.clear();
 				for (int i = 0; i < Data.getData().getUser().size(); i++) {
 					try {
-						if(!Data.getData().getUser().get(i).getName().equals(ClientController.getClient().getUser().getName())){
+						if (!Data.getData().getUser().get(i).getName()
+								.equals(ClientController.getClient().getUser().getName())) {
 							onlineUsers.add(Data.getData().getUser().get(i).getName());
 						}
-						
 					} catch (NullPointerException e) {
 						e.printStackTrace();
 					}
@@ -99,5 +104,20 @@ public class StartMenuController implements Initializable {
 
 	}
 
+	public void setGroupList() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				groupList.clear();
+				for (int i = 0; i < Data.getData().getGroup().size(); i++) {
+					try {
+						groupList.add(Data.getData().getGroup().get(i).getGroupName());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+
+	}
 
 }
