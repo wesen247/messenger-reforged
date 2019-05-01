@@ -108,11 +108,10 @@ public class ClientController {
 	 */
 	public void createNewUser(String name, String password, BufferedImage image) {
 		try {
-
 			oos.writeObject(new CreateUserRequest(name, password, image));
 			this.user = new User(name);
 			oos.flush();
-			setImage(image);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -272,11 +271,5 @@ public class ClientController {
 		return user;
 	}
 
-	public void setImage(BufferedImage image) {
-		this.image = image;
-	}
-
-	public BufferedImage getImage() {
-		return this.image;
-	}
+	
 }
