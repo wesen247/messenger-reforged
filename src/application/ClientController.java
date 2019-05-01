@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import entity.*;
 
 /**
@@ -29,6 +31,7 @@ public class ClientController {
 	private User reciver;
 	private static ClientController controller;
 	private StartMenuController menuController;
+	private Group group;
 
 	/**
 	 * Starts the connection with the server
@@ -81,16 +84,19 @@ public class ClientController {
 	 */
 	public void createNewGroup(String groupName) {
 		ArrayList<User> users = new ArrayList<User>();
-		users.add(user);
+
 		ArrayList<GroupMessage> messages = new ArrayList<GroupMessage>();
 		ArrayList<String> fileLog = new ArrayList<String>();
 		ArrayList<Event> eventObjects = new ArrayList<Event>();
 		try {
 			oos.writeObject(new Group(users, messages, fileLog, eventObjects, groupName));
 			oos.flush();
+			oos.writeObject(new AddObjectRequest("addGroupMember:" + groupName, user, user));
+			oos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -117,7 +123,7 @@ public class ClientController {
 	 * @param message
 	 * @param group
 	 */
-	public void createGroupMessage(String message, Group group) {
+	public void createGroupMessage(String message) {
 		try {
 			oos.writeObject(new GroupMessage(message, user, group));
 			oos.flush();
@@ -252,7 +258,16 @@ public class ClientController {
 	public void setReciver(String name) {
 		this.reciver = new User(name);
 	}
+
+	public void setGroup(String name) {
+		this.group = new Group(name);
+	}
+
+	public Group getGroup() {
+		return this.group;
+	}
+
 	public User getUser() {
-		return user; 
+		return user;
 	}
 }

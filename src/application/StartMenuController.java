@@ -13,8 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
 
 public class StartMenuController implements Initializable {
 	@FXML
@@ -63,6 +61,7 @@ public class StartMenuController implements Initializable {
 	}
 
 	public void initialize(URL location, ResourceBundle resource) {
+
 		setOnlineList();
 		setGroupList();
 		startmenu = this;
@@ -82,6 +81,19 @@ public class StartMenuController implements Initializable {
 				}
 			}
 		});
+
+		listViewGroups.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				name = newValue;
+				ClientController.getClient().setGroup(name);
+				try {
+					main.showGroupChatWindow();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
 	}
 
 	public void setOnlineList() {

@@ -19,15 +19,19 @@ public class Data {
 	private ArrayList<ObjectRequest> listObjectRequest = new ArrayList<ObjectRequest>();
 	private ArrayList<Group> listGroup = new ArrayList<Group>();
 	private ArrayList<PrivateMessage> listPM = new ArrayList<PrivateMessage>();
-	private ArrayList<GroupMessage> listGM = new ArrayList<GroupMessage>();
+
 	private ArrayList<UserUpdate> listUserUpdate = new ArrayList<UserUpdate>();
 	private boolean alive = false;
 	private CreateUserController userController;
 	private StartMenuController mainMenuController;
 	private static Data data;
+
 	private HashMap<String, Buffer<String>> pmBuffer = new HashMap<String, Buffer<String>>();
+	private static HashMap<String, ArrayList<GroupMessage>> groupMessageArrayList = new HashMap<String, ArrayList<GroupMessage>>();
+
 	private ArrayList<User> list;
-	
+	private HashMap<String, ChatWindowGroupMessageController> arrayListController = new HashMap<String, ChatWindowGroupMessageController>();
+
 	public Data(LoginController loginUI, Socket socket) {
 
 		this.loginUI = loginUI;
@@ -62,15 +66,15 @@ public class Data {
 		new ServerListener().start();
 		this.data = this;
 	}
-	
+
 	public void addMenuController(StartMenuController menuController) {
 		this.mainMenuController = menuController;
 	}
-	
+
 	public static Data getData() {
 		return data;
 	}
-	
+
 	public ArrayList<Response> getListResponse() {
 		return listResponse;
 	}
@@ -103,24 +107,18 @@ public class Data {
 		listPM.add(pm);
 	}
 
-	public ArrayList<GroupMessage> getListGM() {
-		return listGM;
-	}
-
-	public void setListGM(GroupMessage gm) {
-		listGM.add(gm);
-	}
-
 	public ArrayList<UserUpdate> getListUserUpdate() {
 		return listUserUpdate;
 	}
-	public ArrayList<User> getUser(){
+
+	public ArrayList<User> getUser() {
 		return list;
 	}
-	
-	public ArrayList<Group> getGroup(){
+
+	public ArrayList<Group> getGroup() {
 		return listGroup;
 	}
+
 	public void setListUserUpdate(UserUpdate userUpdate) {
 		listUserUpdate.add(userUpdate);
 	}
@@ -145,15 +143,25 @@ public class Data {
 			e.printStackTrace();
 		}
 	}
-	
-	public Buffer<String> getMessageBuffer(String name){
-		if(pmBuffer.containsKey(name)) {
+
+	public Buffer<String> getMessageBuffer(String name) {
+		if (pmBuffer.containsKey(name)) {
 			return pmBuffer.get(name);
-			
-		}else {
+
+		} else {
 			pmBuffer.put(name, new Buffer<String>());
 			return pmBuffer.get(name);
 		}
+	}
+
+	public static HashMap<String, ArrayList<GroupMessage>> getGroupMessage() {
+		return groupMessageArrayList;
+	}
+
+	public void addGroupListener(ChatWindowGroupMessageController controller) {
+
+		arrayListController.put(ClientController.getClient().getGroup().getGroupName(), controller);
+
 	}
 
 	private class ServerListener extends Thread {
@@ -189,51 +197,72 @@ public class Data {
 
 						Group group = (Group) object;
 						setListGroup(group);
-						
+						groupMessageArrayList.put(group.getGroupName(), group.getGroupMessages());
 					}
 
 					else if (object instanceof PrivateMessage) {
 
 						PrivateMessage pm = (PrivateMessage) object;
-						if(pmBuffer.containsKey(pm.getSender().getName())) {
-							pmBuffer.get(pm.getSender().getName()).put(pm.getSender()+": "+pm.getMessage());
-							
-						}else {
+						if (pmBuffer.containsKey(pm.getSender().getName())) {
+							pmBuffer.get(pm.getSender().getName()).put(pm.getSender() + ": " + pm.getMessage());
+
+						} else {
 							pmBuffer.put(pm.getSender().getName(), new Buffer<String>());
-							pmBuffer.get(pm.getSender().getName()).put(pm.getSender()+": "+pm.getMessage());
+							pmBuffer.get(pm.getSender().getName()).put(pm.getSender() + ": " + pm.getMessage());
 						}
 					}
 
 					else if (object instanceof GroupMessage) {
 						GroupMessage gm = (GroupMessage) object;
-						setListGM(gm);
+
+						if (groupMessageArrayList.containsKey(gm.getReceiver().getGroupName())) {
+							groupMessageArrayList.get(gm.getReceiver().getGroupName()).add(gm);
+
+						} else {
+							groupMessageArrayList.put(gm.getReceiver().getGroupName(), new ArrayList<GroupMessage>());
+							groupMessageArrayList.get(gm.getReceiver().getGroupName()).add(gm);
+						}
+						System.out.println(gm.getReceiver().getGroupName());
+						
+						arrayListController.get(gm.getReceiver().getGroupName()).update();
+						
 					}
 
 					else if (object instanceof UserUpdate) {
 						UserUpdate userUpdate = (UserUpdate) object;
 						list = userUpdate.getUsers();
-						
-						
-						
+
 						try {
 							StartMenuController.getStartMenuController().setOnlineList();
-							
-						} catch(Exception e) {
-							System.out.println("funkar");
+
+						} catch (Exception e) {
+							System.err.println(e);
 						}
-						
-					
+
 					}
 
 					else if (object instanceof StartUpdate) {
 
 						StartUpdate startUpdate = (StartUpdate) object;
+						list = startUpdate.getOnlineUsers();
+
+						System.out.println(startUpdate.getGroups().size());
+
+						listGroup = startUpdate.getGroups();
+
+						for (int i = 0; i < startUpdate.getGroups().size(); i++) {
+
+							groupMessageArrayList.put(startUpdate.getGroups().get(i).getGroupName(),
+									startUpdate.getGroups().get(i).getGroupMessages());
+						}
+
 						Platform.runLater(new Runnable() {
 
 							public void run() {
-
 								try {
+
 									main.showMainMenu();
+
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
