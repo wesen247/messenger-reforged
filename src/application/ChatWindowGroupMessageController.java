@@ -62,7 +62,7 @@ public class ChatWindowGroupMessageController implements Initializable {
 
 		System.out.println("tja");
 			try {
-				Main.showCalendar();
+				Main.showCreateEvent();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
