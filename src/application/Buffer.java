@@ -1,35 +1,32 @@
-package server;
+package application;
 
 import java.util.LinkedList;
 
 public class Buffer<T> {
 	private LinkedList<T> buffer = new LinkedList<T>();
+	private Boolean stop = false;
 	
-	/**
-	 * Puts object in buffer
-	 * @param obj Object to be put
-	 */
 	public synchronized void put(T obj) {
 		buffer.addLast(obj);
 		notifyAll();
 	}
 	
-	/**
-	 * Returns next object in buffer
-	 * @return  next Object
-	 * @throws InterruptedException
-	 */
+	public void stopThis() {
+		stop = true;
+		synchronized(this) {
+		notifyAll();
+		
+		}
+	}
+	
 	public synchronized T get() throws InterruptedException {
-		while(buffer.isEmpty()) {
+		while(buffer.isEmpty()&&!stop) {
 			wait();
 		}
+		stop = false;
 		return buffer.removeFirst();
 	}
 	
-	/**
-	 * Returns size of buffer
-	 * @return Size of buffer
-	 */
 	public int size() {
 		return buffer.size();
 	}

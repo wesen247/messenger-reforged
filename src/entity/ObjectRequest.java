@@ -1,13 +1,19 @@
 package entity;
 
+import java.io.Serializable;
+
 /**
  * This class represents a object-request that can be sent to the server.
  * 
  * @author Amir,André,Ruben
  *
  */
-public class ObjectRequest {
+public class ObjectRequest implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4565151383584860847L;
 	private User user;
 	private String type;
 	private String request;

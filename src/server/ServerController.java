@@ -15,6 +15,7 @@ public class ServerController {
 	private GroupHandler groupHandler;
 	private Buffer<Runnable> taskBuffer;
 	private IncommningConnections connect;
+	
 	/**
 	 * Constructor
 	 * @param useBackup If true it will load a backup stored locally
@@ -33,14 +34,14 @@ public class ServerController {
 		userHandler = new UserHandler(useBackup,this);
 		groupHandler = new GroupHandler(useBackup, this);
 		taskBuffer = new Buffer<Runnable>();
-		
-		for(int i = 0;i<5+maximumUsers*2;i++) {
-			new Worker().start();;
-			System.out.println("New worker started "+i);
+
+		for(int i = 0; i < 5 + maximumUsers * 2; i++) {
+			new Worker().start();
+			System.out.println("New worker started " + i);
 		}
 		addTask(connect = new IncommningConnections());
 	}
-	
+
 	/**
 	 * Returns a group with the same name as the parameter group
 	 * @param group The name of the group
@@ -60,7 +61,7 @@ public class ServerController {
 		System.out.println("Task added to buffer");
 		taskBuffer.put(task);
 	}
-	
+
 	/**
 	 * Kills the server
 	 * @author André
@@ -68,6 +69,7 @@ public class ServerController {
 	public void kill() {
 		connect.kill();
 	}
+	
 	/**
 	 * Receives a object from a user with instructions 
 	 * @param incomming The object
@@ -78,19 +80,25 @@ public class ServerController {
 		if(incomming instanceof AddObjectRequest) {
 			AddObjectRequest request = (AddObjectRequest) incomming;
 			String[] splitType = request.getType().split(":");
+			
 			if(splitType[0].equals("file")) {
-				//Måste ta reda på hur skicka filer ska ske
-
+				groupHandler.addFile(splitType[1], splitType[2], (byte[])((AddObjectRequest) incomming).getObjectToAdd());
 			}
 			else if(splitType[0].equals( "addGroupMember")) {
-				groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
-				userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1]);
+				if(userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1])) {
+					groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
+				}
+				send(request.getUser(), new Response("addUserFailed","User does not exist"));
 			}
 			else if(splitType[0].equals("event")) {
 				Event event = (Event) request.getObjectToAdd();
 				groupHandler.addEvent(event.getGroup().getGroupName(), event);
 			}
+			else if(splitType[0].equals("delUser")) {
+				userHandler.removeUser(request.getUser(), (String) request.getObjectToAdd());
+			}
 		}
+
 		else if(incomming instanceof Group) {
 			groupHandler.addGroup((Group) incomming);
 		}
@@ -102,9 +110,10 @@ public class ServerController {
 			send(message.getReceiver(),message);
 		}
 		else if(incomming instanceof ObjectRequest) {
-			//Här skickas filen 
+			groupHandler.sendFile(((ObjectRequest)incomming).getRequest(), ((ObjectRequest)incomming).getUser());
 		}
 	}
+	
 	/**
 	 * Sends an object to a user
 	 * @param receiver User thats should receive the object
@@ -114,6 +123,7 @@ public class ServerController {
 	public void send(User receiver, Object sendObject) {
 		userHandler.send(receiver, sendObject);
 	}
+	
 	/**
 	 * Worker class. Waits for task in taskBuffer
 	 * @author andre
@@ -131,6 +141,7 @@ public class ServerController {
 			}
 		}
 	}
+	
 	/**
 	 * Listens for users to connect.
 	 * @author andre
@@ -138,6 +149,7 @@ public class ServerController {
 	 */
 	public class IncommningConnections implements Runnable{
 		ServerSocket serverSocket;
+		
 		/**
 		 * Kills the server
 		 * @author André
@@ -151,7 +163,7 @@ public class ServerController {
 		}
 		public void run() {
 			try {
-				serverSocket = new ServerSocket(5434);
+				serverSocket = new ServerSocket(5343);
 				Runnable runnable;
 				while(true) {
 					System.out.println("Lyssnar efter användare");
@@ -164,7 +176,7 @@ public class ServerController {
 			}
 		}
 	}
-	
+
 	/**
 	 * Listens for LoginRequest or CreateUserRequest from user.
 	 * @author andre
@@ -183,8 +195,8 @@ public class ServerController {
 				ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 				oos.flush();
+				
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			boolean accepted = false;
@@ -221,5 +233,8 @@ public class ServerController {
 				System.err.println("Användare avbröt inloggning");
 			}
 		}
+	}
+	public static void main(String args[]) {
+		new ServerController(true, 100);
 	}
 }
