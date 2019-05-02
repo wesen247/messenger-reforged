@@ -13,7 +13,7 @@ import entity.*;
 
 /**This class is used to save and load the
  * ConcurrentHashMap's used by the program.
- * @author zw
+ * @author Zacharias
  *
  */
 public class HashMapHandler {
