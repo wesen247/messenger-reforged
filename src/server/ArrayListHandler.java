@@ -9,9 +9,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import application.Event;
-import application.GroupMessage;
-import application.User;
+import entity.Event;
+import entity.GroupMessage;
+import entity.User;
+
+
 
 
 public class ArrayListHandler {

@@ -157,7 +157,7 @@ public class ServerController {
 		}
 		public void run() {
 			try {
-				serverSocket = new ServerSocket(5434);
+				serverSocket = new ServerSocket(5343);
 				Runnable runnable;
 				while(true) {
 					System.out.println("Lyssnar efter användare");
@@ -189,6 +189,7 @@ public class ServerController {
 				ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 				oos.flush();
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -227,5 +228,8 @@ public class ServerController {
 				System.err.println("Användare avbröt inloggning");
 			}
 		}
+	}
+	public static void main(String args[]) {
+		new ServerController(true, 100);
 	}
 }

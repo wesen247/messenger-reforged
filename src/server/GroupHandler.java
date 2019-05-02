@@ -34,14 +34,17 @@ public class GroupHandler extends Thread {
 		}
 	}
 
-	
+
 	/* Backup-thread.
 	 */
 	public void run() {
 		try {
-			Thread.sleep(60000);
-			hashMapHandler.saveGroups(groups);
-			hashMapHandler.saveFiles(files);
+			while(true) {
+				Thread.sleep(60000);
+				hashMapHandler.saveGroups(groups);
+				hashMapHandler.saveFiles(files);
+				System.out.println("Backup groups");
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,17 +16,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="280.0" style="-fx-background-color: #55555D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="280.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StartMenuController">
    <children>
-      <Pane prefHeight="67.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+      <Pane fx:id="pane" prefHeight="67.0" prefWidth="280.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;">
          <children>
-            <MenuBar layoutX="215.0" layoutY="1.0" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #55555D;">
+            <MenuBar layoutX="215.0" layoutY="1.0" prefHeight="36.0" prefWidth="56.0" style="-fx-background-color: #55555D;">
               <menus>
                 <Menu mnemonicParsing="false">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Create new group" />
-                        <MenuItem mnemonicParsing="false" text="Log out" />
-                        <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem fx:id="btnCreateGroup" mnemonicParsing="false" onAction="#createGroup" text="Create new group" />
+                        <MenuItem fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" text="Log out" />
+                        <MenuItem fx:id="btnSettings" mnemonicParsing="false" onAction="#settings" text="Settings" />
                   </items>
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -63,19 +63,23 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-      <Pane layoutY="112.0" prefHeight="183.0" prefWidth="280.0">
+      <Pane layoutY="112.0" prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
          <children>
-            <ScrollBar layoutX="266.0" orientation="VERTICAL" prefHeight="183.0" prefWidth="14.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets></ScrollBar>
+            <ScrollPane prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+               <content>
+                  <ListView prefHeight="200.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
+               </content>
+            </ScrollPane>
          </children>
       </Pane>
-      <Pane layoutY="329.0" prefHeight="183.0" prefWidth="280.0">
+      <Pane layoutY="329.0" prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
          <children>
-            <ScrollBar layoutX="266.0" orientation="VERTICAL" prefHeight="183.0" prefWidth="14.0" />
-         </children>
-      </Pane>
+            <ScrollPane prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+               <content>
+                  <ListView fx:id="listViewOnline" prefHeight="182.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
+               </content>
+            </ScrollPane>
+         </children></Pane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="33.0" layoutY="295.0" stroke="#0fc409" strokeType="INSIDE" width="280.0">
          <fill>
             <RadialGradient centerX="0.2174720693255003" centerY="0.41428571428571426" radius="0.5">

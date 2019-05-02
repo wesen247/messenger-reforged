@@ -38,15 +38,19 @@ public class UserHandler extends Thread {
 			passwordHashmap = hashMapHandler.loadPasswordHashMap();
 			connectedUsers = new ConcurrentHashMap<String,UserClient>();
 			allUsers = hashMapHandler.loadAllUsers();
+			System.out.println("Loaded backup");
 			start();
 		}
 	}
 
 	public void run() {
 		try {
-			Thread.sleep(60000);
-			hashMapHandler.savePasswordHashMap(passwordHashmap);
-			hashMapHandler.saveAllUsers(allUsers);
+			while(true) {
+				Thread.sleep(60000);
+				hashMapHandler.savePasswordHashMap(passwordHashmap);
+				hashMapHandler.saveAllUsers(allUsers);
+				System.out.println("Backup users");
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
