@@ -58,7 +58,17 @@ public class ChatWindowGroupMessageController implements Initializable {
 
 		textGroupName.setText(ClientController.getClient().getGroup().getGroupName());
 	}
+	public void addEvent() {
 
+		System.out.println("tja");
+			try {
+				Main.showCalendar();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	}
 	public void send() {
 		ClientController.getClient().createGroupMessage(textFieldMessage.getText());
 		textFieldMessage.clear();
@@ -99,15 +109,5 @@ public class ChatWindowGroupMessageController implements Initializable {
 
 	}
 
-	public void addEvent() {
 
-		try {
-		
-			Main.showCalendar();
-	
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
 }
