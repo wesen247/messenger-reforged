@@ -8,14 +8,18 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
+
 import entity.*;
 
-public class UserHandler {
-	ConcurrentHashMap<String,String> passwordHashmap;
-	ConcurrentHashMap<String,UserClient> connectedUsers;
-	ConcurrentHashMap<String,User> allUsers;
-	ServerController controller;
-	
+public class UserHandler extends Thread {
+	private ConcurrentHashMap<String,String> passwordHashmap;
+	private ConcurrentHashMap<String,UserClient> connectedUsers;
+	private ConcurrentHashMap<String,User> allUsers;
+	private ServerController controller;
+	private HashMapHandler hashMapHandler;
+
+
+
 	/**
 	 * Contructor
 	 * @param useBackup True if backup locally stored should be used
@@ -24,12 +28,31 @@ public class UserHandler {
 	 */
 	public UserHandler(boolean useBackup, ServerController controller) {
 		this.controller = controller;
+		hashMapHandler = new HashMapHandler();
 		if(!useBackup) {
 			passwordHashmap = new ConcurrentHashMap<String,String>();
 			connectedUsers = new ConcurrentHashMap<String,UserClient>();
 			allUsers = new ConcurrentHashMap<String,User>();
+			start();
 		}else {
-			//här ska en sparad fil på hårddisken läsas som innehåller password hashmap samt allUsers
+			passwordHashmap = hashMapHandler.loadPasswordHashMap();
+			connectedUsers = new ConcurrentHashMap<String,UserClient>();
+			allUsers = hashMapHandler.loadAllUsers();
+			System.out.println("Loaded backup");
+			start();
+		}
+	}
+
+	public void run() {
+		try {
+			while(true) {
+				Thread.sleep(60000);
+				hashMapHandler.savePasswordHashMap(passwordHashmap);
+				hashMapHandler.saveAllUsers(allUsers);
+				System.out.println("Backup users");
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -78,6 +101,35 @@ public class UserHandler {
 		}
 		return false;
 	} 	
+
+	/**
+	 * Removes a user from the server.
+	 * @param user The user to be removed
+	 * @param password The users password
+	 * @return true if the removal was successful
+	 */
+	public boolean removeUser(User user, String password) {
+		if(password.equals(passwordHashmap.get(user.getName()))) {
+			for(int i = 0; allUsers.get(user.getName()).getGroups().size() >0;i++) {
+				ArrayList<User> members = controller.getGroup(allUsers.get(user.getName()).getGroups().get(i)).getGroupMembers();
+
+				for(int l = 0; members.size()>0 ; i++) {
+					if (members.get(i).getName().equals(user.getName())) {
+						System.out.println("Removed from group");
+						members.remove(i);
+						break;
+					}
+				}
+			}
+
+			passwordHashmap.remove(user.getName());
+			allUsers.remove(user.getName());
+			System.out.println("User removed");
+			return true;
+		}
+		System.out.println("User remove failed");
+		return false;
+	}
 	/**
 	 * Creates a startupdate that is sent to user
 	 * @param name Name of user it is created for
@@ -94,7 +146,6 @@ public class UserHandler {
 		User user = allUsers.get(name);
 		for(int i = 0; i<user.getGroups().size();i++) {
 			groups.add(controller.getGroup(user.getGroups().get(i)));
-			System.err.println("Adding group");
 		}
 
 		StartUpdate tempStartUpdate = new StartUpdate(onlineUsers, 	allUsers, groups, user);
@@ -112,7 +163,7 @@ public class UserHandler {
 				onlineUsers.add(allUsers.get(onlineUserIterator.next()));
 			}
 		}catch(NoSuchElementException e) {
-			
+
 		}
 		UserUpdate tempUserUpdate = new UserUpdate(onlineUsers);
 		for(int i = 0; i<connectedUsers.keySet().size();i++) {
@@ -144,7 +195,11 @@ public class UserHandler {
 	 * @param user user to be added
 	 * @param group group to add to
 	 */
-	public void addMemberOf(User user, String group) {
-		allUsers.get(user.getName()).addGroup(group);
+	public boolean addMemberOf(User user, String group) {
+		if(allUsers.contains(user.getName())) {
+			allUsers.get(user.getName()).addGroup(group);
+			return true;
+		}
+		return false;
 	}
 }

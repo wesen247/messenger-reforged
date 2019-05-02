@@ -70,7 +70,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Button fx:id="btnAddGroupMember" ellipsisString="" layoutX="123.0" layoutY="10.0" mnemonicParsing="false">
+            <Button fx:id="btnAddGroupMember" ellipsisString="" layoutX="123.0" layoutY="10.0" mnemonicParsing="false" onAction="#addGroupMember">
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>

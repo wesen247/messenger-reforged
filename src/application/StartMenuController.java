@@ -10,12 +10,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class StartMenuController implements Initializable {
 	@FXML
@@ -73,34 +75,39 @@ public class StartMenuController implements Initializable {
 		this.data = Data.getData();
 		data.addMenuController(this);
 
-
 		listViewOnline.setItems(this.onlineUsers);
 		listViewGroups.setItems(this.groupList);
-		listViewOnline.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				name = newValue;
-				ClientController.getClient().setReciver(name);
+
+		listViewOnline.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent event) {
+				ClientController.getClient().setReciver(listViewOnline.getSelectionModel().getSelectedItem());
+
 				try {
-					main.showChatWindowPrivateMessage();
+
+					if (listViewOnline.getSelectionModel().getSelectedItem() != null) {
+						Main.showChatWindowPrivateMessage();
+					}
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		});
 
-		listViewGroups.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				name = newValue;
-				ClientController.getClient().setGroup(name);
+		listViewGroups.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent event) {
+				ClientController.getClient().setGroup(listViewGroups.getSelectionModel().getSelectedItem());
 				try {
-					main.showGroupChatWindow();
+					if (listViewGroups.getSelectionModel().getSelectedItem() != null) {
+						Main.showGroupChatWindow();
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		});
-				
-
 	}
 
 	public void setOnlineList() {

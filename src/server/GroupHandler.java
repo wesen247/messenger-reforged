@@ -5,9 +5,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import entity.*;
 
 
-public class GroupHandler {
+public class GroupHandler extends Thread {
 	private ConcurrentHashMap<String,Group> groups;
 	private ServerController controller;
+	private HashMapHandler hashMapHandler;
+	private ConcurrentHashMap<String,byte[]> files;
+
+	public static void main(String args[]) {
+		new ServerController(false, 10);
+	}
 	/**
 	 * Contructor
 	 * @param useBackup True if server should load backup saved locally
@@ -16,12 +22,34 @@ public class GroupHandler {
 	 */
 	public GroupHandler(boolean useBackup, ServerController controller) {
 		this.controller = controller;
+		hashMapHandler = new HashMapHandler();
 		if(!useBackup) {
 			groups = new ConcurrentHashMap<String,Group>();
+			files = new ConcurrentHashMap<String, byte[]>();
+			start();
 		}else {
-			//Läsa in backup
+			groups = hashMapHandler.loadGroups();
+			files = hashMapHandler.loadFiles();
+			start();
 		}
 	}
+
+
+	/* Backup-thread.
+	 */
+	public void run() {
+		try {
+			while(true) {
+				Thread.sleep(60000);
+				hashMapHandler.saveGroups(groups);
+				hashMapHandler.saveFiles(files);
+				System.out.println("Backup groups");
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Returns the group with the parameter as name
 	 * @param group String groupname to get
@@ -42,7 +70,7 @@ public class GroupHandler {
 			groupUpdate(group);
 		}else {
 			System.out.println("Group creation failed");
-//			controller.send(group.getGroupMembers().get(0), new Response("createGroupFailed", "Name already taken"));
+			controller.send(group.getGroupMembers().get(0), new Response("createGroupFailed", "Name already taken"));
 		}
 	}
 	/**
@@ -93,4 +121,24 @@ public class GroupHandler {
 			controller.send(group.getGroupMembers().get(i), message);
 		}
 	}
+	/**
+	 * Adds a file from a user to a group 
+	 * @param groupname Name of the group
+	 * @param filename Name of the file
+	 * @param file The file
+	 */
+	public void addFile(String groupname, String filename, byte[] file) {
+		groups.get(groupname).getFileLog().add(filename);
+		files.put(filename, file);
+		this.groupUpdate(groups.get(groupname));
+	}
+	/**
+	 * Sends file to a user
+	 * @param request Filename
+	 * @param user The user the file is sent to
+	 */
+	public void sendFile(String request, User user) {
+		controller.send(user, new Response("file",files.get(request)));
+	}
+
 }

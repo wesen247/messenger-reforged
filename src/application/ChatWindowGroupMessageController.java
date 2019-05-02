@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -37,9 +38,11 @@ public class ChatWindowGroupMessageController implements Initializable {
 	@FXML
 	private Text textGroupName;
 
+
 	private ObservableList<String> membersList = FXCollections.observableArrayList();
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		textAreaIncomingMessages.setEditable(false);
 		Data.getData().addGroupListener(this);
 		update();
@@ -63,7 +66,12 @@ public class ChatWindowGroupMessageController implements Initializable {
 	}
 
 	public void addGroupMember() {
+		try {
+			Main.showAddNewGroupMember();
+		} catch (IOException e) {
 
+			e.printStackTrace();
+		}
 	}
 
 	public void update() {
@@ -92,4 +100,5 @@ public class ChatWindowGroupMessageController implements Initializable {
 
 	}
 
+	
 }

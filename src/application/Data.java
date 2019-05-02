@@ -98,7 +98,22 @@ public class Data {
 	}
 
 	public void setListGroup(Group group) {
-		listGroup.add(group);
+
+		for (int i = 0; i < listGroup.size(); i++) {
+
+			if (listGroup.get(i).getGroupName().equals(group.getGroupName())) {
+				listGroup.remove(i);
+				listGroup.add(group);
+				
+			} else if(i == listGroup.size() - 1) {
+				listGroup.add(group);
+			}
+		}
+		if( listGroup.size() == 0) {
+			listGroup.add(group);
+		}
+		
+
 	}
 
 	public ArrayList<PrivateMessage> getListPM() {
@@ -205,7 +220,7 @@ public class Data {
 						setListGroup(group);
 						groupMessageHashMap.put(group.getGroupName(), group.getGroupMessages());
 						hashMapGroups.put(group.getGroupName(), group);
-					
+						StartMenuController.getStartMenuController().setGroupList();
 					}
 
 					else if (object instanceof PrivateMessage) {
@@ -232,7 +247,6 @@ public class Data {
 						}
 						System.out.println(gm.getReceiver().getGroupName());
 
-						
 						Platform.runLater(new Runnable() {
 
 							public void run() {
@@ -257,7 +271,7 @@ public class Data {
 					}
 
 					else if (object instanceof StartUpdate) {
-						
+
 						StartUpdate startUpdate = (StartUpdate) object;
 						list = startUpdate.getOnlineUsers();
 
@@ -269,7 +283,8 @@ public class Data {
 
 							groupMessageHashMap.put(startUpdate.getGroups().get(i).getGroupName(),
 									startUpdate.getGroups().get(i).getGroupMessages());
-							hashMapGroups.put(startUpdate.getGroups().get(i).getGroupName(), startUpdate.getGroups().get(i));
+							hashMapGroups.put(startUpdate.getGroups().get(i).getGroupName(),
+									startUpdate.getGroups().get(i));
 						}
 
 						Platform.runLater(new Runnable() {
