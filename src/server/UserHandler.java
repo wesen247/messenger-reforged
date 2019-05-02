@@ -196,7 +196,7 @@ public class UserHandler extends Thread {
 	 * @param group group to add to
 	 */
 	public boolean addMemberOf(User user, String group) {
-		if(allUsers.contains(user.getName())) {
+		if(!allUsers.contains(user.getName())) {
 			allUsers.get(user.getName()).addGroup(group);
 			return true;
 		}

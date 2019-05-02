@@ -70,7 +70,6 @@ public class GroupHandler extends Thread {
 			groupUpdate(group);
 		}else {
 			System.out.println("Group creation failed");
-			controller.send(group.getGroupMembers().get(0), new Response("createGroupFailed", "Name already taken"));
 		}
 	}
 	/**
