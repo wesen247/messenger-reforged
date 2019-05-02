@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="303.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateGroupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="303.0" style="-fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateGroupController">
    <children>
       <Pane layoutY="-2.0" prefHeight="37.0" prefWidth="303.0" style="-fx-border-color: #0FC409;">
          <children>
@@ -27,17 +27,12 @@
             <Text fill="WHITE" layoutX="13.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new group" />
          </children>
       </Pane>
-      <Text fill="WHITE" layoutX="15.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Group name:">
+      <Text layoutX="14.0" layoutY="96.0" stroke="#0fc409" strokeType="OUTSIDE" text="Group name:">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="16.0" />
          </font></Text>
-      <TextField fx:id="textFieldGroupName" layoutX="14.0" layoutY="90.0" prefHeight="25.0" prefWidth="227.0" promptText="Choose group name" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" />
-      <Text fill="WHITE" layoutX="10.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose image:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Text>
-      <Button fx:id="btnChooseImage" layoutX="24.0" layoutY="154.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="37.0" prefWidth="103.0" style="-fx-border-color: #0FC409;" text="Choose image" />
-      <Button fx:id="btnCreateGroups" layoutX="49.0" layoutY="220.0" mnemonicParsing="false" onAction="#createGroup" style="-fx-border-color: #0FC409;" text="Create group" />
-      <Button fx:id="btnCancel" layoutX="161.0" layoutY="220.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="95.0" style="-fx-border-color: #0FC409;" text="Cancel" />
+      <TextField fx:id="textFieldGroupName" layoutX="14.0" layoutY="102.0" prefHeight="25.0" prefWidth="227.0" promptText="Choose group name" style="-fx-border-color: #0FC409;" />
+      <Button fx:id="btnCreateGroups" layoutX="24.0" layoutY="171.0" mnemonicParsing="false" onAction="#createGroup" style="-fx-border-color: #0FC409;" text="Create group" />
+      <Button fx:id="btnCancel" layoutX="128.0" layoutY="171.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="95.0" style="-fx-border-color: #0FC409;" text="Cancel" />
    </children>
 </AnchorPane>
