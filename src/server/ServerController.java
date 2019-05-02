@@ -15,7 +15,7 @@ public class ServerController {
 	private GroupHandler groupHandler;
 	private Buffer<Runnable> taskBuffer;
 	private IncommningConnections connect;
-	/**
+	/**Me
 	 * Constructor
 	 * @param useBackup If true it will load a backup stored locally
 	 * @param maximumUsers Number of maximum users. Decides how many threads that will be created.
@@ -26,6 +26,7 @@ public class ServerController {
 		if(!directory.exists()) {
 			try {
 				directory.mkdir();
+				System.out.println("List seriöst");
 			}catch(SecurityException e) {
 				e.printStackTrace();
 			}
@@ -83,8 +84,10 @@ public class ServerController {
 				groupHandler.addFile(splitType[1], splitType[2], (byte[])((AddObjectRequest) incomming).getObjectToAdd());
 			}
 			else if(splitType[0].equals( "addGroupMember")) {
+				System.err.println("addGroupMember");
 				if(userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1])) {
 					groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
+					System.err.println("addGroupMember");
 				}
 				send(request.getUser(), new Response("addUserFailed","User does not exist"));
 			}

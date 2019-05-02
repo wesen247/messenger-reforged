@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import javafx.scene.image.Image;
+
 /**
  * Entity class, Class with user information
+ * 
  * @author Zacharias André Ruben Amir
  *
  */
-public class User implements Serializable{
+public class User implements Serializable {
 	/**
 	 * 
 	 */
@@ -25,18 +27,18 @@ public class User implements Serializable{
 	private ArrayList<User> friendList;
 	private ArrayList<String> memberOfGroups;
 	private byte[] imageInByte;
-	
+
 	public User(String name) {
 		this.name = name;
 	}
-	
+
 	public User(String name, ArrayList<String> memberOfGroups, ArrayList<User> friendList, BufferedImage image) {
 		this.name = name;
 		this.memberOfGroups = memberOfGroups;
 		this.friendList = friendList;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try {
-			ImageIO.write(image, "jpg", bos );
+			ImageIO.write(image, "jpg", bos);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -46,9 +48,9 @@ public class User implements Serializable{
 	public String getName() {
 		return name;
 	}
-	
+
 	public BufferedImage getImage() {
-		
+
 		ByteArrayInputStream bis = new ByteArrayInputStream(imageInByte);
 		try {
 			return ImageIO.read(bis);
@@ -56,26 +58,30 @@ public class User implements Serializable{
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
-	
-	public ArrayList<String> getGroups(){
+
+	public ArrayList<String> getGroups() {
 		return memberOfGroups;
 	}
-	
+
 	public boolean passwordMatch(String enteredPassword) {
-		if(enteredPassword==password) {
+		if (enteredPassword == password) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
+
 	public ArrayList<User> getFriends() {
 		return friendList;
 	}
-	
+
 	public void addGroup(String groupName) {
 		memberOfGroups.add(groupName);
+	}
+
+	public String toString() {
+		return name;
 	}
 }

@@ -14,7 +14,7 @@ public class Main extends Application {
 	private static Stage privateMessage;
 	private static AnchorPane mainPane;
 	private static Stage addGroupMemberStage;
-
+	private static Stage calendarStage;
 	public void start(Stage primaryStage) throws Exception {
 
 		this.primaryStage = primaryStage;
@@ -104,6 +104,16 @@ public class Main extends Application {
 		addGroupMemberStage.show();
 	}
 
+	public static void showCalendar() throws IOException {
+		calendarStage = new Stage();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("/application/Calendar.fxml"));
+		mainPane = loader.load();
+		Scene scene = new Scene(mainPane);
+		calendarStage.setScene(scene);
+		calendarStage.setResizable(false);
+		calendarStage.show();
+	}
 	public static Stage getNewMemberStage() {
 		return addGroupMemberStage;
 	}

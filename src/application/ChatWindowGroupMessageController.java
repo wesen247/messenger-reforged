@@ -38,11 +38,10 @@ public class ChatWindowGroupMessageController implements Initializable {
 	@FXML
 	private Text textGroupName;
 
-
 	private ObservableList<String> membersList = FXCollections.observableArrayList();
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		textAreaIncomingMessages.setEditable(false);
 		Data.getData().addGroupListener(this);
 		update();
@@ -100,5 +99,15 @@ public class ChatWindowGroupMessageController implements Initializable {
 
 	}
 
+	public void addEvent() {
+
+		try {
+		
+			Main.showCalendar();
 	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
