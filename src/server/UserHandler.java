@@ -203,7 +203,15 @@ public class UserHandler extends Thread {
 	 * @author André
 	 */
 	public boolean addMemberOf(User user, String group) {
-		if(!allUsers.contains(user.getName())) {
+		ArrayList<User> members = serverController.getGroup(group).getGroupMembers();
+		boolean exist = false;
+		for(int i = 0; members.size() > i; i++) {
+			if(members.get(i).getName().equals(user.getName())) {
+				exist = true;
+			}
+		}
+		
+		if(allUsers.containsKey(user.getName()) && !exist) {
 			allUsers.get(user.getName()).addGroup(group);
 			return true;
 		}
