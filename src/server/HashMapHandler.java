@@ -11,31 +11,22 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import entity.*;
 
+/**This class is used to save and load the
+ * ConcurrentHashMap's used by the program.
+ * @author Zacharias
+ *
+ */
 public class HashMapHandler {
-		//private ConcurrentHashMap<String,UserClient> connectedUsers = new ConcurrentHashMap<String,UserClient>();
 		private ConcurrentHashMap<String,String> passwordHashMap = new ConcurrentHashMap<String,String>();
 		private ConcurrentHashMap<String,User> allUsers = new ConcurrentHashMap<String,User>();
 		private ConcurrentHashMap<String,Group> groups = new ConcurrentHashMap<String,Group>();
 		private ConcurrentHashMap<String,byte[]> files = new ConcurrentHashMap<String,byte[]>();
-		
-		public void hashMapHandler() {
-				 Thread thread = new Thread(new Runnable() {
-		             public void run() {
-		            	saveAllUsers(allUsers);
-		            	savePasswordHashMap(passwordHashMap);
-		  
-		            	 try {
-							Thread.sleep(600000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-		                }
-		             });
-		         thread.start();
-		}
 
 		
-		//AllUsers
+		
+		/**Attempts to load allUsers from file.
+		 * @return Returns ConcurrentHashMap allUsers.
+		 */
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,User> loadAllUsers() {
 			try {
@@ -49,6 +40,10 @@ public class HashMapHandler {
 			return allUsers;
 		}
 		
+		/**Receives a ConcurrentHashMap as argument 
+		 * and attempts to save it as a local file.
+		 * @param allUsers the CHM to be saved.
+		 */
 		public void saveAllUsers(ConcurrentHashMap<String,User> allUsers) {		
 			try {
 				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-users.txt"));
@@ -62,7 +57,10 @@ public class HashMapHandler {
 		}
 		
 		
-		//PasswordHashMap
+		
+		/**Attempts to load passwordHashMap from file.
+		 * @return Returns ConcurrentHashMap passwordHashMap.
+		 */
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,String> loadPasswordHashMap() {
 			try {
@@ -75,6 +73,10 @@ public class HashMapHandler {
 			return passwordHashMap;
 		}
 		
+		/**Receives a ConcurrentHashMap as argument
+		 * and attempts to save it as a local file.
+		 * @param passwordHashMap the CHM to be saved.
+		 */
 		public void savePasswordHashMap(ConcurrentHashMap<String,String> passwordHashMap) {	
 			try {
 				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-pw.txt"));
@@ -87,7 +89,10 @@ public class HashMapHandler {
 		}
 		
 		
-		//Groups
+		
+		/**Attempts to load groups from file.
+		 * @return ConcurrentHashMap groups.
+		 */
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,Group> loadGroups() {
 			try {
@@ -100,6 +105,10 @@ public class HashMapHandler {
 			return groups;
 		}
 
+		/**Receives a ConcurrentHashMap as argument
+		 * and attempts to save it as a local file.
+		 * @param groups the CHM to be saved.
+		 */
 		public void saveGroups(ConcurrentHashMap<String,Group> groups) {
 			try {
 				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
@@ -112,6 +121,9 @@ public class HashMapHandler {
 			}
 		}
 		
+		/**Attempts to load groups from file.
+		 * @return ConcurrentHashMap files.
+		 */
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,byte[]> loadFiles() {
 			try {
@@ -124,6 +136,10 @@ public class HashMapHandler {
 			return files;
 		}
 
+		/**Receives a ConcurrentHashMap as argument
+		 * and attempts to save it as a local file.
+		 * @param files the CHM to be saved.
+		 */
 		public void saveFiles(ConcurrentHashMap<String,byte[]> files) {
 			try {
 				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-files.txt"));
@@ -139,6 +155,5 @@ public class HashMapHandler {
 		
 		public static void main(String args[]) {
 			HashMapHandler hmh = new HashMapHandler();
-			hmh.hashMapHandler();
 		}
 }
