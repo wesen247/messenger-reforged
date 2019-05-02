@@ -15,6 +15,7 @@ public class ServerController {
 	private GroupHandler groupHandler;
 	private Buffer<Runnable> taskBuffer;
 	private IncommningConnections connect;
+	
 	/**
 	 * Constructor
 	 * @param useBackup If true it will load a backup stored locally
@@ -34,9 +35,9 @@ public class ServerController {
 		groupHandler = new GroupHandler(useBackup, this);
 		taskBuffer = new Buffer<Runnable>();
 
-		for(int i = 0;i<5+maximumUsers*2;i++) {
-			new Worker().start();;
-			System.out.println("New worker started "+i);
+		for(int i = 0; i < 5 + maximumUsers * 2; i++) {
+			new Worker().start();
+			System.out.println("New worker started " + i);
 		}
 		addTask(connect = new IncommningConnections());
 	}
@@ -68,6 +69,7 @@ public class ServerController {
 	public void kill() {
 		connect.kill();
 	}
+	
 	/**
 	 * Receives a object from a user with instructions 
 	 * @param incomming The object
@@ -111,6 +113,7 @@ public class ServerController {
 			groupHandler.sendFile(((ObjectRequest)incomming).getRequest(), ((ObjectRequest)incomming).getUser());
 		}
 	}
+	
 	/**
 	 * Sends an object to a user
 	 * @param receiver User thats should receive the object
@@ -120,6 +123,7 @@ public class ServerController {
 	public void send(User receiver, Object sendObject) {
 		userHandler.send(receiver, sendObject);
 	}
+	
 	/**
 	 * Worker class. Waits for task in taskBuffer
 	 * @author andre
@@ -137,6 +141,7 @@ public class ServerController {
 			}
 		}
 	}
+	
 	/**
 	 * Listens for users to connect.
 	 * @author andre
@@ -144,6 +149,7 @@ public class ServerController {
 	 */
 	public class IncommningConnections implements Runnable{
 		ServerSocket serverSocket;
+		
 		/**
 		 * Kills the server
 		 * @author André
@@ -191,7 +197,6 @@ public class ServerController {
 				oos.flush();
 				
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			boolean accepted = false;

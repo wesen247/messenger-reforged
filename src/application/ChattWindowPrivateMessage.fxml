@@ -28,7 +28,7 @@
                </fill>
             </Rectangle>
             <ImageView fx:id="userImage" fitHeight="55.0" fitWidth="69.0" layoutX="1.0" layoutY="-1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
-            <Text fx:id="recieverName" fill="WHITE" layoutX="99.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="457.13671875">
+            <Text fx:id="recieverName" fill="WHITE" layoutX="102.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="457.13671875">
                <font>
                   <Font size="24.0" />
                </font>

@@ -9,7 +9,18 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import entity.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import entity.AddObjectRequest;
+import entity.CreateUserRequest;
+import entity.Event;
+import entity.Group;
+import entity.GroupMessage;
+import entity.LoginRequest;
+import entity.PrivateMessage;
+import entity.User;
+
+
 
 /**
  * Controller class
@@ -29,6 +40,8 @@ public class ClientController {
 	private User reciver;
 	private static ClientController controller;
 	private StartMenuController menuController;
+	private Group group;
+	private BufferedImage image;
 
 	/**
 	 * Starts the connection with the server
@@ -81,16 +94,19 @@ public class ClientController {
 	 */
 	public void createNewGroup(String groupName) {
 		ArrayList<User> users = new ArrayList<User>();
-		users.add(user);
+
 		ArrayList<GroupMessage> messages = new ArrayList<GroupMessage>();
 		ArrayList<String> fileLog = new ArrayList<String>();
 		ArrayList<Event> eventObjects = new ArrayList<Event>();
 		try {
 			oos.writeObject(new Group(users, messages, fileLog, eventObjects, groupName));
 			oos.flush();
+			oos.writeObject(new AddObjectRequest("addGroupMember:" + groupName, user, user));
+			oos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -101,11 +117,10 @@ public class ClientController {
 	 */
 	public void createNewUser(String name, String password, BufferedImage image) {
 		try {
-
 			oos.writeObject(new CreateUserRequest(name, password, image));
 			this.user = new User(name);
 			oos.flush();
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -117,7 +132,7 @@ public class ClientController {
 	 * @param message
 	 * @param group
 	 */
-	public void createGroupMessage(String message, Group group) {
+	public void createGroupMessage(String message) {
 		try {
 			oos.writeObject(new GroupMessage(message, user, group));
 			oos.flush();
@@ -252,7 +267,18 @@ public class ClientController {
 	public void setReciver(String name) {
 		this.reciver = new User(name);
 	}
-	public User getUser() {
-		return user; 
+
+	public void setGroup(String name) {
+		this.group = new Group(name);
 	}
+
+	public Group getGroup() {
+		return this.group;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	
 }
