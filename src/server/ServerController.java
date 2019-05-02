@@ -83,9 +83,10 @@ public class ServerController {
 				groupHandler.addFile(splitType[1], splitType[2], (byte[])((AddObjectRequest) incomming).getObjectToAdd());
 			}
 			else if(splitType[0].equals( "addGroupMember")) {
-				groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
-				userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1]);
-
+				if(userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1])) {
+					groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
+				}
+				send(request.getUser(), new Response("addUserFailed","User does not exist"));
 			}
 			else if(splitType[0].equals("event")) {
 				Event event = (Event) request.getObjectToAdd();

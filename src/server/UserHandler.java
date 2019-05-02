@@ -17,9 +17,9 @@ public class UserHandler extends Thread {
 	private ConcurrentHashMap<String,User> allUsers;
 	private ServerController controller;
 	private HashMapHandler hashMapHandler;
-	
-	
-	
+
+
+
 	/**
 	 * Contructor
 	 * @param useBackup True if backup locally stored should be used
@@ -41,7 +41,7 @@ public class UserHandler extends Thread {
 			start();
 		}
 	}
-	
+
 	public void run() {
 		try {
 			Thread.sleep(60000);
@@ -97,12 +97,18 @@ public class UserHandler extends Thread {
 		}
 		return false;
 	} 	
-	//Nytt
+
+	/**
+	 * Removes a user from the server.
+	 * @param user The user to be removed
+	 * @param password The users password
+	 * @return true if the removal was successful
+	 */
 	public boolean removeUser(User user, String password) {
 		if(password.equals(passwordHashmap.get(user.getName()))) {
 			for(int i = 0; allUsers.get(user.getName()).getGroups().size() >0;i++) {
 				ArrayList<User> members = controller.getGroup(allUsers.get(user.getName()).getGroups().get(i)).getGroupMembers();
-				
+
 				for(int l = 0; members.size()>0 ; i++) {
 					if (members.get(i).getName().equals(user.getName())) {
 						System.out.println("Removed from group");
@@ -111,7 +117,7 @@ public class UserHandler extends Thread {
 					}
 				}
 			}
-			
+
 			passwordHashmap.remove(user.getName());
 			allUsers.remove(user.getName());
 			System.out.println("User removed");
@@ -153,7 +159,7 @@ public class UserHandler extends Thread {
 				onlineUsers.add(allUsers.get(onlineUserIterator.next()));
 			}
 		}catch(NoSuchElementException e) {
-			
+
 		}
 		UserUpdate tempUserUpdate = new UserUpdate(onlineUsers);
 		for(int i = 0; i<connectedUsers.keySet().size();i++) {
@@ -185,7 +191,11 @@ public class UserHandler extends Thread {
 	 * @param user user to be added
 	 * @param group group to add to
 	 */
-	public void addMemberOf(User user, String group) {
-		allUsers.get(user.getName()).addGroup(group);
+	public boolean addMemberOf(User user, String group) {
+		if(allUsers.contains(user.getName())) {
+			allUsers.get(user.getName()).addGroup(group);
+			return true;
+		}
+		return false;
 	}
 }
