@@ -9,12 +9,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class StartMenuController implements Initializable {
 	@FXML
@@ -28,6 +29,8 @@ public class StartMenuController implements Initializable {
 	private ListView<String> listViewOnline = new ListView<String>();
 	@FXML
 	private ListView<String> listViewGroups = new ListView<String>();
+	@FXML
+	private ImageView profileImage;
 
 	private String name;
 	private ObservableList<String> onlineUsers = FXCollections.observableArrayList();
@@ -63,14 +66,16 @@ public class StartMenuController implements Initializable {
 	}
 
 	public void initialize(URL location, ResourceBundle resource) {
+
 		setOnlineList();
 		setGroupList();
 		startmenu = this;
 		this.data = Data.getData();
 		data.addMenuController(this);
+
+
 		listViewOnline.setItems(this.onlineUsers);
 		listViewGroups.setItems(this.groupList);
-
 		listViewOnline.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				name = newValue;
@@ -82,6 +87,20 @@ public class StartMenuController implements Initializable {
 				}
 			}
 		});
+
+		listViewGroups.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				name = newValue;
+				ClientController.getClient().setGroup(name);
+				try {
+					main.showGroupChatWindow();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+				
+
 	}
 
 	public void setOnlineList() {

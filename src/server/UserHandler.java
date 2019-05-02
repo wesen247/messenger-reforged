@@ -94,6 +94,7 @@ public class UserHandler {
 		User user = allUsers.get(name);
 		for(int i = 0; i<user.getGroups().size();i++) {
 			groups.add(controller.getGroup(user.getGroups().get(i)));
+			System.err.println("Adding group");
 		}
 
 		StartUpdate tempStartUpdate = new StartUpdate(onlineUsers, 	allUsers, groups, user);

@@ -39,10 +39,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <ImageView fitHeight="52.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/meeting-1453895_960_720.png" />
-               </image>
+            <ImageView fx:id="profileImage" fitHeight="52.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <rotationAxis>
                   <Point3D z="5.0" />
                </rotationAxis>

@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
 public class Main extends Application {
-
+	private static Stage groupChatStage = new Stage();
 	private static Stage primaryStage;
 	private static Stage privateMessage;
 	private static AnchorPane mainPane;
@@ -18,7 +18,6 @@ public class Main extends Application {
 
 		this.primaryStage = primaryStage;
 		showLogin();
-
 	}
 
 	public static void showLogin() throws IOException {
@@ -56,7 +55,7 @@ public class Main extends Application {
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
-		primaryStage.setResizable(false); 	
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 
@@ -80,6 +79,17 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+	}
+
+	public static void showGroupChatWindow() throws IOException {
+		
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("/application/ChattWindowGroup.fxml"));
+		mainPane = loader.load();
+		Scene scene = new Scene(mainPane);
+		groupChatStage.setScene(scene);
+		groupChatStage.setResizable(false);
+		groupChatStage.show();
 	}
 
 	public static void main(String[] args) {
