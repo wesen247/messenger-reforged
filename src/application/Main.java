@@ -104,10 +104,10 @@ public class Main extends Application {
 		addGroupMemberStage.show();
 	}
 
-	public static void showCalendar() throws IOException {
+	public static void showCreateEvent() throws IOException {
 		calendarStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/application/Calendar.fxml"));
+		loader.setLocation(Main.class.getResource("/application/CreateEvent.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		calendarStage.setScene(scene);
