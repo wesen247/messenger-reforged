@@ -37,7 +37,9 @@ public class ChatWindowGroupMessageController implements Initializable {
 	private Button btnUploadFile;
 	@FXML
 	private Text textGroupName;
-
+	@FXML
+	private Button btnShowEvents;
+	
 	private ObservableList<String> membersList = FXCollections.observableArrayList();
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -109,5 +111,12 @@ public class ChatWindowGroupMessageController implements Initializable {
 
 	}
 
+	public void showEvent() {
+		try {
+			Main.showEvents();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

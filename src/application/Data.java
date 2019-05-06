@@ -218,9 +218,12 @@ public class Data {
 
 						Group group = (Group) object;
 						setListGroup(group);
+						
 						groupMessageHashMap.put(group.getGroupName(), group.getGroupMessages());
 						hashMapGroups.put(group.getGroupName(), group);
+						
 						StartMenuController.getStartMenuController().setGroupList();
+						
 					}
 
 					else if (object instanceof PrivateMessage) {
@@ -263,7 +266,6 @@ public class Data {
 
 						try {
 							StartMenuController.getStartMenuController().setOnlineList();
-
 						} catch (Exception e) {
 							System.err.println(e);
 						}

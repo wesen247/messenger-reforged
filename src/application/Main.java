@@ -15,6 +15,7 @@ public class Main extends Application {
 	private static AnchorPane mainPane;
 	private static Stage addGroupMemberStage;
 	private static Stage calendarStage;
+	private static Stage eventStage;
 	public void start(Stage primaryStage) throws Exception {
 
 		this.primaryStage = primaryStage;
@@ -113,6 +114,17 @@ public class Main extends Application {
 		calendarStage.setScene(scene);
 		calendarStage.setResizable(false);
 		calendarStage.show();
+	}
+	
+	public static void showEvents() throws IOException {
+		eventStage = new Stage();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("/application/EventsWindow.fxml"));
+		mainPane = loader.load();
+		Scene scene = new Scene(mainPane);
+		eventStage.setScene(scene);
+		eventStage.setResizable(false);
+		eventStage.show();
 	}
 	public static Stage getNewMemberStage() {
 		return addGroupMemberStage;

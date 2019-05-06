@@ -92,8 +92,10 @@ public class ServerController {
 				send(request.getUser(), new Response("addUserFailed","User does not exist"));
 			}
 			else if(splitType[0].equals("event")) {
+				System.err.println("mottagit");
 				Event event = (Event) request.getObjectToAdd();
 				groupHandler.addEvent(event.getGroup().getGroupName(), event);
+				
 			}
 			else if(splitType[0].equals("delUser")) {
 				userHandler.removeUser(request.getUser(), (String) request.getObjectToAdd());

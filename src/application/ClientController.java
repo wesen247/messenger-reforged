@@ -111,7 +111,7 @@ public class ClientController {
 			oos.writeObject(new CreateUserRequest(name, password, image));
 			this.user = new User(name);
 			oos.flush();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -185,9 +185,10 @@ public class ClientController {
 	 * 
 	 * @param event
 	 */
-	public void addEvent(Event event) {
-		String type = "Event";
+	public void addEvent(String comment, String date) {
+		String type = "event";
 		try {
+			Event event = new Event(group, user, date, comment);
 			oos.writeObject(new AddObjectRequest(type, event, user));
 			oos.flush();
 		} catch (IOException e) {
@@ -271,5 +272,4 @@ public class ClientController {
 		return user;
 	}
 
-	
 }
