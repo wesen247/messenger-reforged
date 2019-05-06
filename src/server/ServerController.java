@@ -208,7 +208,8 @@ public class ServerController {
 					System.out.println("LoginHandler: Objekt Motaget");
 					if(fromUser instanceof CreateUserRequest) {
 						System.out.println("LoginHandler: Type CreateUserRequest");
-						if(userHandler.newUser((CreateUserRequest) fromUser, socket, oos, ois)) {
+						CreateUserRequest createUser = (CreateUserRequest) fromUser;
+						if(createUser.getName().length() > 2 && createUser.getPassword().length() > 2 && userHandler.newUser(createUser, socket, oos, ois)) {
 							accepted = true;
 							System.out.println("LoginHandler: CreateUserRequest lyckad");
 						}else {
