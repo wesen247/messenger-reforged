@@ -249,6 +249,17 @@ public class ClientController {
 
 	}
 
+	public void sendFile() {
+		String filename = "";
+		byte[] fileToSend = new byte[16*1024];
+		try {
+			oos.writeObject(new AddObjectRequest("file:" + group.getGroupName() + ":" + filename, fileToSend, user));
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Method that closes the socket.
 	 */
