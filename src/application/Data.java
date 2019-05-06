@@ -209,6 +209,9 @@ public class Data {
 							String res = (String) response.getResponse();
 							loginUI.loginFailed(res);
 
+						} else if (response.getType().equals("file")) {
+
+							ClientController.getClient().saveToComputer((byte[]) response.getResponse());
 						}
 
 					}

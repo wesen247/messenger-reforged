@@ -17,7 +17,7 @@ public class Main extends Application {
 	private static Stage calendarStage;
 	private static Stage eventStage;
 	private static Stage deleteUserStage;
-
+	private static Stage fileStage;
 	public void start(Stage primaryStage) throws Exception {
 
 		this.primaryStage = primaryStage;
@@ -140,6 +140,17 @@ public class Main extends Application {
 		deleteUserStage.show();
 	}
 
+	public static void showFiles() throws IOException {
+	fileStage = new Stage();	
+	FXMLLoader loader = new FXMLLoader();
+	loader.setLocation(Main.class.getResource("/application/DownloadFileUI.fxml"));
+	mainPane = loader.load();
+	Scene scene = new Scene(mainPane);
+	fileStage.setScene(scene);
+	fileStage.setResizable(false);
+	fileStage.show();
+	
+	}
 	public static Stage getDeleteStage() {
 		return deleteUserStage;
 	}

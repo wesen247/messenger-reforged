@@ -9,8 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DownloadFileUIController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="63.0" stroke="#086205" strokeType="INSIDE" width="438.0">
          <fill>
@@ -27,8 +26,8 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Text>
-      <ListView layoutX="38.0" layoutY="78.0" prefHeight="288.0" prefWidth="347.0" />
-      <Button layoutX="219.0" layoutY="385.0" mnemonicParsing="false" text="Download" />
+      <ListView fx:id="listViewFiles" layoutX="38.0" layoutY="78.0" prefHeight="288.0" prefWidth="347.0" />
+      <Button fx:id="btnDownload" layoutX="219.0" layoutY="385.0" mnemonicParsing="false" onAction="#download" text="Download" />
       <Button layoutX="304.0" layoutY="385.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Cancel" />
    </children>
 </AnchorPane>

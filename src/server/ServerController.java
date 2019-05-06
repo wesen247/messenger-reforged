@@ -111,8 +111,10 @@ public class ServerController {
 				send(message.getReceiver(),message);
 			}
 			else if(incomming instanceof ObjectRequest) {
+					System.out.println("fil skickas");
 				groupHandler.sendFile(((ObjectRequest)incomming).getRequest(), ((ObjectRequest)incomming).getUser());
-			}
+			
+				}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

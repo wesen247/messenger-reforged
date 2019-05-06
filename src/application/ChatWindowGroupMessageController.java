@@ -1,9 +1,13 @@
 package application;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 
 import entity.User;
 import javafx.application.Platform;
@@ -19,6 +23,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class ChatWindowGroupMessageController implements Initializable {
 
@@ -40,6 +46,8 @@ public class ChatWindowGroupMessageController implements Initializable {
 	private Text textGroupName;
 	@FXML
 	private Button btnShowEvents;
+	@FXML
+	private Button btnShowFiles;
 	private static ChatWindowGroupMessageController controller;
 
 	private ObservableList<String> membersList = FXCollections.observableArrayList();
@@ -130,6 +138,33 @@ public class ChatWindowGroupMessageController implements Initializable {
 
 	}
 
+	public void uploadFile() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select a file");
+
+		Stage stage = (Stage) Main.getPrimaryStage().getScene().getWindow();
+
+		File file = fileChooser.showOpenDialog(stage);
+
+		try {
+
+			byte[] files = Files.readAllBytes(file.toPath());
+			ClientController.getClient().sendFile(file.getName(), files);
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+public void showFiles() {
+	try {
+		Main.showFiles();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
 	public void showEvent() {
 		try {
 			Main.showEvents();

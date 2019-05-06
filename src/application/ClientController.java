@@ -3,6 +3,8 @@ package application;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -33,6 +35,7 @@ public class ClientController {
 	private StartMenuController menuController;
 	private Group group;
 	private BufferedImage image;
+	private String filename;
 
 	/**
 	 * Starts the connection with the server
@@ -174,17 +177,12 @@ public class ClientController {
 		}
 	}
 
-	/**
-	 * Sends a file to a group
-	 * 
-	 * @param file
-	 * @param groupName
-	 * @param filename
-	 */
-	public void sendFile(File file, String groupName, String filename) {
-		String type = "file:" + groupName + ":" + filename;
+
+
+	public void download(String file) {
+
 		try {
-			oos.writeObject(new AddObjectRequest(type, file, user));
+			oos.writeObject(new ObjectRequest("file", file, user));
 			oos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -249,11 +247,13 @@ public class ClientController {
 
 	}
 
-	public void sendFile() {
-		String filename = "";
-		byte[] fileToSend = new byte[16*1024];
+	public void sendFile(String filename,byte[] fileToSend) {
+	
+		
 		try {
+			System.out.println("HejAAA");
 			oos.writeObject(new AddObjectRequest("file:" + group.getGroupName() + ":" + filename, fileToSend, user));
+			oos.flush();
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -269,6 +269,23 @@ public class ClientController {
 			this.socket.close();
 		} catch (IOException e) {
 
+			e.printStackTrace();
+		}
+	}
+
+	public void setRequestedFile(String filename) {
+		this.filename = filename;
+	}
+
+	public void saveToComputer(byte[] file) {
+
+		String username = System.getProperty("user.name");
+		try {
+			FileOutputStream out = new FileOutputStream("C:\\Users\\" + username + "\\Downloads\\" + this.filename);
+			out.write(file);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
