@@ -110,20 +110,23 @@ public class UserHandler extends Thread {
 	 */
 	public boolean removeUser(User user, String password) {
 		if(password.equals(passwordHashmap.get(user.getName()))) {
-			for(int i = 0; allUsers.get(user.getName()).getGroups().size() >0;i++) {
+			for(int i = 0; allUsers.get(user.getName()).getGroups().size() >i;i++) {
 				ArrayList<User> members = serverController.getGroup(allUsers.get(user.getName()).getGroups().get(i)).getGroupMembers();
 
-				for(int l = 0; members.size()>0 ; i++) {
-					if (members.get(i).getName().equals(user.getName())) {
+				for(int l = 0; members.size()>i; i++) {
+					if (members.get(l).getName().equals(user.getName())) {
 						System.out.println("Removed from group");
-						members.remove(i);
+						members.remove(l);
 						break;
 					}
+					serverController.groupUpdate(new Group(allUsers.get(user.getName()).getGroups().get(i)));
 				}
+				
 			}
 
 			passwordHashmap.remove(user.getName());
 			allUsers.remove(user.getName());
+			connectedUsers.remove(user.getName());
 			System.out.println("User removed");
 			return true;
 		}
