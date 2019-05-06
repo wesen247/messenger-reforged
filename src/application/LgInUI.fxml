@@ -4,43 +4,44 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="282.0" prefWidth="386.0" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="282.0" prefWidth="386.0" style="-fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
   	
    <children>
-      <Pane opacity="0.55" prefHeight="48.0" prefWidth="386.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="48.0" stroke="#0fc409" strokeType="INSIDE" width="386.0">
-               <fill>
-                  <RadialGradient centerX="0.23605946537287265" centerY="0.42063489641462054" radius="0.5">
-                     <stops>
-                        <Stop color="#0fc409" />
-                        <Stop color="#0fc409" offset="0.007653061224489797" />
-                        <Stop color="#0fc409" offset="0.25254125885047907" />
-                        <Stop color="#086205" offset="0.9987244897959184" />
-                        <Stop color="#096106" offset="1.0" />
-                     </stops>
-                  </RadialGradient>
-               </fill>
-            </Rectangle>
-            <Text fill="WHITE" layoutX="11.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-         </children>
-      </Pane>
-      <Text fill="WHITE" layoutX="58.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" />
-      <TextField fx:id="logInUsernameField" layoutX="58.0" layoutY="87.0" prefHeight="25.0" prefWidth="205.0" promptText="type username" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" />
-      <PasswordField fx:id="logInPasswordField" layoutX="58.0" layoutY="170.0" prefHeight="25.0" prefWidth="205.0" promptText="type password" style="-fx-background-color: #55555D; -fx-border-color: #0FC409;" />
-      <Text fill="WHITE" layoutX="58.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
+      <Text layoutX="58.0" layoutY="83.0" stroke="#0fc409" strokeType="OUTSIDE" text="Username:">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <TextField fx:id="logInUsernameField" layoutX="58.0" layoutY="87.0" prefHeight="25.0" prefWidth="205.0" promptText="type username" style="-fx-border-color: #0FC409;" />
+      <PasswordField fx:id="logInPasswordField" layoutX="58.0" layoutY="170.0" prefHeight="25.0" prefWidth="205.0" promptText="type password" style="-fx-border-color: #0FC409;" />
+      <Text layoutX="58.0" layoutY="166.0" stroke="#0fc409" strokeType="OUTSIDE" text="Password:">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
       <Button fx:id="btnLogIn" layoutX="39.0" layoutY="231.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="25.0" prefWidth="121.0" style="-fx-border-color: #0FC409;" text="Log in" />
       <Button fx:id="btnCreateUser" layoutX="186.0" layoutY="231.0" mnemonicParsing="false" onAction="#createNewUser" style="-fx-border-color: #0FC409;" text="Create new account" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="48.0" stroke="#0fc409" strokeType="INSIDE" width="386.0">
+         <fill>
+            <RadialGradient centerX="0.23605946537287265" centerY="0.42063489641462054" radius="0.5">
+               <stops>
+                  <Stop color="#0fc409" />
+                  <Stop color="#0fc409" offset="0.007653061224489797" />
+                  <Stop color="#0fc409" offset="0.25254125885047907" />
+                  <Stop color="#086205" offset="0.9987244897959184" />
+                  <Stop color="#096106" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <Text fill="WHITE" layoutX="19.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in" wrappingWidth="40.6943359375">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

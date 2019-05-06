@@ -16,17 +16,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="280.0" style="-fx-background-color: #55555D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StartMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StartMenuController">
    <children>
-      <Pane fx:id="pane" prefHeight="67.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+      <Pane fx:id="pane" prefHeight="67.0" prefWidth="280.0">
          <children>
-            <MenuBar layoutX="215.0" layoutY="1.0" prefHeight="36.0" prefWidth="56.0" style="-fx-background-color: #55555D;">
+            <MenuBar layoutX="215.0" layoutY="1.0" prefHeight="36.0" prefWidth="65.0">
               <menus>
                 <Menu mnemonicParsing="false">
                   <items>
                     <MenuItem fx:id="btnCreateGroup" mnemonicParsing="false" onAction="#createGroup" text="Create new group" />
                         <MenuItem fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" text="Log out" />
                         <MenuItem fx:id="btnSettings" mnemonicParsing="false" onAction="#settings" text="Settings" />
+                        <MenuItem fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteUser" text="Delete User" />
                   </items>
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -62,18 +63,18 @@
          </font></Text>
       <Pane layoutY="112.0" prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
          <children>
-            <ScrollPane prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+            <ScrollPane prefHeight="183.0" prefWidth="280.0">
                <content>
-                  <ListView fx:id="listViewGroups" prefHeight="200.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
+                  <ListView fx:id="listViewGroups" prefHeight="200.0" prefWidth="265.0" />
                </content>
             </ScrollPane>
          </children>
       </Pane>
-      <Pane layoutY="329.0" prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+      <Pane layoutY="329.0" prefHeight="183.0" prefWidth="280.0">
          <children>
-            <ScrollPane prefHeight="183.0" prefWidth="280.0" style="-fx-background-color: #55555D;">
+            <ScrollPane prefHeight="183.0" prefWidth="280.0">
                <content>
-                  <ListView fx:id="listViewOnline" prefHeight="182.0" prefWidth="265.0" style="-fx-background-color: #55555D;" />
+                  <ListView fx:id="listViewOnline" prefHeight="182.0" prefWidth="265.0" />
                </content>
             </ScrollPane>
          </children></Pane>

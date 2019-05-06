@@ -14,6 +14,9 @@ public class Main extends Application {
 	private static Stage privateMessage;
 	private static AnchorPane mainPane;
 	private static Stage addGroupMemberStage;
+	private static Stage calendarStage;
+	private static Stage eventStage;
+	private static Stage deleteUserStage;
 
 	public void start(Stage primaryStage) throws Exception {
 
@@ -104,10 +107,51 @@ public class Main extends Application {
 		addGroupMemberStage.show();
 	}
 
+	public static void showCreateEvent() throws IOException {
+		calendarStage = new Stage();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("/application/CreateEvent.fxml"));
+		mainPane = loader.load();
+		Scene scene = new Scene(mainPane);
+		calendarStage.setScene(scene);
+		calendarStage.setResizable(false);
+		calendarStage.show();
+	}
+
+	public static void showEvents() throws IOException {
+		eventStage = new Stage();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("/application/EventsWindow.fxml"));
+		mainPane = loader.load();
+		Scene scene = new Scene(mainPane);
+		eventStage.setScene(scene);
+		eventStage.setResizable(false);
+		eventStage.show();
+	}
+
+	public static void showDeleteUser() throws IOException {
+		deleteUserStage = new Stage();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("/application/DeleteUserUI.fxml"));
+		mainPane = loader.load();
+		Scene scene = new Scene(mainPane);
+		deleteUserStage.setScene(scene);
+		deleteUserStage.setResizable(false);
+		deleteUserStage.show();
+	}
+
+	public static Stage getDeleteStage() {
+		return deleteUserStage;
+	}
+
+	public static Stage getPrimaryStage() {
+		return primaryStage;
+	}
+
 	public static Stage getNewMemberStage() {
 		return addGroupMemberStage;
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}

@@ -8,14 +8,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import entity.Group;
-import entity.GroupMessage;
-import entity.ObjectRequest;
-import entity.PrivateMessage;
-import entity.Response;
-import entity.StartUpdate;
-import entity.User;
-import entity.UserUpdate;
+import entity.*;
 import javafx.application.Platform;
 
 public class Data {
@@ -111,15 +104,14 @@ public class Data {
 			if (listGroup.get(i).getGroupName().equals(group.getGroupName())) {
 				listGroup.remove(i);
 				listGroup.add(group);
-				
-			} else if(i == listGroup.size() - 1) {
+
+			} else if (i == listGroup.size() - 1) {
 				listGroup.add(group);
 			}
 		}
-		if( listGroup.size() == 0) {
+		if (listGroup.size() == 0) {
 			listGroup.add(group);
 		}
-		
 
 	}
 
@@ -224,10 +216,19 @@ public class Data {
 					else if (object instanceof Group) {
 
 						Group group = (Group) object;
+
 						setListGroup(group);
+
 						groupMessageHashMap.put(group.getGroupName(), group.getGroupMessages());
 						hashMapGroups.put(group.getGroupName(), group);
+
 						StartMenuController.getStartMenuController().setGroupList();
+						if (ChatWindowGroupMessageController.getGroupMessageController() == null) {
+
+						} else {
+							ChatWindowGroupMessageController.getGroupMessageController().update();
+						}
+
 					}
 
 					else if (object instanceof PrivateMessage) {
@@ -270,7 +271,6 @@ public class Data {
 
 						try {
 							StartMenuController.getStartMenuController().setOnlineList();
-
 						} catch (Exception e) {
 							System.err.println(e);
 						}

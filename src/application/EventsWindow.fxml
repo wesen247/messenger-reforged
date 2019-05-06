@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="368.0" style="-fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EventWindowController">
+   <children>
+      <Pane fx:id="paneCreateUser" prefHeight="55.0" prefWidth="366.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="55.0" stroke="#0fc409" strokeType="INSIDE" width="366.0">
+               <fill>
+                  <RadialGradient centerX="0.24721188172974995" centerY="0.47777778988792785" radius="0.5">
+                     <stops>
+                        <Stop color="#0fc409" />
+                        <Stop color="#086205" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="22.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <TextArea fx:id="txtAreaEvents" layoutX="24.0" layoutY="74.0" prefHeight="294.0" prefWidth="335.0" />
+   </children>
+</AnchorPane>

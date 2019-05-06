@@ -1,8 +1,10 @@
 package application;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -10,10 +12,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileSystemView;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class CreateUserController implements Initializable {
 
@@ -35,7 +40,7 @@ public class CreateUserController implements Initializable {
 	private BufferedImage image;
 
 	public void initialize(URL location, ResourceBundle resource) {
-		
+
 	}
 
 	public void btnCreate() {
@@ -54,14 +59,20 @@ public class CreateUserController implements Initializable {
 	}
 
 	public void btnUploadImage() {
+
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select a picture");
+
+		Stage stage = (Stage) Main.getPrimaryStage().getScene().getWindow();
+
+		File file = fileChooser.showOpenDialog(stage);
+
 		try {
+			this.image = ImageIO.read(file);
+		} catch (IOException e) {
 
-			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-			j.showOpenDialog(new JFrame());
-			this.image = ImageIO.read(j.getSelectedFile());
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
+
 	}
 }

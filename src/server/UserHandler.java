@@ -113,13 +113,14 @@ public class UserHandler extends Thread {
 			for(int i = 0; allUsers.get(user.getName()).getGroups().size() >i;i++) {
 				ArrayList<User> members = serverController.getGroup(allUsers.get(user.getName()).getGroups().get(i)).getGroupMembers();
 
-				for(int l = 0; members.size()>i; i++) {
+				for(int l = 0; members.size()>l; l++) {
 					if (members.get(l).getName().equals(user.getName())) {
 						System.out.println("Removed from group");
 						members.remove(l);
+						serverController.groupUpdate(serverController.getGroup(allUsers.get(user.getName()).getGroups().get(i)));
 						break;
 					}
-					serverController.groupUpdate(new Group(allUsers.get(user.getName()).getGroups().get(i)));
+					
 				}
 				
 			}

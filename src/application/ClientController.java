@@ -11,16 +11,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import entity.AddObjectRequest;
-import entity.CreateUserRequest;
-import entity.Event;
-import entity.Group;
-import entity.GroupMessage;
-import entity.LoginRequest;
-import entity.PrivateMessage;
-import entity.User;
-
-
+import entity.*;
 
 /**
  * Controller class
@@ -109,6 +100,17 @@ public class ClientController {
 
 	}
 
+	public void deleteAccount(String password) {
+
+		try {
+			oos.writeObject(new AddObjectRequest("delUser", password, user));
+			oos.flush();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Creates an new account
 	 * 
@@ -120,7 +122,7 @@ public class ClientController {
 			oos.writeObject(new CreateUserRequest(name, password, image));
 			this.user = new User(name);
 			oos.flush();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -194,9 +196,10 @@ public class ClientController {
 	 * 
 	 * @param event
 	 */
-	public void addEvent(Event event) {
-		String type = "Event";
+	public void addEvent(String comment, String date, String location) {
+		String type = "event";
 		try {
+			Event event = new Event(group, user, date, comment, location);
 			oos.writeObject(new AddObjectRequest(type, event, user));
 			oos.flush();
 		} catch (IOException e) {
@@ -280,5 +283,4 @@ public class ClientController {
 		return user;
 	}
 
-	
 }
