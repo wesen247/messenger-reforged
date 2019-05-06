@@ -44,7 +44,7 @@ public class ClientController {
 	public ClientController(String username, String password, LoginController loginController) {
 		this.LoginController = loginController;
 		try {
-			socket = new Socket("10.2.9.252", 5343);
+			socket = new Socket(InetAddress.getLocalHost(), 5343);
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			oos.flush();
 			data = new Data(LoginController, socket);
@@ -66,7 +66,7 @@ public class ClientController {
 			BufferedImage image) {
 		this.userController = userController;
 		try {
-			socket = new Socket("10.2.9.252", 5343);
+			socket = new Socket(InetAddress.getLocalHost(), 5343);
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			oos.flush();
 			data = new Data(userController, socket);
