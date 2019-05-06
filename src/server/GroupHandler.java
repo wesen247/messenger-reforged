@@ -7,21 +7,22 @@ import entity.*;
 
 public class GroupHandler extends Thread {
 	private ConcurrentHashMap<String,Group> groups;
-	private ServerController controller;
+	private ServerController serverController;
 	private HashMapHandler hashMapHandler;
 	private ConcurrentHashMap<String,byte[]> files;
 
 	public static void main(String args[]) {
 		new ServerController(false, 10);
 	}
+	
 	/**
 	 * Contructor
-	 * @param useBackup True if server should load backup saved locally
+	 * @param useBackup True if server should load backup that is saved locally
 	 * @param controller Controller
 	 * @author André
 	 */
 	public GroupHandler(boolean useBackup, ServerController controller) {
-		this.controller = controller;
+		this.serverController = controller;
 		hashMapHandler = new HashMapHandler();
 		if(!useBackup) {
 			groups = new ConcurrentHashMap<String,Group>();
@@ -34,8 +35,9 @@ public class GroupHandler extends Thread {
 		}
 	}
 
-
-	/* Backup-thread.
+	/**
+	 * Thread that do backups
+	 * @author Zacharias
 	 */
 	public void run() {
 		try {
@@ -54,10 +56,12 @@ public class GroupHandler extends Thread {
 	 * Returns the group with the parameter as name
 	 * @param group String groupname to get
 	 * @return group Returns the group with the name of incoming parameter
+	 * @author André
 	 */
 	public Group getGroup(String group) {
 		return groups.get(group);
 	}
+	
 	/**
 	 * Adds a group to the server
 	 * @param group Group to be added to server
@@ -72,6 +76,7 @@ public class GroupHandler extends Thread {
 			System.out.println("Group creation failed");
 		}
 	}
+	
 	/**
 	 * Sends updates to all the members of group
 	 * @param group Group that should have its members updated
@@ -79,10 +84,12 @@ public class GroupHandler extends Thread {
 	 */
 	public void groupUpdate(Group group) {
 		for(int i = 0; i < group.getGroupMembers().size(); i++) {
-			System.out.println("Skickar grupp uppdatering till "+ group.getGroupMembers().get(i).getName() );
-			controller.send(group.getGroupMembers().get(i), group);
+			System.out.println("Skickar grupp uppdatering till " 
+						+ group.getGroupMembers().get(i).getName() );
+			serverController.send(group.getGroupMembers().get(i), group);
 		}
 	}
+	
 	/**
 	 * adds a user in a group memberlist
 	 * @param group Group that the member should be added in
@@ -90,10 +97,11 @@ public class GroupHandler extends Thread {
 	 * @author André
 	 */
 	public void addMember(Group group, User user) {
-		System.out.println(user.getName() + " Added to "+group.getGroupName());
+		System.out.println(user.getName() + " Added to " + group.getGroupName());
 		groups.get(group.getGroupName()).addMember(user);
 		groupUpdate(groups.get(group.getGroupName()));
 	}
+	
 	/**
 	 * Adds a event in the event arraylist
 	 * @param groupName Name of the group the event should be added in
@@ -107,6 +115,7 @@ public class GroupHandler extends Thread {
 			groupUpdate(groups.get(groupName));
 		}
 	}
+	
 	/**
 	 * Receives and distrubutes a message to all users in a group
 	 * @param message Message that came from an user
@@ -117,27 +126,31 @@ public class GroupHandler extends Thread {
 		System.out.println("Number of messages in group "+groups.get(message.getReceiver().getGroupName()).getGroupMessages().size());
 		Group group = groups.get(message.getReceiver().getGroupName());
 		for(int i = 0; i<group.getGroupMembers().size();i++) {
-			controller.send(group.getGroupMembers().get(i), message);
+			serverController.send(group.getGroupMembers().get(i), message);
 		}
 	}
+	
 	/**
 	 * Adds a file from a user to a group 
 	 * @param groupname Name of the group
 	 * @param filename Name of the file
 	 * @param file The file
+	 * @author André
 	 */
 	public void addFile(String groupname, String filename, byte[] file) {
 		groups.get(groupname).getFileLog().add(filename);
 		files.put(filename, file);
 		this.groupUpdate(groups.get(groupname));
 	}
+	
 	/**
 	 * Sends file to a user
 	 * @param request Filename
 	 * @param user The user the file is sent to
+	 * @author André
 	 */
 	public void sendFile(String request, User user) {
-		controller.send(user, new Response("file",files.get(request)));
+		serverController.send(user, new Response("file",files.get(request)));
 	}
 
 }

@@ -15,7 +15,8 @@ public class ServerController {
 	private GroupHandler groupHandler;
 	private Buffer<Runnable> taskBuffer;
 	private IncommningConnections connect;
-	/**Me
+
+	/**
 	 * Constructor
 	 * @param useBackup If true it will load a backup stored locally
 	 * @param maximumUsers Number of maximum users. Decides how many threads that will be created.
@@ -26,7 +27,6 @@ public class ServerController {
 		if(!directory.exists()) {
 			try {
 				directory.mkdir();
-				System.out.println("List seriöst");
 			}catch(SecurityException e) {
 				e.printStackTrace();
 			}
@@ -35,9 +35,9 @@ public class ServerController {
 		groupHandler = new GroupHandler(useBackup, this);
 		taskBuffer = new Buffer<Runnable>();
 
-		for(int i = 0;i<5+maximumUsers*2;i++) {
-			new Worker().start();;
-			System.out.println("New worker started "+i);
+		for(int i = 0; i < 5 + maximumUsers * 2; i++) {
+			new Worker().start();
+			System.out.println("New worker started " + i);
 		}
 		addTask(connect = new IncommningConnections());
 	}
@@ -69,53 +69,55 @@ public class ServerController {
 	public void kill() {
 		connect.kill();
 	}
+
 	/**
 	 * Receives a object from a user with instructions 
 	 * @param incomming The object
 	 * @author André
 	 */
 	public void newObjectFromUser(Object incomming) {
-		System.out.println("Servercontroller motagit object");
-		if(incomming instanceof AddObjectRequest) {
-			AddObjectRequest request = (AddObjectRequest) incomming;
-			String[] splitType = request.getType().split(":");
-			
-			if(splitType[0].equals("file")) {
-				groupHandler.addFile(splitType[1], splitType[2], (byte[])((AddObjectRequest) incomming).getObjectToAdd());
-			}
-			else if(splitType[0].equals( "addGroupMember")) {
-				System.err.println("addGroupMember");
-				if(userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1])) {
-					groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
-					System.err.println("addGroupMember");
-				}
-				send(request.getUser(), new Response("addUserFailed","User does not exist"));
-			}
-			else if(splitType[0].equals("event")) {
-				System.err.println("mottagit");
-				Event event = (Event) request.getObjectToAdd();
-				groupHandler.addEvent(event.getGroup().getGroupName(), event);
-				
-			}
-			else if(splitType[0].equals("delUser")) {
-				userHandler.removeUser(request.getUser(), (String) request.getObjectToAdd());
-			}
-		}
+		try {
+			System.out.println("Servercontroller motagit object");
+			if(incomming instanceof AddObjectRequest) {
+				AddObjectRequest request = (AddObjectRequest) incomming;
+				String[] splitType = request.getType().split(":");
 
-		else if(incomming instanceof Group) {
-			groupHandler.addGroup((Group) incomming);
-		}
-		else if(incomming instanceof GroupMessage) {
-			groupHandler.newMessage((GroupMessage) incomming);
-		}
-		else if(incomming instanceof PrivateMessage) {
-			PrivateMessage message = (PrivateMessage) incomming;
-			send(message.getReceiver(),message);
-		}
-		else if(incomming instanceof ObjectRequest) {
-			groupHandler.sendFile(((ObjectRequest)incomming).getRequest(), ((ObjectRequest)incomming).getUser());
+				if(splitType[0].equals("file")) {
+					groupHandler.addFile(splitType[1], splitType[2], (byte[])((AddObjectRequest) incomming).getObjectToAdd());
+				}
+				else if(splitType[0].equals( "addGroupMember")) {
+					if(userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1])) {
+						groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
+					}
+					send(request.getUser(), new Response("addUserFailed","Add user failed"));
+				}
+				else if(splitType[0].equals("event")) {
+					Event event = (Event) request.getObjectToAdd();
+					groupHandler.addEvent(event.getGroup().getGroupName(), event);
+				}
+				else if(splitType[0].equals("delUser")) {
+					userHandler.removeUser(request.getUser(), (String) request.getObjectToAdd());
+				}
+			}
+
+			else if(incomming instanceof Group) {
+				groupHandler.addGroup((Group) incomming);
+			}
+			else if(incomming instanceof GroupMessage) {
+				groupHandler.newMessage((GroupMessage) incomming);
+			}
+			else if(incomming instanceof PrivateMessage) {
+				PrivateMessage message = (PrivateMessage) incomming;
+				send(message.getReceiver(),message);
+			}
+			else if(incomming instanceof ObjectRequest) {
+				groupHandler.sendFile(((ObjectRequest)incomming).getRequest(), ((ObjectRequest)incomming).getUser());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Sends an object to a user
 	 * @param receiver User thats should receive the object
@@ -125,6 +127,7 @@ public class ServerController {
 	public void send(User receiver, Object sendObject) {
 		userHandler.send(receiver, sendObject);
 	}
+
 	/**
 	 * Worker class. Waits for task in taskBuffer
 	 * @author andre
@@ -142,6 +145,7 @@ public class ServerController {
 			}
 		}
 	}
+
 	/**
 	 * Listens for users to connect.
 	 * @author andre
@@ -149,6 +153,7 @@ public class ServerController {
 	 */
 	public class IncommningConnections implements Runnable{
 		ServerSocket serverSocket;
+
 		/**
 		 * Kills the server
 		 * @author André
@@ -176,6 +181,10 @@ public class ServerController {
 		}
 	}
 
+	public void groupUpdate(Group group) {
+		groupHandler.groupUpdate(group);
+	}
+
 	/**
 	 * Listens for LoginRequest or CreateUserRequest from user.
 	 * @author andre
@@ -194,9 +203,8 @@ public class ServerController {
 				ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 				oos.flush();
-				
+
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			boolean accepted = false;
@@ -208,7 +216,8 @@ public class ServerController {
 					System.out.println("LoginHandler: Objekt Motaget");
 					if(fromUser instanceof CreateUserRequest) {
 						System.out.println("LoginHandler: Type CreateUserRequest");
-						if(userHandler.newUser((CreateUserRequest) fromUser, socket, oos, ois)) {
+						CreateUserRequest createUser = (CreateUserRequest) fromUser;
+						if(createUser.getName().length() > 2 && createUser.getPassword().length() > 2 && userHandler.newUser(createUser, socket, oos, ois)) {
 							accepted = true;
 							System.out.println("LoginHandler: CreateUserRequest lyckad");
 						}else {
