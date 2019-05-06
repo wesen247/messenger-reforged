@@ -26,7 +26,10 @@ public class StartMenuController implements Initializable {
 	private MenuItem btnLogout;
 	@FXML
 	private MenuItem btnSettings;
+	@FXML
+	private MenuItem btnDelete;
 	private Main main;
+
 	@FXML
 	private ListView<String> listViewOnline = new ListView<String>();
 	@FXML
@@ -68,6 +71,8 @@ public class StartMenuController implements Initializable {
 	}
 
 	public void initialize(URL location, ResourceBundle resource) {
+
+		Main.getPrimaryStage().setOnCloseRequest(e -> System.exit(0));
 
 		setOnlineList();
 		setGroupList();
@@ -144,6 +149,16 @@ public class StartMenuController implements Initializable {
 			}
 		});
 
+	}
+
+	public void deleteUser() {
+		System.out.println("delete funkar");
+		try {
+			Main.showDeleteUser();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -23,8 +23,10 @@ public class CreateEventController implements Initializable {
 	private TextField txtFieldComment;
 	@FXML
 	private DatePicker datePicker;
+	@FXML
+	private TextField txtFieldLocation;
 
-	public void initialize(URL arg0, ResourceBundle arg1) {
+public void initialize(URL arg0, ResourceBundle arg1) {
 
 	}
 
@@ -37,8 +39,11 @@ public class CreateEventController implements Initializable {
 		Instant instant1 = date1.toInstant();
 		LocalDate ld = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 		System.out.println(ld);
+		String location = txtFieldLocation.getText();
 		String comment = txtFieldComment.getText();
-		ClientController.getClient().addEvent(comment, ld.toString());
+		
+		ClientController.getClient().addEvent(comment, ld.toString(),location);
+
 
 	}
 

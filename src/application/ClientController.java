@@ -100,6 +100,17 @@ public class ClientController {
 
 	}
 
+	public void deleteAccount(String password) {
+
+		try {
+			oos.writeObject(new AddObjectRequest("delUser", password, user));
+			oos.flush();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Creates an new account
 	 * 
@@ -185,10 +196,10 @@ public class ClientController {
 	 * 
 	 * @param event
 	 */
-	public void addEvent(String comment, String date) {
+	public void addEvent(String comment, String date, String location) {
 		String type = "event";
 		try {
-			Event event = new Event(group, user, date, comment);
+			Event event = new Event(group, user, date, comment, location);
 			oos.writeObject(new AddObjectRequest(type, event, user));
 			oos.flush();
 		} catch (IOException e) {

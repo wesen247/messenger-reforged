@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import entity.User;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -39,11 +40,16 @@ public class ChatWindowGroupMessageController implements Initializable {
 	private Text textGroupName;
 	@FXML
 	private Button btnShowEvents;
-	
+	private static ChatWindowGroupMessageController controller;
+
 	private ObservableList<String> membersList = FXCollections.observableArrayList();
 
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public static ChatWindowGroupMessageController getGroupMessageController() {
+		return controller;
+	}
 
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		controller = this;
 		textAreaIncomingMessages.setEditable(false);
 		Data.getData().addGroupListener(this);
 		update();
@@ -60,17 +66,19 @@ public class ChatWindowGroupMessageController implements Initializable {
 
 		textGroupName.setText(ClientController.getClient().getGroup().getGroupName());
 	}
+
 	public void addEvent() {
 
 		System.out.println("tja");
-			try {
-				Main.showCreateEvent();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			Main.showCreateEvent();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
+
 	public void send() {
 		ClientController.getClient().createGroupMessage(textFieldMessage.getText());
 		textFieldMessage.clear();
@@ -86,28 +94,39 @@ public class ChatWindowGroupMessageController implements Initializable {
 	}
 
 	public void update() {
-		try {
-			textAreaIncomingMessages.setText("");
-			for (int i = 0; i < Data.getData().getGroupMessage()
-					.get(ClientController.getClient().getGroup().getGroupName()).size(); i++) {
-				textAreaIncomingMessages.appendText(Data.getData().getGroupMessage()
-						.get(ClientController.getClient().getGroup().getGroupName()).get(i).getSender() + ": "
-						+ Data.getData().getGroupMessage().get(ClientController.getClient().getGroup().getGroupName())
-								.get(i).getMessage());
-				textAreaIncomingMessages.appendText("\n");
-			}
-			ArrayList<User> members = Data.getData().getGroups()
-					.get(ClientController.getClient().getGroup().getGroupName()).getGroupMembers();
+		Platform.runLater(new Runnable() {
+			public void run() {
+				try {
+					textAreaIncomingMessages.setText("");
+					for (int i = 0; i < Data.getData().getGroupMessage()
+							.get(ClientController.getClient().getGroup().getGroupName()).size(); i++) {
+						textAreaIncomingMessages.appendText(Data.getData().getGroupMessage()
+								.get(ClientController.getClient().getGroup().getGroupName()).get(i).getSender()
+								+ ": "
+								+ Data.getData().getGroupMessage()
+										.get(ClientController.getClient().getGroup().getGroupName()).get(i)
+										.getMessage());
+						textAreaIncomingMessages.appendText("\n");
+					}
+					ArrayList<User> members = Data.getData().getGroups()
+							.get(ClientController.getClient().getGroup().getGroupName()).getGroupMembers();
 
-			membersList.clear();
-			for (int i = 0; i < members.size(); i++) {
-				membersList.add(members.get(i).getName());
+					membersList.clear();
+
+					for (int i = 0; i < members.size(); i++) {
+
+						membersList.add(members.get(i).getName());
+
+					}
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		});
 
 	}
 
