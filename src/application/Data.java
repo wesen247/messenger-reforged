@@ -216,6 +216,8 @@ public class Data {
 							JOptionPane.showMessageDialog(null, "Failed to create user");
 						} else if (response.getType().equals("addUserFailed")) {
 							JOptionPane.showMessageDialog(null, "Failed to add user");
+						} else if(response.getType().equals("delUserFailed")) {
+							JOptionPane.showMessageDialog(null, "Wrong password");
 						}
 
 					}
@@ -323,7 +325,8 @@ public class Data {
 					public void run() {
 						try {
 							Main.showLogin();
-						} catch (IOException e) {
+							Main.getDeleteStage().close();
+						} catch (IOException | NullPointerException e) {
 							e.printStackTrace();
 						}
 
