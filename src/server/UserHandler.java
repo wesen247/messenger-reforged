@@ -132,6 +132,7 @@ public class UserHandler extends Thread {
 			System.out.println("User removed");
 			return true;
 		}
+		this.send(user, new Response("delUserFailed", null));
 		System.out.println("User remove failed");
 		return false;
 	}
