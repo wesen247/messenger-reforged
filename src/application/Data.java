@@ -193,8 +193,10 @@ public class Data {
 						setListObjectRequest(objectRequest);
 
 					} else if (object instanceof Response) {
+
 						Response response = (Response) object;
 						setListResponse(response);
+						System.out.println(response.getType());
 
 						if (response.getType().equals("loginFailed")) {
 							String res = (String) response.getResponse();
@@ -203,13 +205,14 @@ public class Data {
 						} else if (response.getType().equals("file")) {
 							ClientController.getClient().saveToComputer((byte[]) response.getResponse());
 
-						} else if (response.getResponse().equals("createGroupSuccesful")) {
+						} else if (response.getType().equals("createGroupSuccessful")) {
 							ClientController.getClient().addToGroup();
-						
-						} else if (response.getResponse().equals("groupCreateFailed")) {
+
+						} else if (response.getType().equals("groupCreateFailed")) {
 							JOptionPane.showMessageDialog(null, "Failed to create group");
-						
-						} else if (response.getResponse().equals("createUserFailed")) {
+
+						} else if (response.getType().equals("createUserFailed")) {
+
 							JOptionPane.showMessageDialog(null, "Failed to create user");
 						}
 

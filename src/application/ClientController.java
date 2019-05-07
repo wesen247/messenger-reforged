@@ -28,6 +28,7 @@ public class ClientController {
 	private Group group;
 	private String filename;
 	private String groupName;
+
 	/**
 	 * Starts the connection with the server
 	 */
@@ -83,13 +84,14 @@ public class ClientController {
 		ArrayList<String> fileLog = new ArrayList<String>();
 		ArrayList<Event> eventObjects = new ArrayList<Event>();
 		try {
-			oos.writeObject(new Group(users, messages, fileLog, eventObjects, groupName,user.getName()));
-			oos.flush();			
+			oos.writeObject(new Group(users, messages, fileLog, eventObjects, groupName, user.getName()));
+			oos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
+
 	public void addToGroup() {
 		try {
 			oos.writeObject(new AddObjectRequest("addGroupMember:" + groupName, user, user));
@@ -97,9 +99,9 @@ public class ClientController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void deleteAccount(String password) {
 
 		try {
@@ -174,8 +176,6 @@ public class ClientController {
 		}
 	}
 
-
-
 	public void download(String file) {
 
 		try {
@@ -244,9 +244,8 @@ public class ClientController {
 
 	}
 
-	public void sendFile(String filename,byte[] fileToSend) {
-	
-		
+	public void sendFile(String filename, byte[] fileToSend) {
+
 		try {
 			System.out.println("HejAAA");
 			oos.writeObject(new AddObjectRequest("file:" + group.getGroupName() + ":" + filename, fileToSend, user));
