@@ -89,7 +89,9 @@ public class ServerController {
 					if(userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1])) {
 						groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
 					}
-					send(request.getUser(), new Response("addUserFailed","Add user failed"));
+					else {
+						send(request.getUser(), new Response("addUserFailed","Add user failed"));
+					}
 				}
 				else if(splitType[0].equals("event")) {
 					Event event = (Event) request.getObjectToAdd();

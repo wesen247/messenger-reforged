@@ -127,6 +127,7 @@ public class UserHandler extends Thread {
 
 			passwordHashmap.remove(user.getName());
 			allUsers.remove(user.getName());
+			connectedUsers.get(user.getName()).kill();
 			connectedUsers.remove(user.getName());
 			System.out.println("User removed");
 			return true;

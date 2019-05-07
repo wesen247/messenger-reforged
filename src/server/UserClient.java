@@ -13,6 +13,7 @@ public class UserClient {
 	private User user;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
+	private Socket socket;
 	
 	/**
 	 * Constructor
@@ -34,6 +35,7 @@ public class UserClient {
 		this.ois = ois;
 		controller.addTask(new UserListener());
 		controller.addTask(new UserSender());
+		this.socket = socket;
 	}
 	
 	/**
@@ -52,6 +54,15 @@ public class UserClient {
 	 */
 	public void addToBuffer(Object sendObject) {
 		sendBuffer.put(sendObject);
+	}
+	
+	public void kill() {
+		try {
+			socket.close();
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
 	}
 	
 	/**
