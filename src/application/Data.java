@@ -4,15 +4,15 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.swing.JOptionPane;
 
 import entity.*;
 import javafx.application.Platform;
 
 public class Data {
-	private Main main;
 	private LoginController loginUI;
 	private ObjectInputStream ois;
 	private Socket socket;
@@ -23,8 +23,6 @@ public class Data {
 
 	private ArrayList<UserUpdate> listUserUpdate = new ArrayList<UserUpdate>();
 	private boolean alive = false;
-	private CreateUserController userController;
-	private StartMenuController mainMenuController;
 	private static Data data;
 
 	private HashMap<String, Buffer<String>> pmBuffer = new HashMap<String, Buffer<String>>();
@@ -49,12 +47,11 @@ public class Data {
 		}
 		alive = true;
 		new ServerListener().start();
-		this.data = this;
+		Data.data = this;
 	}
 
 	public Data(CreateUserController userController, Socket socket) {
 
-		this.userController = userController;
 		try {
 
 			this.socket = socket;
@@ -66,11 +63,10 @@ public class Data {
 		}
 		alive = true;
 		new ServerListener().start();
-		this.data = this;
+		Data.data = this;
 	}
 
 	public void addMenuController(StartMenuController menuController) {
-		this.mainMenuController = menuController;
 	}
 
 	public static Data getData() {
@@ -189,29 +185,32 @@ public class Data {
 		public void run() {
 
 			while (alive) {
-
 				try {
-
 					Object object = ois.readObject();
 
 					if (object instanceof ObjectRequest) {
-
 						ObjectRequest objectRequest = (ObjectRequest) object;
 						setListObjectRequest(objectRequest);
 
 					} else if (object instanceof Response) {
-
 						Response response = (Response) object;
 						setListResponse(response);
 
 						if (response.getType().equals("loginFailed")) {
-
 							String res = (String) response.getResponse();
 							loginUI.loginFailed(res);
 
 						} else if (response.getType().equals("file")) {
-
 							ClientController.getClient().saveToComputer((byte[]) response.getResponse());
+
+						} else if (response.getResponse().equals("createGroupSuccesful")) {
+							ClientController.getClient().addToGroup();
+						
+						} else if (response.getResponse().equals("groupCreateFailed")) {
+							JOptionPane.showMessageDialog(null, "Failed to create group");
+						
+						} else if (response.getResponse().equals("createUserFailed")) {
+							JOptionPane.showMessageDialog(null, "Failed to create user");
 						}
 
 					}
@@ -302,7 +301,7 @@ public class Data {
 							public void run() {
 								try {
 
-									main.showMainMenu();
+									Main.showMainMenu();
 
 								} catch (IOException e) {
 									e.printStackTrace();

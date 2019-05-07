@@ -2,8 +2,6 @@ package application;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -11,8 +9,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import entity.*;
 
 /**
@@ -23,20 +19,15 @@ import entity.*;
  */
 public class ClientController {
 	private LoginController LoginController;
-	private Main main;
 	private User user;
-	private BufferedImage bImage;
 	private Data data;
 	private ObjectOutputStream oos;
 	private Socket socket;
-	private CreateUserController userController;
 	private User reciver;
 	private static ClientController controller;
-	private StartMenuController menuController;
 	private Group group;
-	private BufferedImage image;
 	private String filename;
-
+	private String groupName;
 	/**
 	 * Starts the connection with the server
 	 */
@@ -58,7 +49,7 @@ public class ClientController {
 		}
 
 		logIn(username, password);
-		this.controller = this;
+		ClientController.controller = this;
 	}
 
 	public String getReceiver() {
@@ -67,7 +58,6 @@ public class ClientController {
 
 	public ClientController(String username, String password, CreateUserController userController,
 			BufferedImage image) {
-		this.userController = userController;
 		try {
 			socket = new Socket(InetAddress.getLocalHost(), 5343);
 			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -78,7 +68,7 @@ public class ClientController {
 			e.printStackTrace();
 		}
 		createNewUser(username, password, image);
-		this.controller = this;
+		ClientController.controller = this;
 	}
 
 	/**
@@ -87,22 +77,29 @@ public class ClientController {
 	 * @param groupName
 	 */
 	public void createNewGroup(String groupName) {
+		this.groupName = groupName;
 		ArrayList<User> users = new ArrayList<User>();
-
 		ArrayList<GroupMessage> messages = new ArrayList<GroupMessage>();
 		ArrayList<String> fileLog = new ArrayList<String>();
 		ArrayList<Event> eventObjects = new ArrayList<Event>();
 		try {
-			oos.writeObject(new Group(users, messages, fileLog, eventObjects, groupName));
-			oos.flush();
-			oos.writeObject(new AddObjectRequest("addGroupMember:" + groupName, user, user));
-			oos.flush();
+			oos.writeObject(new Group(users, messages, fileLog, eventObjects, groupName,user.getName()));
+			oos.flush();			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-
+	public void addToGroup() {
+		try {
+			oos.writeObject(new AddObjectRequest("addGroupMember:" + groupName, user, user));
+			oos.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void deleteAccount(String password) {
 
 		try {

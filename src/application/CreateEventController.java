@@ -4,7 +4,6 @@ import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -34,9 +33,6 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		LocalDate localDate = datePicker.getValue();
 		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-		Date date = Date.from(instant);
-		Date date1 = new Date();
-		Instant instant1 = date1.toInstant();
 		LocalDate ld = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 		System.out.println(ld);
 		String location = txtFieldLocation.getText();
