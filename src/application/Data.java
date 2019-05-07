@@ -29,7 +29,7 @@ public class Data {
 	private static HashMap<String, ArrayList<GroupMessage>> groupMessageHashMap = new HashMap<String, ArrayList<GroupMessage>>();
 	private static HashMap<String, Group> hashMapGroups = new HashMap<String, Group>();
 
-	private ArrayList<User> list;
+	private static ArrayList<User> list;
 	private HashMap<String, ChatWindowGroupMessageController> arrayListController = new HashMap<String, ChatWindowGroupMessageController>();
 
 	public Data(LoginController loginUI, Socket socket) {
@@ -92,7 +92,9 @@ public class Data {
 	public ArrayList<Group> getListGroup() {
 		return listGroup;
 	}
-
+	public static ArrayList<User> getUsers(){
+		return list;
+	}
 	public void setListGroup(Group group) {
 
 		for (int i = 0; i < listGroup.size(); i++) {
@@ -327,7 +329,6 @@ public class Data {
 							Main.showLogin();
 							Main.getDeleteStage().close();
 						} catch (IOException | NullPointerException e) {
-							e.printStackTrace();
 						}
 
 					}

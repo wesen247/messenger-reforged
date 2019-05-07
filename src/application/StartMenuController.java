@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -51,7 +53,7 @@ public class StartMenuController implements Initializable {
 
 	public void createGroup() {
 		try {
-			main.showCreateGroup();
+			Main.showCreateGroup();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,7 +62,7 @@ public class StartMenuController implements Initializable {
 	public void logout() {
 		ClientController.getClient().closeSocket();
 		try {
-			main.showLogin();
+			Main.showLogin();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,6 +75,13 @@ public class StartMenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resource) {
 
 		Main.getPrimaryStage().setOnCloseRequest(e -> System.exit(0));
+		for (int i = 0; i < Data.getData().getUsers().size(); i++) {
+			if (Data.getData().getUsers().get(i).getName().equals(ClientController.getClient().getUser().getName())) {
+				Image image = SwingFXUtils.toFXImage(data.getData().getUsers().get(i).getImage(), null);
+				profileImage.setImage(image);
+
+			}
+		}
 
 		setOnlineList();
 		setGroupList();
@@ -155,7 +164,7 @@ public class StartMenuController implements Initializable {
 		System.out.println("delete funkar");
 		try {
 			Main.showDeleteUser();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

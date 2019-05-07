@@ -3,6 +3,11 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,7 +34,7 @@ public class ChatWindowPrivateMessageController implements Initializable {
 	private ImageView userImage;
 	@FXML
 	private Text recieverName;
-	
+
 	private Worker worker;
 
 	public void send() {
@@ -44,13 +49,15 @@ public class ChatWindowPrivateMessageController implements Initializable {
 	}
 
 	public void initialize(URL location, ResourceBundle resource) {
-		for (int i = 0; i < Data.getData().getUser().size(); i++) {
-			if (Data.getData().getUser().get(i).getName().equals(ClientController.getClient().getReceiver())) 
-				recieverName.setText(Data.getData().getUser().get(i).getName());
-				Image image = SwingFXUtils.toFXImage(Data.getData().getUser().get(i).getImage(), null);
-				userImage.setImage(image);
+		for (int i = 0; i < Data.getData().getUsers().size(); i++) {
+			if (Data.getData().getUsers().get(i).getName().equals(ClientController.getClient().getReceiver())) {
+				recieverName.setText(Data.getData().getUsers().get(i).getName());
+				Image image1 = SwingFXUtils.toFXImage(Data.getData().getUsers().get(i).getImage(), null);
+				userImage.setImage(image1);
+				System.out.println("hornbeger");
 			}
-		
+		}
+
 		Main.getPMStage().setOnCloseRequest(e -> worker.notifyThread());
 		worker = new Worker();
 		worker.start();
