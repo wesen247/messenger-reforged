@@ -16,6 +16,7 @@ public class Group implements Serializable{
 	private ArrayList<GroupMessage> groupMessages = new ArrayList<GroupMessage>();
 	private ArrayList<Event> events = new ArrayList<Event>();
 	private String groupName;
+	private String creator;
 
 	/**Constructor for groups containing several users.
 	 * @param groupMembers ArrayList that holds the users in the group.
@@ -23,12 +24,13 @@ public class Group implements Serializable{
 	 * @param fileLog ArrayList of Strings containing which files held by server.
 	 * @param events ArrayList containing events planned by the group.
 	 */
-	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog, ArrayList<Event> events, String groupName) {
+	public Group(ArrayList<User> groupMembers, ArrayList<GroupMessage> groupMessages, ArrayList<String> fileLog, ArrayList<Event> events, String groupName, String creator) {
 		this.groupMembers = groupMembers;
 		this.groupMessages = groupMessages;
 		this.fileLog = fileLog;
 		this.events = events;
 		this.groupName = groupName;
+		this.creator = creator;
 	}
 	
 	public Group(String groupName) {
@@ -59,5 +61,8 @@ public class Group implements Serializable{
 	}
 	public String getGroupName() {
 		return groupName;
+	}
+	public String getCreator() {
+		return creator;
 	}
 }

@@ -101,7 +101,7 @@ public class ServerController {
 			}
 
 			else if(incomming instanceof Group) {
-				groupHandler.addGroup((Group) incomming);
+				groupHandler.addGroup((Group) incomming, new User(((Group) incomming).getCreator()));
 			}
 			else if(incomming instanceof GroupMessage) {
 				groupHandler.newMessage((GroupMessage) incomming);
