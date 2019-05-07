@@ -126,7 +126,7 @@ public class StartMenuController implements Initializable {
 							onlineUsers.add(Data.getData().getUser().get(i).getName());
 						}
 					} catch (NullPointerException e) {
-						e.printStackTrace();
+						System.err.println(e);
 					}
 				}
 

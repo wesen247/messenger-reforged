@@ -40,11 +40,11 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		ClientController.getClient().addEvent(comment, ld.toString(),location);
 
-
+		Main.getCalendarStage().close();
 	}
 
 	public void cancel() {
-
+		Main.getCalendarStage().close();
 	}
 
 }

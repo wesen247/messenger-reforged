@@ -26,17 +26,11 @@ public class DeleteUserUIController implements Initializable {
 
 		ClientController.getClient().deleteAccount(txtFieldPassword.getText());
 
-		try {
-			Main.showLogin();
-			Main.getDeleteStage().hide();
-			ClientController.getClient().closeSocket();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	public void cancel() {
-
+		Main.getDeleteStage().close();
 	}
 
 }

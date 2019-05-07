@@ -183,9 +183,9 @@ public class Data {
 	private class ServerListener extends Thread {
 
 		public void run() {
+			try {
+				while (alive) {
 
-			while (alive) {
-				try {
 					Object object = ois.readObject();
 
 					if (object instanceof ObjectRequest) {
@@ -214,6 +214,8 @@ public class Data {
 						} else if (response.getType().equals("createUserFailed")) {
 
 							JOptionPane.showMessageDialog(null, "Failed to create user");
+						} else if (response.getType().equals("addUserFailed")) {
+							JOptionPane.showMessageDialog(null, "Failed to add user");
 						}
 
 					}
@@ -314,10 +316,22 @@ public class Data {
 						});
 
 					}
-				} catch (ClassNotFoundException | IOException e) {
-					System.err.println("Disconnected");
+
 				}
+			} catch (ClassNotFoundException | IOException e) {
+				Platform.runLater(new Runnable() {
+					public void run() {
+						try {
+							Main.showLogin();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+
+					}
+				});
 			}
+
 		}
+
 	}
 }
