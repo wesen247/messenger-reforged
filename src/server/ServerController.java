@@ -101,7 +101,7 @@ public class ServerController {
 			}
 
 			else if(incomming instanceof Group) {
-				groupHandler.addGroup((Group) incomming);
+				groupHandler.addGroup((Group) incomming, new User(((Group) incomming).getCreator()));
 			}
 			else if(incomming instanceof GroupMessage) {
 				groupHandler.newMessage((GroupMessage) incomming);
@@ -111,10 +111,8 @@ public class ServerController {
 				send(message.getReceiver(),message);
 			}
 			else if(incomming instanceof ObjectRequest) {
-					System.out.println("fil skickas");
 				groupHandler.sendFile(((ObjectRequest)incomming).getRequest(), ((ObjectRequest)incomming).getUser());
-			
-				}
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

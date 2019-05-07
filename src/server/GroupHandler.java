@@ -76,6 +76,17 @@ public class GroupHandler extends Thread {
 			System.out.println("Group creation failed");
 		}
 	}
+	public void addGroup(Group group, User user) {
+		if(!groups.containsKey(group.getGroupName())) {
+			System.out.println("Group added");
+			groups.put(group.getGroupName(), group);
+			groupUpdate(group);
+			serverController.send(user, new Response("createGroupSuccessful", "Create group successful"));
+		}else {
+			System.out.println("Group creation failed");
+			serverController.send(user, new Response("groupCreateFailed", "Create group failed"));
+		}
+	}
 	
 	/**
 	 * Sends updates to all the members of group
