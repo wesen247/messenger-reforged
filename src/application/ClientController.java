@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import entity.*;
 
 /**
@@ -28,6 +30,7 @@ public class ClientController {
 	private Group group;
 	private String filename;
 	private String groupName;
+	private AtomicBoolean darkmode = new AtomicBoolean();
 
 	/**
 	 * Starts the connection with the server
@@ -305,6 +308,14 @@ public class ClientController {
 
 	public User getUser() {
 		return user;
+	}
+	
+	public void setDarkMode(boolean set) {
+		darkmode.set(set);
+	}
+
+	public boolean getDarkMode() {
+		return darkmode.get();
 	}
 
 }

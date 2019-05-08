@@ -1,0 +1,24 @@
+.root {
+   -fx-background-color: #EEEEEE;
+}
+.radio-button {
+    -fx-text-fill: black;
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: #EDEDED;
+    -fx-text-fill:black; 
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: #E1E1E1;
+    -fx-text-fill:black; 
+}
+
+.list-view {
+	 -fx-background-color: #EEEEEE;
+}
+
+.menu-bar {
+	-fx-background-color: #EEEEEE;
+}

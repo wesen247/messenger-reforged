@@ -69,7 +69,11 @@ public class StartMenuController implements Initializable {
 	}
 
 	public void settings() {
-		// main.showSettings();
+		 try {
+			main.showSettings();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void initialize(URL location, ResourceBundle resource) {

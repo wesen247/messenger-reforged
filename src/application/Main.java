@@ -18,6 +18,7 @@ public class Main extends Application {
 	private static Stage eventStage;
 	private static Stage deleteUserStage;
 	private static Stage fileStage;
+	private static Stage settingsStage;
 
 	public void start(Stage primaryStage) throws Exception {
 
@@ -41,6 +42,12 @@ public class Main extends Application {
 		return privateMessage;
 	}
 
+	public static Stage getSettingsStage() {
+		return settingsStage;
+	}
+
+
+
 	public static void showCreateGroup() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -50,6 +57,12 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
 
 	}
 
@@ -73,6 +86,12 @@ public class Main extends Application {
 		privateMessage.setScene(scene);
 		privateMessage.setResizable(false);
 		privateMessage.show();
+
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
 	}
 
 	public static void showMainMenu() throws IOException {
@@ -84,6 +103,12 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
 	}
 
 	public static void showGroupChatWindow() throws IOException {
@@ -95,6 +120,12 @@ public class Main extends Application {
 		groupChatStage.setScene(scene);
 		groupChatStage.setResizable(false);
 		groupChatStage.show();
+
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
 	}
 
 	public static void showAddNewGroupMember() throws IOException {
@@ -106,6 +137,12 @@ public class Main extends Application {
 		addGroupMemberStage.setScene(scene);
 		addGroupMemberStage.setResizable(false);
 		addGroupMemberStage.show();
+
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
 	}
 
 	public static void showCreateEvent() throws IOException {
@@ -117,6 +154,12 @@ public class Main extends Application {
 		calendarStage.setScene(scene);
 		calendarStage.setResizable(false);
 		calendarStage.show();
+
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
 	}
 
 	public static void showEvents() throws IOException {
@@ -128,6 +171,12 @@ public class Main extends Application {
 		eventStage.setScene(scene);
 		eventStage.setResizable(false);
 		eventStage.show();
+
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
 	}
 
 	public static void showDeleteUser() throws IOException {
@@ -139,6 +188,12 @@ public class Main extends Application {
 		deleteUserStage.setScene(scene);
 		deleteUserStage.setResizable(false);
 		deleteUserStage.show();
+
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
 	}
 
 	public static void showFiles() throws IOException {
@@ -151,6 +206,29 @@ public class Main extends Application {
 		fileStage.setResizable(false);
 		fileStage.show();
 
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
+
+	}
+
+	public static void showSettings() throws IOException {
+		settingsStage = new Stage();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("/application/Settings.fxml"));
+		mainPane = loader.load();
+		Scene scene = new Scene(mainPane);
+		settingsStage.setScene(scene);
+		settingsStage.setResizable(false);
+		settingsStage.show();
+
+		if (ClientController.getClient().getDarkMode()) {
+			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+		} else {
+			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+		}
 	}
 
 	public static Stage getDeleteStage() {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="478.0" style="-fx-border-color: #0FC409;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SettingsController">
+   <children>
+      <TextArea editable="false" layoutX="20.0" layoutY="69.0" prefHeight="228.0" prefWidth="420.0" style="-fx-border-color: #0FC409;" text="Groups:&#10;&#10;- How do I create a new group?&#10;    Answer: To create a new group you go to the main menu and click&#10;    on the menu button and select &quot;Create a new group&quot;.&#10;&#10;- How do you add a new User to a group?&#10;    Answer: You add a user to a group by open the group you want the&#10;    User to be in add click on the button with the head with a plus sign.&#10;&#10;- What do I use the calendar for and how?&#10;    Answer: The calendar is used to plan events like meetings. Where you&#10;    can control that everyone in the group know what happens. &#10;    To create a new event you click on the button with a plus sign.&#10;    Then youchoose which date and time and if you want you can &#10;    add a coment.&#10;    To see which event you have in the group you click on the button&#10;    with the calendar icon.&#10;&#10;- Can you delete, change name or icon on the group?&#10;    Answer: No, you can not do this.&#10;&#10;User:&#10;&#10;- How do I create a new user?&#10;   Answer: You create a new user when you start the program, when you&#10;   get to the login page you click on the button &quot;Create new user&quot;. There&#10;   you will be asked to choose a username, password and a picture.&#10;   Then you click on the button &quot;Create user&quot; and you will have a new&#10;   user.&#10;&#10;- Can I reset my password?&#10;   Answer: Due to that you do not fill in your e-mail adress you can not&#10;   reset your password.&#10;&#10;-How do you change the profile picture?&#10;  Answer:  Unfortunately you can not change the profile picture&#10;&#10;Private message:&#10;&#10;-How do I start a chat with another user?&#10;  Answer: To start a chat with a user you go through the online list and&#10;  when you find the user you click on the user and a chat window will &#10;  appear.&#10;&#10;-I open a chat with a user but the old messages is gone.&#10;  Answer: Messages between two users do not save when you close the&#10;  chat window.&#10;&#10;Theme:&#10;Because that we have a trend today with many people desire to have a&#10;dark/light theme in their programs, messenger reforged has followed &#10;this trend and created a Userinterface with both a dark theme and a&#10;light.&#10;&#10;" />
+      <Text fx:id="theme" layoutX="20.0" layoutY="329.0" stroke="#0fc409" strokeType="OUTSIDE" text="Choose theme:">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Text>
+      <RadioButton fx:id="btnRDark" layoutX="27.0" layoutY="342.0" mnemonicParsing="false" onAction="#ToggleGroup" text="Dark theme" />
+      <RadioButton fx:id="btnRLight" layoutX="26.0" layoutY="375.0" mnemonicParsing="false" onAction="#ToggleGroup" text="Light theme" />
+      <Button fx:id="btnCancel" layoutX="357.0" layoutY="404.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="27.0" prefWidth="99.0" style="-fx-border-color: #0FC409;" text="Cancel" />
+      <Button fx:id="btnApply" layoutX="239.0" layoutY="404.0" mnemonicParsing="false" onAction="#changeTheme" prefHeight="27.0" prefWidth="99.0" style="-fx-border-color: #0FC409;" text="Apply change" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="#0fc409" strokeType="INSIDE" width="478.0">
+         <fill>
+            <RadialGradient centerX="0.2397769445823471" centerY="0.4936507815406436" radius="0.5">
+               <stops>
+                  <Stop color="#0fc409" />
+                  <Stop color="#086205" offset="0.9987244897959184" />
+                  <Stop color="#086205" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <Text layoutX="43.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" wrappingWidth="51.333333333333144">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="22.0" fitWidth="20.0" layoutX="17.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Pictures/setting-512.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="faq" layoutX="19.0" layoutY="63.0" stroke="#0fc409" strokeType="OUTSIDE" text="FAQ:">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
