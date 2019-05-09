@@ -54,7 +54,6 @@ public class ChatWindowPrivateMessageController implements Initializable {
 				recieverName.setText(Data.getData().getUsers().get(i).getName());
 				Image image1 = SwingFXUtils.toFXImage(Data.getData().getUsers().get(i).getImage(), null);
 				userImage.setImage(image1);
-				System.out.println("hornbeger");
 			}
 		}
 
