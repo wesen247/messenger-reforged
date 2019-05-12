@@ -32,14 +32,16 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	public void createNewEvent() {
 		
 		LocalDate localDate = datePicker.getValue();
-		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-		LocalDate ld = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-		System.out.println(ld);
-		String location = txtFieldLocation.getText();
-		String comment = txtFieldComment.getText();
-		
-		ClientController.getClient().addEvent(comment, ld.toString(),location);
-
+		try {
+			Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+			LocalDate ld = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+			System.out.println(ld);
+			String location = txtFieldLocation.getText();
+			String comment = txtFieldComment.getText();
+			ClientController.getClient().addEvent(comment, ld.toString(),location);
+		} catch(NullPointerException n) {
+			n.printStackTrace();
+		}
 		Main.getCalendarStage().close();
 	}
 

@@ -161,7 +161,12 @@ public class GroupHandler extends Thread {
 	 * @author André
 	 */
 	public void sendFile(String request, User user) {
-		serverController.send(user, new Response("file",files.get(request)));
+		try {
+			serverController.send(user, new Response("file",files.get(request)));
+		} catch(NullPointerException n) {
+			n.printStackTrace();
+		}
+		
 	}
 
 }

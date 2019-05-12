@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
  * Entity, used to create new user
@@ -33,6 +34,8 @@ public class CreateUserRequest implements Serializable{
 			ImageIO.write(image, "jpg", bos );
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (IllegalArgumentException n) {
+			JOptionPane.showMessageDialog(null, "Måste välja en bild!");
 		}
 		this.imageInByte = bos.toByteArray();
 	}

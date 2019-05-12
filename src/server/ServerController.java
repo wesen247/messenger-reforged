@@ -86,11 +86,15 @@ public class ServerController {
 					groupHandler.addFile(splitType[1], splitType[2], (byte[])((AddObjectRequest) incomming).getObjectToAdd());
 				}
 				else if(splitType[0].equals( "addGroupMember")) {
-					if(userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1])) {
-						groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
-					}
-					else {
-						send(request.getUser(), new Response("addUserFailed","Add user failed"));
+					try {
+						if(userHandler.addMemberOf((User) request.getObjectToAdd(), splitType[1])) {
+							groupHandler.addMember(new Group(splitType[1]), (User)request.getObjectToAdd());
+						}
+						else {
+							send(request.getUser(), new Response("addUserFailed","Add user failed"));
+						}
+					} catch (ArrayIndexOutOfBoundsException e) {
+						e.printStackTrace();
 					}
 				}
 				else if(splitType[0].equals("event")) {

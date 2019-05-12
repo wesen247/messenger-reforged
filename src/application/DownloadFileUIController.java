@@ -36,7 +36,7 @@ public class DownloadFileUIController implements Initializable {
 	}
 
 	public void cancel() {
-
+		Main.getFileStage().close();
 	}
 
 	public void update() {

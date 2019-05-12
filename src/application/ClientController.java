@@ -11,6 +11,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.swing.JOptionPane;
+
 import entity.*;
 
 /**
@@ -50,6 +52,7 @@ public class ClientController {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Är servern igång?");
 		}
 
 		logIn(username, password);
