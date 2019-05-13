@@ -207,9 +207,9 @@ public class Main extends Application {
 		fileStage.show();
 
 		if (ClientController.getClient().getDarkMode()) {
-			mainPane.getScene().getStylesheets().add("/application/Darkmode.css");
+			mainPane.getScene().getStylesheets().add("/application/DarkmodeDownload.css");
 		} else {
-			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
+			mainPane.getScene().getStylesheets().add("/application/LightmodeDownload.css");
 		}
 
 	}
