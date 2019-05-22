@@ -21,6 +21,7 @@ import entity.*;
  * @author Ruben
  *
  */
+
 public class ClientController {
 	private LoginController LoginController;
 	private User user;

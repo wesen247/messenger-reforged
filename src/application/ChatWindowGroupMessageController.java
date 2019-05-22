@@ -7,8 +7,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-
 import entity.User;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

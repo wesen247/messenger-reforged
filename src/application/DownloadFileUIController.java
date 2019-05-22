@@ -23,7 +23,6 @@ public class DownloadFileUIController implements Initializable {
 	private ObservableList<String> filesList = FXCollections.observableArrayList();
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 		update();
 		listViewFiles.setItems(this.filesList);
 	}

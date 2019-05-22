@@ -4,11 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -30,8 +26,6 @@ public class StartMenuController implements Initializable {
 	private MenuItem btnSettings;
 	@FXML
 	private MenuItem btnDelete;
-	private Main main;
-
 	@FXML
 	private ListView<String> listViewOnline = new ListView<String>();
 	@FXML
@@ -39,7 +33,6 @@ public class StartMenuController implements Initializable {
 	@FXML
 	private ImageView profileImage;
 
-	private String name;
 	private ObservableList<String> onlineUsers = FXCollections.observableArrayList();
 	private ObservableList<String> groupList = FXCollections.observableArrayList();
 
@@ -70,7 +63,7 @@ public class StartMenuController implements Initializable {
 
 	public void settings() {
 		 try {
-			main.showSettings();
+			Main.showSettings();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -79,9 +72,12 @@ public class StartMenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resource) {
 
 		Main.getPrimaryStage().setOnCloseRequest(e -> System.exit(0));
-		for (int i = 0; i < Data.getData().getUsers().size(); i++) {
-			if (Data.getData().getUsers().get(i).getName().equals(ClientController.getClient().getUser().getName())) {
-				Image image = SwingFXUtils.toFXImage(data.getData().getUsers().get(i).getImage(), null);
+		Data.getData();
+		for (int i = 0; i < Data.getUsers().size(); i++) {
+			Data.getData();
+			if (Data.getUsers().get(i).getName().equals(ClientController.getClient().getUser().getName())) {
+				Data.getData();
+				Image image = SwingFXUtils.toFXImage(Data.getUsers().get(i).getImage(), null);
 				profileImage.setImage(image);
 
 			}

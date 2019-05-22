@@ -21,8 +21,6 @@ public class LoginController implements Initializable {
 	private Button btnLogIn;
 	@FXML
 	private Button btnCreateUser;
-	private ClientController client;
-	private Main main;
 	private String username;
 	private String password;
 	
@@ -37,14 +35,14 @@ public class LoginController implements Initializable {
 	public void buttonLogin() {
 		username = logInUsernameField.getText();
 		password = logInPasswordField.getText(); 
-		client = new ClientController(username, password, this);
+		new ClientController(username, password, this);
 		
 	}
 	
 	public void createNewUser() {
 		
 		try {
-			main.showCreateUser();
+			Main.showCreateUser();
 		} catch (IOException e) {
 			
 			e.printStackTrace();

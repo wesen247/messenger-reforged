@@ -10,8 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class AddNewGroupMemberController implements Initializable {
-	private Main main;
-
 	@FXML
 	private Button btnAddUser;
 	@FXML

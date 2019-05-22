@@ -3,16 +3,10 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -23,7 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
 public class ChatWindowPrivateMessageController implements Initializable {
-	private Main main;
 	@FXML
 	private Button btnSend;
 	@FXML

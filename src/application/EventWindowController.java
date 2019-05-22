@@ -21,7 +21,8 @@ public class EventWindowController implements Initializable {
 
 	public void update() {
 
-		Group group = Data.getData().getGroups().get(ClientController.getClient().getGroup().getGroupName());
+		Data.getData();
+		Group group = Data.getGroups().get(ClientController.getClient().getGroup().getGroupName());
 		for (int i = 0; i < group.getEvents().size(); i++) {
 			txtAreaEvents.appendText(group.getEvents().get(i).getDate() + " " + group.getEvents().get(i).getComment() + 
 					" @ "+group.getEvents().get(i).getLocation());
