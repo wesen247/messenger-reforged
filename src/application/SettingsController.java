@@ -31,7 +31,6 @@ public class SettingsController implements Initializable {
 	@FXML private Button btnDeleteAccount;
 	@FXML private Text faq;
 	@FXML private Text theme;
-	private Main main;
 
 	/**
 	 * Creates a group of the radiobuttons so only one can be picked at a time.
@@ -71,18 +70,18 @@ public class SettingsController implements Initializable {
 		if (e.getSource() == btnApply){
 			if (this.toggleGroup.getSelectedToggle().equals(this.btnRDark)){
 				ClientController.getClient().setDarkMode(true);
-				main.getPrimaryStage().getScene().getStylesheets().add("/application/Darkmode.css");
-				main.getSettingsStage().getScene().getStylesheets().add("/application/Darkmode.css");
-				main.getPrimaryStage().getScene().getStylesheets().remove("/application/Lightmode.css");
-				main.getSettingsStage().getScene().getStylesheets().remove("/application/Lightmode.css");
+				Main.getPrimaryStage().getScene().getStylesheets().add("/application/Darkmode.css");
+				Main.getSettingsStage().getScene().getStylesheets().add("/application/Darkmode.css");
+				Main.getPrimaryStage().getScene().getStylesheets().remove("/application/Lightmode.css");
+				Main.getSettingsStage().getScene().getStylesheets().remove("/application/Lightmode.css");
 				btnRDark.setDisable(true);
 				btnRLight.setDisable(false);
 			} else if (this.toggleGroup.getSelectedToggle().equals(this.btnRLight)){
 				ClientController.getClient().setDarkMode(false);
-				main.getPrimaryStage().getScene().getStylesheets().remove("/application/Darkmode.css");
-				main.getSettingsStage().getScene().getStylesheets().remove("/application/Darkmode.css");
-				main.getPrimaryStage().getScene().getStylesheets().add("/application/Lightmode.css");
-				main.getSettingsStage().getScene().getStylesheets().add("/application/Lightmode.css");
+				Main.getPrimaryStage().getScene().getStylesheets().remove("/application/Darkmode.css");
+				Main.getSettingsStage().getScene().getStylesheets().remove("/application/Darkmode.css");
+				Main.getPrimaryStage().getScene().getStylesheets().add("/application/Lightmode.css");
+				Main.getSettingsStage().getScene().getStylesheets().add("/application/Lightmode.css");
 				btnRLight.setDisable(true);
 				btnRDark.setDisable(false);
 			}
