@@ -42,12 +42,21 @@ public class Main extends Application {
 		return privateMessage;
 	}
 
+	/**
+	 * Returns the settings stage
+	 * @return settings stage
+	 * @author Alexander Måbrink
+	 */
 	public static Stage getSettingsStage() {
 		return settingsStage;
 	}
 
 
-
+	/**
+	 * 
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showCreateGroup() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -77,6 +86,11 @@ public class Main extends Application {
 		primaryStage.show();
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showChatWindowPrivateMessage() throws IOException {
 		privateMessage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
@@ -94,6 +108,11 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showMainMenu() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -111,6 +130,11 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showGroupChatWindow() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -128,6 +152,11 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showAddNewGroupMember() throws IOException {
 		addGroupMemberStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
@@ -145,6 +174,11 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showCreateEvent() throws IOException {
 		calendarStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
@@ -162,6 +196,11 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showEvents() throws IOException {
 		eventStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
@@ -179,6 +218,11 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showDeleteUser() throws IOException {
 		deleteUserStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
@@ -196,6 +240,11 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showFiles() throws IOException {
 		fileStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
@@ -214,6 +263,11 @@ public class Main extends Application {
 
 	}
 
+	/**
+	 *  Method that open the settings UI
+	 * @throws IOException
+	 * @author Alexander Måbrink
+	 */
 	public static void showSettings() throws IOException {
 		settingsStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();

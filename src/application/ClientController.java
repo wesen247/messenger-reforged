@@ -314,10 +314,20 @@ public class ClientController {
 		return user;
 	}
 	
+	/**
+	 * set the darkmode
+	 * @param set the boolean
+	 * @author Alexander Måbrink
+	 */
 	public void setDarkMode(boolean set) {
 		darkmode.set(set);
 	}
 
+	/**
+	 * returns darkmode
+	 * @return
+	 * @author Alexander Måbrink
+	 */
 	public boolean getDarkMode() {
 		return darkmode.get();
 	}
