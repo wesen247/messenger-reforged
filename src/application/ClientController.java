@@ -21,55 +21,54 @@ import entity.*;
  * @author Ruben
  *
  */
-
 public class ClientController {
-	private LoginController LoginController;
+	private LoginController loginController;
 	private User user;
 	private Data data;
-	private ObjectOutputStream oos;
+	private ObjectOutputStream outputStream;
 	private Socket socket;
-	private User reciver;
+	private User receiver;
 	private static ClientController controller;
 	private Group group;
 	private String filename;
 	private String groupName;
 	private AtomicBoolean darkmode = new AtomicBoolean();
 
-	/**
-	 * Starts the connection with the server
-	 */
 	public static ClientController getClient() {
 		return controller;
 	}
 
+	/**
+	 * Starts the connection with the server
+	 * @author Ruben
+	 */
 	public ClientController(String username, String password, LoginController loginController) {
-		this.LoginController = loginController;
+		this.loginController = loginController;
 		try {
 			socket = new Socket(InetAddress.getLocalHost(), 5343);
-			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-			oos.flush();
-			data = new Data(LoginController, socket);
+			outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+			outputStream.flush();
+			data = new Data(loginController, socket);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Är servern igång?");
+			JOptionPane.showMessageDialog(null, "Failed to connect to server");
 		}
-
 		logIn(username, password);
 		ClientController.controller = this;
 	}
 
 	public String getReceiver() {
-		return reciver.getName();
+		return receiver.getName();
 	}
 
 	public ClientController(String username, String password, CreateUserController userController,
 			BufferedImage image) {
 		try {
 			socket = new Socket(InetAddress.getLocalHost(), 5343);
-			oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-			oos.flush();
+			outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+			outputStream.flush();
 			data = new Data(userController, socket);
 
 		} catch (IOException e) {
@@ -83,6 +82,7 @@ public class ClientController {
 	 * Creates an new group object and sends it to the server
 	 * 
 	 * @param groupName
+	 * @author Ruben
 	 */
 	public void createNewGroup(String groupName) {
 		this.groupName = groupName;
@@ -91,8 +91,8 @@ public class ClientController {
 		ArrayList<String> fileLog = new ArrayList<String>();
 		ArrayList<Event> eventObjects = new ArrayList<Event>();
 		try {
-			oos.writeObject(new Group(users, messages, fileLog, eventObjects, groupName, user.getName()));
-			oos.flush();
+			outputStream.writeObject(new Group(users, messages, fileLog, eventObjects, groupName, user.getName()));
+			outputStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -101,8 +101,8 @@ public class ClientController {
 
 	public void addToGroup() {
 		try {
-			oos.writeObject(new AddObjectRequest("addGroupMember:" + groupName, user, user));
-			oos.flush();
+			outputStream.writeObject(new AddObjectRequest("addGroupMember:" + groupName, user, user));
+			outputStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -112,8 +112,8 @@ public class ClientController {
 	public void deleteAccount(String password) {
 
 		try {
-			oos.writeObject(new AddObjectRequest("delUser", password, user));
-			oos.flush();
+			outputStream.writeObject(new AddObjectRequest("delUser", password, user));
+			outputStream.flush();
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -125,12 +125,13 @@ public class ClientController {
 	 * 
 	 * @param name
 	 * @param password
+	 * @author Ruben
 	 */
 	public void createNewUser(String name, String password, BufferedImage image) {
 		try {
-			oos.writeObject(new CreateUserRequest(name, password, image));
+			outputStream.writeObject(new CreateUserRequest(name, password, image));
 			this.user = new User(name);
-			oos.flush();
+			outputStream.flush();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -142,11 +143,12 @@ public class ClientController {
 	 * 
 	 * @param message
 	 * @param group
+	 * @author Ruben
 	 */
 	public void createGroupMessage(String message) {
 		try {
-			oos.writeObject(new GroupMessage(message, user, group));
-			oos.flush();
+			outputStream.writeObject(new GroupMessage(message, user, group));
+			outputStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -157,11 +159,12 @@ public class ClientController {
 	 * 
 	 * @param message
 	 * @param reciever
+	 * @author Ruben
 	 */
 	public void createPrivateMessage(String message) {
 		try {
-			oos.writeObject(new PrivateMessage(message, user, reciver));
-			oos.flush();
+			outputStream.writeObject(new PrivateMessage(message, user, receiver));
+			outputStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -172,12 +175,13 @@ public class ClientController {
 	 * 
 	 * @param userName
 	 * @param password
+	 * @author Ruben
 	 */
 	public void logIn(String username, String password) {
 		try {
-			oos.writeObject(new LoginRequest(username, password));
+			outputStream.writeObject(new LoginRequest(username, password));
 			this.user = new User(username);
-			oos.flush();
+			outputStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -186,8 +190,8 @@ public class ClientController {
 	public void download(String file) {
 
 		try {
-			oos.writeObject(new ObjectRequest("file", file, user));
-			oos.flush();
+			outputStream.writeObject(new ObjectRequest("file", file, user));
+			outputStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -197,13 +201,14 @@ public class ClientController {
 	 * Adds a event to a group
 	 * 
 	 * @param event
+	 * @author Ruben
 	 */
 	public void addEvent(String comment, String date, String location) {
 		String type = "event";
 		try {
 			Event event = new Event(group, user, date, comment, location);
-			oos.writeObject(new AddObjectRequest(type, event, user));
-			oos.flush();
+			outputStream.writeObject(new AddObjectRequest(type, event, user));
+			outputStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -214,12 +219,13 @@ public class ClientController {
 	 * 
 	 * @param groupName
 	 * @param userToAdd
+	 * @author Ruben
 	 */
 	public void addGroupMember(String groupName, User userToAdd) {
 		String type = "addGroupMember:" + groupName;
 		try {
-			oos.writeObject(new AddObjectRequest(type, userToAdd, user));
-			oos.flush();
+			outputStream.writeObject(new AddObjectRequest(type, userToAdd, user));
+			outputStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -227,24 +233,23 @@ public class ClientController {
 
 	/**
 	 * Method that creates a socket.
+	 * @author Ruben
 	 */
 	public void createSocket() {
 		if (this.socket.isClosed()) {
 			try {
-				oos.close();
+				outputStream.close();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 			try {
 				this.socket = new Socket(InetAddress.getLocalHost(), 5343);
-				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-				oos.flush();
+				outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+				outputStream.flush();
 				data.createConnection(socket);
 			} catch (UnknownHostException e) {
-
 				e.printStackTrace();
 			} catch (IOException e) {
-
 				e.printStackTrace();
 			}
 		}
@@ -255,23 +260,23 @@ public class ClientController {
 
 		try {
 			System.out.println("HejAAA");
-			oos.writeObject(new AddObjectRequest("file:" + group.getGroupName() + ":" + filename, fileToSend, user));
-			oos.flush();
+			outputStream.writeObject(new AddObjectRequest(
+					"file:" + group.getGroupName() + ":" + filename, fileToSend, user));
+			outputStream.flush();
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * Method that closes the socket.
+	 * @author Ruben
 	 */
 	public void closeSocket() {
 		try {
 			data.kill();
 			this.socket.close();
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 	}
@@ -284,7 +289,8 @@ public class ClientController {
 
 		String username = System.getProperty("user.name");
 		try {
-			FileOutputStream out = new FileOutputStream("C:\\Users\\" + username + "\\Downloads\\" + this.filename);
+			FileOutputStream out = new FileOutputStream(
+					"C:\\Users\\" + username + "\\Downloads\\" + this.filename);
 			out.write(file);
 			out.flush();
 			out.close();
@@ -299,7 +305,7 @@ public class ClientController {
 	 * @param name Name of the reciever.
 	 */
 	public void setReciver(String name) {
-		this.reciver = new User(name);
+		this.receiver = new User(name);
 	}
 
 	public void setGroup(String name) {
@@ -331,5 +337,4 @@ public class ClientController {
 	public boolean getDarkMode() {
 		return darkmode.get();
 	}
-
 }

@@ -14,19 +14,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class CreateGroupController implements Initializable {
-	@FXML
-	private Button btnCancel;
-	@FXML
-	private Button btnChooseImage;
-	@FXML
-	private Button btnCreateGroups;
-	@FXML
-	private TextField textFieldGroupName;
-	
-	public void initialize(URL location, ResourceBundle resource) {
-
-	}
+public class CreateGroupController {
+	@FXML private Button btnCancel;
+	@FXML private Button btnChooseImage;
+	@FXML private Button btnCreateGroups;
+	@FXML private TextField textFieldGroupName;
 
 	public void createGroup() {
 		ClientController.getClient().createNewGroup(textFieldGroupName.getText());
@@ -47,11 +39,9 @@ public class CreateGroupController implements Initializable {
 
 	public void chooseImage() {
 		try {
-
-			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-			j.showOpenDialog(new JFrame());
-			ImageIO.read(j.getSelectedFile());
-
+			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			fileChooser.showOpenDialog(new JFrame());
+			ImageIO.read(fileChooser.getSelectedFile());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

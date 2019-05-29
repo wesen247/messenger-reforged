@@ -15,12 +15,11 @@ public class Buffer<T> {
 		stop = true;
 		synchronized(this) {
 		notifyAll();
-		
 		}
 	}
 	
 	public synchronized T get() throws InterruptedException {
-		while(buffer.isEmpty()&&!stop) {
+		while(buffer.isEmpty() && !stop) {
 			wait();
 		}
 		stop = false;
