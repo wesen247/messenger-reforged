@@ -21,9 +21,6 @@ import javafx.stage.Stage;
  *
  */
 public class SettingsController implements Initializable {
-
-	private ToggleGroup toggleGroup;
-
 	@FXML private RadioButton btnRDark;
 	@FXML private RadioButton btnRLight;
 	@FXML private Button btnApply;
@@ -31,7 +28,8 @@ public class SettingsController implements Initializable {
 	@FXML private Button btnDeleteAccount;
 	@FXML private Text faq;
 	@FXML private Text theme;
-
+	private ToggleGroup toggleGroup;
+	
 	/**
 	 * Creates a group of the radiobuttons so only one can be picked at a time.
 	 * @author Alexander Måbrink
@@ -94,7 +92,6 @@ public class SettingsController implements Initializable {
 	 * 
 	 * @param e the events
 	 */
-
 	public void Cancel(ActionEvent e) {
 		if(e.getSource() == btnCancel) {
 			Stage stage1 = (Stage) btnCancel.getScene().getWindow();

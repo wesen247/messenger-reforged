@@ -285,9 +285,9 @@ public class Main extends Application {
 		}
 	}
 
-	public static Stage getDeleteStage() {
-		return deleteUserStage;
-	}
+//	public static Stage getDeleteStage() {
+//		return deleteUserStage;
+//	}
 
 	public static Stage getPrimaryStage() {
 		return primaryStage;

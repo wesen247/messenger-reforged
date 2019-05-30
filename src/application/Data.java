@@ -24,12 +24,14 @@ public class Data {
 	private boolean alive = false;
 	private static Data data;
 	private HashMap<String, Buffer<String>> pmBuffer = new HashMap<String, Buffer<String>>();
-	private static HashMap<String, ArrayList<GroupMessage>> groupMessageHashMap = new HashMap<String, ArrayList<GroupMessage>>();
+	private static HashMap<String, ArrayList<GroupMessage>> groupMessageHashMap;
 	private static HashMap<String, Group> hashMapGroups = new HashMap<String, Group>();
 	private static ArrayList<User> listUsers;
-	private HashMap<String, GroupMessageController> arrayListController = new HashMap<String, GroupMessageController>();
+	private HashMap<String, GroupMessageController> arrayListController;
 
 	public Data(LoginController loginUI, Socket socket) {
+		groupMessageHashMap = new HashMap<String, ArrayList<GroupMessage>>();
+		arrayListController = new HashMap<String, GroupMessageController>();
 		this.loginController = loginUI;
 		try {
 			this.socket = socket;
@@ -43,6 +45,8 @@ public class Data {
 	}
 
 	public Data(CreateUserController userController, Socket socket) {
+		groupMessageHashMap = new HashMap<String, ArrayList<GroupMessage>>();
+		arrayListController = new HashMap<String, GroupMessageController>();
 		try {
 			this.socket = socket;
 			ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
@@ -52,9 +56,6 @@ public class Data {
 		alive = true;
 		new ServerListener().start();
 		Data.data = this;
-	}
-
-	public void addMenuController(StartMenuController menuController) {
 	}
 
 	public static Data getData() {
@@ -265,7 +266,7 @@ public class Data {
 					public void run() {
 						try {
 							Main.showLogin();
-							Main.getDeleteStage().close();
+							Main.getDeleteUserStage().close();
 						} catch (IOException | NullPointerException e) {
 							e.printStackTrace();
 						}

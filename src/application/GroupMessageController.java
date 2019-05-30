@@ -94,14 +94,12 @@ public class GroupMessageController implements Initializable {
 								.getMessage());
 						textAreaIncomingMessages.appendText("\n");
 					}
-					
 					ArrayList<User> members = data.getGroups().get(client.getGroup().getGroupName()).getGroupMembers();
 					membersList.clear();
 					
 					for (int i = 0; i < members.size(); i++) {
 						membersList.add(members.get(i).getName());
 					}
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

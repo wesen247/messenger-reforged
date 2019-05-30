@@ -38,6 +38,7 @@ public class PrivateMessageController implements Initializable {
 
 	public void initialize(URL location, ResourceBundle resource) {
 		ClientController client = ClientController.getClient();
+		Data.getData();
 		for (int i = 0; i < Data.getUsers().size(); i++) {
 			if (Data.getUsers().get(i).getName().equals(client.getReceiver())) {
 				textReciever.setText(Data.getUsers().get(i).getName());

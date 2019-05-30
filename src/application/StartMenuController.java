@@ -18,29 +18,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class StartMenuController implements Initializable {
-	@FXML
-	private MenuItem btnCreateGroup;
-	@FXML
-	private MenuItem btnLogout;
-	@FXML
-	private MenuItem btnSettings;
-	@FXML
-	private MenuItem btnDelete;
-	@FXML
-	private ListView<String> listViewOnline = new ListView<String>();
-	@FXML
-	private ListView<String> listViewGroups = new ListView<String>();
-	@FXML
-	private ImageView profileImage;
-
+	@FXML private MenuItem btnCreateGroup;
+	@FXML private MenuItem btnLogout;
+	@FXML private MenuItem btnSettings;
+	@FXML private MenuItem btnDelete;
+	@FXML private ListView<String> listViewOnline = new ListView<String>();
+	@FXML private ListView<String> listViewGroups = new ListView<String>();
+	@FXML private ImageView profileImage;
 	private ObservableList<String> onlineUsers = FXCollections.observableArrayList();
 	private ObservableList<String> groupList = FXCollections.observableArrayList();
-
 	private Data data;
 	public static StartMenuController startmenu;
 
 	public static StartMenuController getStartMenuController() {
-
 		return startmenu;
 	}
 
@@ -70,7 +60,6 @@ public class StartMenuController implements Initializable {
 	}
 
 	public void initialize(URL location, ResourceBundle resource) {
-
 		Main.getPrimaryStage().setOnCloseRequest(e -> System.exit(0));
 		Data.getData();
 		for (int i = 0; i < Data.getUsers().size(); i++) {
@@ -79,30 +68,22 @@ public class StartMenuController implements Initializable {
 				Data.getData();
 				Image image = SwingFXUtils.toFXImage(Data.getUsers().get(i).getImage(), null);
 				profileImage.setImage(image);
-
 			}
 		}
-
 		setOnlineList();
 		setGroupList();
 		startmenu = this;
 		this.data = Data.getData();
-		data.addMenuController(this);
-
 		listViewOnline.setItems(this.onlineUsers);
 		listViewGroups.setItems(this.groupList);
-
 		listViewOnline.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
+			
 			public void handle(MouseEvent event) {
 				ClientController.getClient().setReciver(listViewOnline.getSelectionModel().getSelectedItem());
-
 				try {
-
 					if (listViewOnline.getSelectionModel().getSelectedItem() != null) {
 						Main.showChatWindowPrivateMessage();
 					}
-
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -110,7 +91,6 @@ public class StartMenuController implements Initializable {
 		});
 
 		listViewGroups.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
 			public void handle(MouseEvent event) {
 				ClientController.getClient().setGroup(listViewGroups.getSelectionModel().getSelectedItem());
 				try {
@@ -138,10 +118,8 @@ public class StartMenuController implements Initializable {
 						System.err.println(e);
 					}
 				}
-
 			}
 		});
-
 	}
 
 	public void setGroupList() {
@@ -157,17 +135,14 @@ public class StartMenuController implements Initializable {
 				}
 			}
 		});
-
 	}
 
 	public void deleteUser() {
 		System.out.println("delete funkar");
 		try {
 			Main.showDeleteUser();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 }

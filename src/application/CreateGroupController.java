@@ -36,15 +36,5 @@ public class CreateGroupController {
 			e.printStackTrace();
 		}
 	}
-
-	public void chooseImage() {
-		try {
-			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-			fileChooser.showOpenDialog(new JFrame());
-			ImageIO.read(fileChooser.getSelectedFile());
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	}
 }
 

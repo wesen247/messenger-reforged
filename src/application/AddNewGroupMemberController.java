@@ -9,9 +9,9 @@ public class AddNewGroupMemberController {
 	@FXML private Button btnAddUser;
 	@FXML private Button btnCancel;
 	@FXML private TextField textFieldUsername;
-
+	ClientController client = ClientController.getClient();
+	
 	public void addUser() {
-		ClientController client = ClientController.getClient();
 		client.addGroupMember(client.getGroup().getGroupName(),
 				new User(textFieldUsername.getText()));
 	}
