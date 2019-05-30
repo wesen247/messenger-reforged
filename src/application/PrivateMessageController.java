@@ -16,6 +16,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
+/**
+ * Handles the privateMessage stage
+ * @author Ruben, Amir
+ *
+ */
 public class PrivateMessageController implements Initializable {
 	@FXML private Button btnSend;
 	@FXML private TextField textFieldMessage;
@@ -24,6 +29,10 @@ public class PrivateMessageController implements Initializable {
 	@FXML private Text textReciever;
 	private Worker worker;
 
+	/**
+	 * Sends a message
+	 * @author Ruben, Amir
+	 */
 	public void send() {
 		ClientController client = ClientController.getClient();
 		client.createPrivateMessage(textFieldMessage.getText());
@@ -31,19 +40,28 @@ public class PrivateMessageController implements Initializable {
 		textFieldMessage.clear();
 	}
 
+	/**
+	 * Shows a received message in the window
+	 * @param message
+	 * @author Ruben, Amir
+	 */
 	public void showMessage(String message) {
 		textAreaChat.appendText(message);
 		textAreaChat.appendText("\n");
 	}
 
+	/**
+	 * Initializes the class
+	 * @author Ruben, Amir
+	 */
 	public void initialize(URL location, ResourceBundle resource) {
 		ClientController client = ClientController.getClient();
 		Data.getData();
 		for (int i = 0; i < Data.getUsers().size(); i++) {
 			if (Data.getUsers().get(i).getName().equals(client.getReceiver())) {
 				textReciever.setText(Data.getUsers().get(i).getName());
-				Image image1 = SwingFXUtils.toFXImage(Data.getUsers().get(i).getImage(), null);
-				imageViewUser.setImage(image1);
+				Image image = SwingFXUtils.toFXImage(Data.getUsers().get(i).getImage(), null);
+				imageViewUser.setImage(image);
 			}
 		}
 		Main.getPMStage().setOnCloseRequest(e -> worker.notifyThread());
@@ -58,15 +76,29 @@ public class PrivateMessageController implements Initializable {
 		});
 	}
 
+	/**
+	 * Inner class that handles a thread
+	 * @author Ruben, Amir
+	 *
+	 */
 	private class Worker extends Thread {
 		private Boolean stop = false;
 		private Buffer<String> buffer;
+		
+		/**
+		 * Stops the buffer
+		 * @author Amir
+		 */
 		public void notifyThread() {
 			synchronized (this) {
 				buffer.stopThis();
 			}
 		}
 
+		/**
+		 * Gets messages from the buffer to show in the window
+		 * @author Ruben, Amir
+		 */
 		public void run() {
 			buffer = Data.getData().getMessageBuffer(ClientController.getClient().getReceiver());
 			try {

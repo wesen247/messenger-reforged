@@ -8,14 +8,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 
+/**
+ * Handles the eventStage
+ * @author Ruben, Amir
+ *
+ */
 public class EventWindowController implements Initializable {
 	@FXML private TextArea txtAreaEvents;
 
+	/**
+	 * Initializes the controller
+	 * @author Ruben, Amir
+	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		txtAreaEvents.setEditable(false);
 		update();
 	}
 
+	/**
+	 * Shows planed events
+	 * @author Ruben, Amir
+	 */
 	public void update() {
 		Data.getData();
 		Group group = Data.getGroups().get(ClientController.getClient().getGroup().getGroupName());

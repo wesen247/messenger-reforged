@@ -8,6 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+/**
+ * Handles the eventStage
+ * @author Amir
+ *
+ */
 public class CreateEventController {
 	@FXML private Button btnCreateEvent;
 	@FXML private Button btnCancel;
@@ -15,6 +20,10 @@ public class CreateEventController {
 	@FXML private DatePicker datePicker;
 	@FXML private TextField textFieldLocation;
 
+	/**
+	 * Creates a new event for the group
+	 * @author Amir
+	 */
 	public void createNewEvent() {
 		LocalDate localDate = datePicker.getValue();
 		try {
@@ -30,6 +39,10 @@ public class CreateEventController {
 		Main.getCalendarStage().close();
 	}
 
+	/**
+	 * Closes the stage
+	 * @author Amir
+	 */
 	public void cancel() {
 		Main.getCalendarStage().close();
 	}

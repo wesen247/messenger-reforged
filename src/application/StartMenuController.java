@@ -17,6 +17,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Handles the StartMenuController
+ * @author Ruben, Amir
+ */
 public class StartMenuController implements Initializable {
 	@FXML private MenuItem btnCreateGroup;
 	@FXML private MenuItem btnLogout;
@@ -30,10 +34,18 @@ public class StartMenuController implements Initializable {
 	private Data data;
 	public static StartMenuController startmenu;
 
+	/**
+	 * @author Ruben, Amir
+	 * @return The controller
+	 */
 	public static StartMenuController getStartMenuController() {
 		return startmenu;
 	}
 
+	/**
+	 * Opens the createGroup stage
+	 * @author Ruben, Amir
+	 */
 	public void createGroup() {
 		try {
 			Main.showCreateGroup();
@@ -42,6 +54,10 @@ public class StartMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Logs out the current user
+	 * @author Ruben, Amir
+	 */
 	public void logout() {
 		ClientController.getClient().closeSocket();
 		try {
@@ -51,6 +67,10 @@ public class StartMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Open the settings window
+	 * @author Ruben, Amir
+	 */
 	public void settings() {
 		 try {
 			Main.showSettings();
@@ -59,6 +79,10 @@ public class StartMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Initializes the controller
+	 * @author Ruben, Amir
+	 */
 	public void initialize(URL location, ResourceBundle resource) {
 		Main.getPrimaryStage().setOnCloseRequest(e -> System.exit(0));
 		Data.getData();
@@ -104,6 +128,10 @@ public class StartMenuController implements Initializable {
 		});
 	}
 
+	/**
+	 * Updates the onlineList when a user logs in or out
+	 * @author Ruben, Amir
+	 */
 	public void setOnlineList() {
 		Platform.runLater(new Runnable() {
 			public void run() {
@@ -122,6 +150,10 @@ public class StartMenuController implements Initializable {
 		});
 	}
 
+	/**
+	 * Updates the group list
+	 * @author Ruben, Amir
+	 */
 	public void setGroupList() {
 		Platform.runLater(new Runnable() {
 			public void run() {
@@ -137,8 +169,11 @@ public class StartMenuController implements Initializable {
 		});
 	}
 
+	/**
+	 * Opens the delete user stage
+	 * @author Ruben, Amir
+	 */
 	public void deleteUser() {
-		System.out.println("delete funkar");
 		try {
 			Main.showDeleteUser();
 		} catch (IOException e) {

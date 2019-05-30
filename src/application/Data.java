@@ -12,6 +12,11 @@ import javax.swing.JOptionPane;
 import entity.*;
 import javafx.application.Platform;
 
+/**
+ * Handles all input from the server
+ * @author Ruben, Amir, Andre
+ *
+ */
 public class Data {
 	private LoginController loginController;
 	private ObjectInputStream ois;
@@ -29,6 +34,12 @@ public class Data {
 	private static ArrayList<User> listUsers;
 	private HashMap<String, GroupMessageController> arrayListController;
 
+	/**
+	 * Constructor that initializes the class and starts the ServerListener thread
+	 * @param loginUI LoginController
+	 * @param socket
+	 * @author Ruben, Amir, Andre
+	 */
 	public Data(LoginController loginUI, Socket socket) {
 		groupMessageHashMap = new HashMap<String, ArrayList<GroupMessage>>();
 		arrayListController = new HashMap<String, GroupMessageController>();
@@ -44,6 +55,12 @@ public class Data {
 		Data.data = this;
 	}
 
+	/**
+	 * Constructor that initializes the class and starts the ServerListener thread
+	 * @param userController CreateUserController
+	 * @param socket
+	 * @author Ruben, Amir
+	 */
 	public Data(CreateUserController userController, Socket socket) {
 		groupMessageHashMap = new HashMap<String, ArrayList<GroupMessage>>();
 		arrayListController = new HashMap<String, GroupMessageController>();
@@ -58,34 +75,74 @@ public class Data {
 		Data.data = this;
 	}
 
+	/**
+	 * 
+	 * @return Data
+	 * @author Ruben, Amir
+	 */
 	public static Data getData() {
 		return data;
 	}
 
+	/**
+	 * 
+	 * @return ArrayList of responses
+	 * @author Ruben, Amir
+	 */
 	public ArrayList<Response> getListResponse() {
 		return listResponse;
 	}
 
+	/**
+	 * 
+	 * @param response Response object from the server
+	 * @author Ruben, Amir
+	 */
 	public void setListResponse(Response response) {
 		listResponse.add(response);
 	}
 
+	/**
+	 * 
+	 * @return ArrayList of ObjectRequests
+	 * @author Ruben, Amir
+	 */
 	public ArrayList<ObjectRequest> getListObjectRequest() {
 		return listObjectRequest;
 	}
 
+	/**
+	 * Adds a objectRequest to listObjectRequest
+	 * @param objectRequest
+	 * @author Ruben, Amir
+	 */
 	public void setListObjectRequest(ObjectRequest objectRequest) {
 		listObjectRequest.add(objectRequest);
 	}
 
+	/**
+	 * 
+	 * @return An ArrayList of Groups
+	 * @author Ruben, Amir
+	 */
 	public ArrayList<Group> getListGroup() {
 		return listGroup;
 	}
 	
+	/**
+	 * 
+	 * @return ArrayList of users
+	 * @author Ruben, Amir
+	 */
 	public static ArrayList<User> getUsers(){
 		return listUsers;
 	}
 	
+	/**
+	 * Adds a group to the listGroup
+	 * @param group
+	 * @author Ruben, Amir
+	 */
 	public void setListGroup(Group group) {
 		for (int i = 0; i < listGroup.size(); i++) {
 			if (listGroup.get(i).getGroupName().equals(group.getGroupName())) {
@@ -100,30 +157,65 @@ public class Data {
 		}
 	}
 
+	/**
+	 * 
+	 * @return ArrayList of PrivateMessages
+	 * @author Ruben, Amir
+	 */
 	public ArrayList<PrivateMessage> getListPM() {
 		return listPM;
 	}
 
+	/**
+	 * 
+	 * @param pm adds a private message to the pm list
+	 * @author Ruben, Amir
+	 */
 	public void setListPM(PrivateMessage pm) {
 		listPM.add(pm);
 	}
 
+	/**
+	 * 
+	 * @return ArrayList of UserUpdates
+	 * @author Ruben, Amir
+	 */
 	public ArrayList<UserUpdate> getListUserUpdate() {
 		return listUserUpdate;
 	}
 
+	/**
+	 * 
+	 * @return ArrayList of Users
+	 * @author Ruben, Amir
+	 */
 	public ArrayList<User> getUser() {
 		return listUsers;
 	}
 
+	/**
+	 * 
+	 * @return ArrayList of Groups
+	 * @author Ruben, Amir
+	 */
 	public ArrayList<Group> getGroup() {
 		return listGroup;
 	}
 
+	/**
+	 * 
+	 * @param userUpdate
+	 * @author Ruben, Amir
+	 */
 	public void setListUserUpdate(UserUpdate userUpdate) {
 		listUserUpdate.add(userUpdate);
 	}
 
+	/**
+	 * 
+	 * @param socket
+	 * @author Ruben, Amir
+	 */
 	public void createConnection(Socket socket) {
 		this.socket = socket;
 		try {
@@ -135,6 +227,10 @@ public class Data {
 		new ServerListener().start();
 	}
 
+	/**
+	 * Closes the input stream and kills the thread
+	 * @author Ruben, Amir
+	 */
 	public void kill() {
 		alive = false;
 		try {
@@ -144,6 +240,12 @@ public class Data {
 		}
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @return Returns a name from the private message buffer
+	 * @author Ruben, Amir, Andre
+	 */
 	public Buffer<String> getMessageBuffer(String name) {
 		if (pmBuffer.containsKey(name)) {
 			return pmBuffer.get(name);
@@ -153,18 +255,39 @@ public class Data {
 		}
 	}
 
+	/**
+	 * 
+	 * @return a groupMessage HashMap
+	 * @author Ruben, Amir, Andre
+	 */
 	public static HashMap<String, ArrayList<GroupMessage>> getGroupMessage() {
 		return groupMessageHashMap;
 	}
 
+	/**
+	 * 
+	 * @return a group HashMap
+	 * @author Ruben, Amir, Andre
+	 */
 	public static HashMap<String, Group> getGroups() {
 		return hashMapGroups;
 	}
 
+	/**
+	 * 
+	 * @param controller GroupMessageController
+	 * @author Ruben, Amir
+	 */
 	public void addGroupListener(GroupMessageController controller) {
 		arrayListController.put(ClientController.getClient().getGroup().getGroupName(), controller);
 	}
 
+	/**
+	 * Thread that listens to the server and has a different response
+	 * depending on the object that it receives
+	 * @author Ruben, Amir
+	 *
+	 */
 	private class ServerListener extends Thread {
 		public void run() {
 			try {

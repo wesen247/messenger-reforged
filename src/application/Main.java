@@ -8,6 +8,11 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Handles all javaFX stages
+ * @author Ruben, Amir, Alexander
+ *
+ */
 public class Main extends Application {
 	private static Stage groupChatStage = new Stage();
 	private static Stage primaryStage;
@@ -20,14 +25,21 @@ public class Main extends Application {
 	private static Stage fileStage;
 	private static Stage settingsStage;
 
+	/**
+	 * Shows the first window
+	 * @author Ruben, Amir
+	 */
 	public void start(Stage primaryStage) throws Exception {
-
 		Main.primaryStage = primaryStage;
 		showLogin();
 	}
 
+	/**
+	 * Shows the login window
+	 * @throws IOException
+	 * @author Ruben, Amir
+	 */
 	public static void showLogin() throws IOException {
-
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/application/LgInUI.fxml"));
 		mainPane = loader.load();
@@ -38,6 +50,11 @@ public class Main extends Application {
 
 	}
 
+	/**
+	 *
+	 * @author Ruben, Amir
+	 * @return Private Message stage
+	 */
 	public static Stage getPMStage() {
 		return privateMessage;
 	}
@@ -51,14 +68,12 @@ public class Main extends Application {
 		return settingsStage;
 	}
 
-
 	/**
-	 * 
+	 * Shows the create group window
 	 * @throws IOException
-	 * @author Alexander Måbrink
+	 * @author Alexander Måbrink, Amir, Ruben
 	 */
 	public static void showCreateGroup() throws IOException {
-
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/application/CreateGroup.fxml"));
 		mainPane = loader.load();
@@ -72,11 +87,14 @@ public class Main extends Application {
 		} else {
 			mainPane.getScene().getStylesheets().add("/application/Lightmode.css");
 		}
-
 	}
 
+	/**
+	 * Shows the crate user window
+	 * @author Ruben, Amir
+	 * @throws IOException
+	 */
 	public static void showCreateUser() throws IOException {
-
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/application/CreateUserUI.fxml"));
 		mainPane = loader.load();
@@ -87,7 +105,7 @@ public class Main extends Application {
 	}
 
 	/**
-	 * 
+	 * Shows the private message window
 	 * @throws IOException
 	 * @author Alexander Måbrink
 	 */
@@ -109,9 +127,9 @@ public class Main extends Application {
 	}
 
 	/**
-	 * 
+	 * Shows the main menu window
 	 * @throws IOException
-	 * @author Alexander Måbrink
+	 * @author Alexander Måbrink, Ruben, Amir
 	 */
 	public static void showMainMenu() throws IOException {
 
@@ -131,9 +149,9 @@ public class Main extends Application {
 	}
 
 	/**
-	 * 
+	 * Shows the group chat window
 	 * @throws IOException
-	 * @author Alexander Måbrink
+	 * @author Alexander Måbrink, Amir, Ruben
 	 */
 	public static void showGroupChatWindow() throws IOException {
 
@@ -153,9 +171,9 @@ public class Main extends Application {
 	}
 
 	/**
-	 * 
+	 * Shows the add group member window
 	 * @throws IOException
-	 * @author Alexander Måbrink
+	 * @author Alexander Måbrink, Amir, Ruben
 	 */
 	public static void showAddNewGroupMember() throws IOException {
 		addGroupMemberStage = new Stage();
@@ -175,9 +193,9 @@ public class Main extends Application {
 	}
 
 	/**
-	 * 
+	 * Shows the crate event window
 	 * @throws IOException
-	 * @author Alexander Måbrink
+	 * @author Alexander Måbrink, Ruben, Amir
 	 */
 	public static void showCreateEvent() throws IOException {
 		calendarStage = new Stage();
@@ -197,9 +215,9 @@ public class Main extends Application {
 	}
 
 	/**
-	 * 
+	 * Shows the event window
 	 * @throws IOException
-	 * @author Alexander Måbrink
+	 * @author Alexander Måbrink, Ruben, Amir
 	 */
 	public static void showEvents() throws IOException {
 		eventStage = new Stage();
@@ -219,9 +237,9 @@ public class Main extends Application {
 	}
 
 	/**
-	 * 
+	 * Shows the delete user window
 	 * @throws IOException
-	 * @author Alexander Måbrink
+	 * @author Alexander Måbrink, Amir, Ruben
 	 */
 	public static void showDeleteUser() throws IOException {
 		deleteUserStage = new Stage();
@@ -241,9 +259,9 @@ public class Main extends Application {
 	}
 
 	/**
-	 * 
+	 * Shows the download files window
 	 * @throws IOException
-	 * @author Alexander Måbrink
+	 * @author Alexander Måbrink, Amir, Ruben
 	 */
 	public static void showFiles() throws IOException {
 		fileStage = new Stage();
@@ -285,34 +303,66 @@ public class Main extends Application {
 		}
 	}
 
-//	public static Stage getDeleteStage() {
-//		return deleteUserStage;
-//	}
+	/**
+	 * @author Ruben, Amir
+	 * @return deleteUserStage
+	 */
+	public static Stage getDeleteStage() {
+		return deleteUserStage;
+	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @return primaryStage
+	 */
 	public static Stage getPrimaryStage() {
 		return primaryStage;
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @return addGroupMemberStage
+	 */
 	public static Stage getNewMemberStage() {
 		return addGroupMemberStage;
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @return eventStage
+	 */
 	public static Stage getEventStage() {
 		return eventStage;
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @return deleteUserStage
+	 */
 	public static Stage getDeleteUserStage() {
 		return deleteUserStage;
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @return calendarStage
+	 */
 	public static Stage getCalendarStage() {
 		return calendarStage;
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @return fileStage
+	 */
 	public static Stage getFileStage() {
 		return fileStage;
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

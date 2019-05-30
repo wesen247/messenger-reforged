@@ -14,12 +14,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * Handles the createGroup scene
+ * @author Ruben, Amir
+ *
+ */
 public class CreateGroupController {
 	@FXML private Button btnCancel;
 	@FXML private Button btnChooseImage;
 	@FXML private Button btnCreateGroups;
 	@FXML private TextField textFieldGroupName;
 
+	/**
+	 * Creates a new group
+	 * @author Ruben, Amir
+	 */
 	public void createGroup() {
 		ClientController.getClient().createNewGroup(textFieldGroupName.getText());
 		try {
@@ -29,6 +38,10 @@ public class CreateGroupController {
 		}
 	}
 
+	/**
+	 * Closes the stage
+	 * @author Ruben, Amir
+	 */
 	public void cancel() {
 		try {
 			Main.showMainMenu();

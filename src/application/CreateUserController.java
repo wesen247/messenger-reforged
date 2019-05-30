@@ -14,6 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Handles the createUser scene
+ * @author Ruben, Amir
+ *
+ */
 public class CreateUserController {
 	@FXML private Button btnCreate;
 	@FXML private Button btnCancel;
@@ -24,12 +29,20 @@ public class CreateUserController {
 	private String password;
 	private BufferedImage image;
 
+	/**
+	 * Creates a new user
+	 * @author Ruben, Amir
+	 */
 	public void btnCreate() {
 		username = textFieldUsername.getText();
 		password = textFieldPassword.getText();
 		new ClientController(username, password, this, image);
 	}
 
+	/**
+	 * Closes the stage
+	 * @author Ruben, Amir
+	 */
 	public void btnCancel() {
 		try {
 			Main.showLogin();
@@ -38,6 +51,10 @@ public class CreateUserController {
 		}
 	}
 
+	/**
+	 * Uploads an image thats used for the creation of the user
+	 * 	@author Ruben, Amir
+	 */
 	public void btnUploadImage() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Select a picture");

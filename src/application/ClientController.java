@@ -17,8 +17,7 @@ import entity.*;
 
 /**
  * Controller class
- * 
- * @author Ruben
+ * @author Ruben, Amir
  *
  */
 public class ClientController {
@@ -34,6 +33,10 @@ public class ClientController {
 	private String groupName;
 	private AtomicBoolean darkmode = new AtomicBoolean();
 
+	/**
+	 * @author Ruben
+	 * @return The controller
+	 */
 	public static ClientController getClient() {
 		return controller;
 	}
@@ -59,10 +62,23 @@ public class ClientController {
 		ClientController.controller = this;
 	}
 
+	/**
+	 * 
+	 * @return receiver
+	 * @author Ruben
+	 */
 	public String getReceiver() {
 		return receiver.getName();
 	}
 
+	/**
+	 * Constructor that initializes the program
+	 * @param username
+	 * @param password
+	 * @param userController
+	 * @param image
+	 * @author Ruben, Amir
+	 */
 	public ClientController(String username, String password, CreateUserController userController,
 			BufferedImage image) {
 		try {
@@ -99,6 +115,10 @@ public class ClientController {
 
 	}
 
+	/**
+	 * Sends a request to server to add user to group
+	 * @author Ruben, Amir
+	 */
 	public void addToGroup() {
 		try {
 			outputStream.writeObject(new AddObjectRequest("addGroupMember:" + groupName, user, user));
@@ -109,6 +129,11 @@ public class ClientController {
 
 	}
 
+	/**
+	 * Send a request to server to delet a account
+	 * @param password
+	 * @author Ruben, Amir
+	 */
 	public void deleteAccount(String password) {
 
 		try {
@@ -187,6 +212,11 @@ public class ClientController {
 		}
 	}
 
+	/**
+	 * Sends a requst to server to download a file
+	 * @author Ruben, Amir
+	 * @param file
+	 */
 	public void download(String file) {
 
 		try {
@@ -256,10 +286,14 @@ public class ClientController {
 
 	}
 
+	/**
+	 * Uploads a file to a group
+	 * @author Ruben, Amir
+	 * @param filename
+	 * @param fileToSend
+	 */
 	public void sendFile(String filename, byte[] fileToSend) {
-
 		try {
-			System.out.println("HejAAA");
 			outputStream.writeObject(new AddObjectRequest(
 					"file:" + group.getGroupName() + ":" + filename, fileToSend, user));
 			outputStream.flush();
@@ -281,12 +315,20 @@ public class ClientController {
 		}
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @param filename
+	 */
 	public void setRequestedFile(String filename) {
 		this.filename = filename;
 	}
 
+	/**
+	 * Saves a file locally
+	 * @author Ruben, Amir
+	 * @param file
+	 */
 	public void saveToComputer(byte[] file) {
-
 		String username = System.getProperty("user.name");
 		try {
 			FileOutputStream out = new FileOutputStream(
@@ -301,21 +343,33 @@ public class ClientController {
 
 	/**
 	 * Method that sets a reciever.
-	 * 
+	 * @author Ruben
 	 * @param name Name of the reciever.
 	 */
 	public void setReciver(String name) {
 		this.receiver = new User(name);
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @param name
+	 */
 	public void setGroup(String name) {
 		this.group = new Group(name);
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @return group
+	 */
 	public Group getGroup() {
 		return this.group;
 	}
 
+	/**
+	 * @author Ruben, Amir
+	 * @return user
+	 */
 	public User getUser() {
 		return user;
 	}

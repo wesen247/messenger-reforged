@@ -24,6 +24,11 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Handles the groupChatStage
+ * @author Ruben, Amir, Andre
+ *
+ */
 public class GroupMessageController implements Initializable {
 	@FXML private Button btnSend;
 	@FXML private Button btnAddGroupMember;
@@ -38,10 +43,19 @@ public class GroupMessageController implements Initializable {
 	private static GroupMessageController controller;
 	private ObservableList<String> membersList = FXCollections.observableArrayList();
 
+	/**
+	 * 
+	 * @return Returns the controller
+	 * @author Ruben, Amir
+	 */
 	public static GroupMessageController getGroupMessageController() {
 		return controller;
 	}
 
+	/**
+	 * Initializes the class
+	 * @author Ruben, Amir
+	 */
 	public void initialize(URL location, ResourceBundle resource) {
 		controller = this;
 		textAreaIncomingMessages.setEditable(false);
@@ -58,6 +72,10 @@ public class GroupMessageController implements Initializable {
 		textGroupName.setText(ClientController.getClient().getGroup().getGroupName());
 	}
 
+	/**
+	 * Opens the eventStage
+	 * @author Ruben, Amir
+	 */
 	public void addEvent() {
 		try {
 			Main.showCreateEvent();
@@ -66,11 +84,19 @@ public class GroupMessageController implements Initializable {
 		}
 	}
 
+	/**
+	 * Sends a message to the group
+	 * @author Ruben, Amir
+	 */
 	public void send() {
 		ClientController.getClient().createGroupMessage(textFieldMessage.getText());
 		textFieldMessage.clear();
 	}
 
+	/**
+	 * Opens the addGroupMemberStage
+	 * @author Ruben, Amir
+	 */
 	public void addGroupMember() {
 		try {
 			Main.showAddNewGroupMember();
@@ -79,6 +105,10 @@ public class GroupMessageController implements Initializable {
 		}
 	}
 
+	/**
+	 * Updates the chat history and updates the member list
+	 * @author Ruben, Amir
+	 */
 	public void update() {
 		Platform.runLater(new Runnable() {
 			public void run() {
@@ -107,6 +137,10 @@ public class GroupMessageController implements Initializable {
 		});
 	}
 
+	/**
+	 * Uploads a file to the current group
+	 * @author Ruben, Amir, Andre
+	 */
 	public void uploadFile() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Select a file");
@@ -120,6 +154,10 @@ public class GroupMessageController implements Initializable {
 		}
 	}
 
+	/**
+	 * Opens the fileStage
+	 * @author Ruben, Amir
+	 */
 	public void showFiles() {
 		try {
 			Main.showFiles();
@@ -128,6 +166,10 @@ public class GroupMessageController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Opens the eventStage
+	 * @author Ruben, Amir
+	 */
 	public void showEvent() {
 		try {
 			Main.showEvents();
