@@ -29,7 +29,7 @@ public class Main extends Application {
 	public static void showLogin() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/LgInUI.fxml"));
+		loader.setLocation(Main.class.getResource("/application/LgInUI.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static void showCreateGroup() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/CreateGroup.fxml"));
+		loader.setLocation(Main.class.getResource("/application/CreateGroup.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
@@ -78,7 +78,7 @@ public class Main extends Application {
 	public static void showCreateUser() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/CreateUserUI.fxml"));
+		loader.setLocation(Main.class.getResource("/application/CreateUserUI.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
@@ -94,7 +94,7 @@ public class Main extends Application {
 	public static void showChatWindowPrivateMessage() throws IOException {
 		privateMessage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/ChattWindowPrivateMessage.fxml"));
+		loader.setLocation(Main.class.getResource("/application/ChattWindowPrivateMessage.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		privateMessage.setScene(scene);
@@ -116,7 +116,7 @@ public class Main extends Application {
 	public static void showMainMenu() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/StartMenu.fxml"));
+		loader.setLocation(Main.class.getResource("/application/StartMenu.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		primaryStage.setScene(scene);
@@ -138,7 +138,7 @@ public class Main extends Application {
 	public static void showGroupChatWindow() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/ChattWindowGroup.fxml"));
+		loader.setLocation(Main.class.getResource("/application/ChattWindowGroup.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		groupChatStage.setScene(scene);
@@ -160,7 +160,7 @@ public class Main extends Application {
 	public static void showAddNewGroupMember() throws IOException {
 		addGroupMemberStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/AddGroupMember.fxml"));
+		loader.setLocation(Main.class.getResource("/application/AddGroupMember.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		addGroupMemberStage.setScene(scene);
@@ -182,7 +182,7 @@ public class Main extends Application {
 	public static void showCreateEvent() throws IOException {
 		calendarStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/CreateEvent.fxml"));
+		loader.setLocation(Main.class.getResource("/application/CreateEvent.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		calendarStage.setScene(scene);
@@ -204,7 +204,7 @@ public class Main extends Application {
 	public static void showEvents() throws IOException {
 		eventStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/EventsWindow.fxml"));
+		loader.setLocation(Main.class.getResource("/application/EventsWindow.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		eventStage.setScene(scene);
@@ -226,7 +226,7 @@ public class Main extends Application {
 	public static void showDeleteUser() throws IOException {
 		deleteUserStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/DeleteUserUI.fxml"));
+		loader.setLocation(Main.class.getResource("/application/DeleteUserUI.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		deleteUserStage.setScene(scene);
@@ -248,7 +248,7 @@ public class Main extends Application {
 	public static void showFiles() throws IOException {
 		fileStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/DownloadFileUI.fxml"));
+		loader.setLocation(Main.class.getResource("/application/DownloadFileUI.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		fileStage.setScene(scene);
@@ -271,7 +271,7 @@ public class Main extends Application {
 	public static void showSettings() throws IOException {
 		settingsStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/fxml/Settings.fxml"));
+		loader.setLocation(Main.class.getResource("/application/Settings.fxml"));
 		mainPane = loader.load();
 		Scene scene = new Scene(mainPane);
 		settingsStage.setScene(scene);
