@@ -28,7 +28,7 @@ public class Logg extends Application {
 	}
 	
 	public void writeToLog(String text) {
-		textArea.appendText(getTime() + text);
+		textArea.appendText(getTime() + text + "\n");
 	}
 	
 	public String getTime() {
