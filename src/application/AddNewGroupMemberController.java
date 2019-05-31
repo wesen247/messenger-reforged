@@ -15,7 +15,6 @@ public class AddNewGroupMemberController {
 	@FXML private Button btnCancel;
 	@FXML private TextField textFieldUsername;
 	ClientController client = ClientController.getClient();
-	
 	/**
 	 * Adds a user to the group
 	 * @author Amir

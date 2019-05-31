@@ -301,8 +301,7 @@ public class Data {
 					} else if (object instanceof Response) {
 						Response response = (Response) object;
 						setListResponse(response);
-						System.out.println(response.getType());
-						
+					
 						if (response.getType().equals("loginFailed")) {
 							String res = (String) response.getResponse();
 							loginController.loginFailed(res);
