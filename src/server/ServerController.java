@@ -23,7 +23,8 @@ public class ServerController {
 	 * @author André
 	 */
 	public ServerController(boolean useBackup, int maximumUsers) {
-		File directory = new File("C:\\Messenger-reforged\\Downloads");
+		String username = System.getProperty("user.name");
+		File directory = new File("C:\\users\\"+ username +"\\Messenger-reforged");
 		if(!directory.exists()) {
 			try {
 				directory.mkdir();

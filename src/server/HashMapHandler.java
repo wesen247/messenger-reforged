@@ -21,7 +21,7 @@ public class HashMapHandler {
 		private ConcurrentHashMap<String,User> allUsers = new ConcurrentHashMap<String,User>();
 		private ConcurrentHashMap<String,Group> groups = new ConcurrentHashMap<String,Group>();
 		private ConcurrentHashMap<String,byte[]> files = new ConcurrentHashMap<String,byte[]>();
-
+		private String username = System.getProperty("user.name");
 		
 		
 		/**Attempts to load allUsers from file.
@@ -29,8 +29,9 @@ public class HashMapHandler {
 		 */
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,User> loadAllUsers() {
+			
 			try {
-				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-users.txt"));
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Users\\" + username + "\\Messenger-Reforged\\reforged-users.txt"));
 				allUsers = (ConcurrentHashMap<String,User>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
@@ -46,7 +47,7 @@ public class HashMapHandler {
 		 */
 		public void saveAllUsers(ConcurrentHashMap<String,User> allUsers) {		
 			try {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-users.txt"));
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\users\\" + username + "\\Messenger-Reforged\\reforged-users.txt"));
 				oos.writeObject(allUsers);
 				oos.flush();
 				oos.close();
@@ -64,7 +65,7 @@ public class HashMapHandler {
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,String> loadPasswordHashMap() {
 			try {
-				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-pw.txt"));
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Users\\" + username + "\\Messenger-Reforged\\reforged-pw.txt"));
 				passwordHashMap = (ConcurrentHashMap<String,String>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
@@ -79,7 +80,7 @@ public class HashMapHandler {
 		 */
 		public void savePasswordHashMap(ConcurrentHashMap<String,String> passwordHashMap) {	
 			try {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-pw.txt"));
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Users\\" + username + "\\Messenger-Reforged\\reforged-pw.txt"));
 				oos.writeObject(passwordHashMap);
 				oos.flush();
 				oos.close();
@@ -96,7 +97,7 @@ public class HashMapHandler {
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,Group> loadGroups() {
 			try {
-				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Users\\" + username + "\\Messenger-Reforged\\reforged-grouplist.txt"));
 				groups = (ConcurrentHashMap<String,Group>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
@@ -111,7 +112,7 @@ public class HashMapHandler {
 		 */
 		public void saveGroups(ConcurrentHashMap<String,Group> groups) {
 			try {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-grouplist.txt"));
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Users\\" + username + "\\Messenger-Reforged\\reforged-grouplist.txt"));
 				oos.writeObject(groups);
 				oos.flush();
 				oos.close();
@@ -127,7 +128,7 @@ public class HashMapHandler {
 		@SuppressWarnings("unchecked")
 		public ConcurrentHashMap<String,byte[]> loadFiles() {
 			try {
-				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Messenger-reforged\\reforged-files.txt"));
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Users\\" + username + "\\Messenger-Reforged\\reforged-files.txt"));
 				files = (ConcurrentHashMap<String,byte[]>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
@@ -142,7 +143,7 @@ public class HashMapHandler {
 		 */
 		public void saveFiles(ConcurrentHashMap<String,byte[]> files) {
 			try {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Messenger-reforged\\reforged-files.txt"));
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Users\\" + username + "\\Messenger-Reforged\\reforged-files.txt"));
 				oos.writeObject(files);
 				oos.flush();
 				oos.close();
