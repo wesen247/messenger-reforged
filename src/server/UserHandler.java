@@ -8,7 +8,14 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
 
-import entity.*;
+import entity.CreateUserRequest;
+import entity.Group;
+import entity.LoginRequest;
+import entity.Response;
+import entity.StartUpdate;
+import entity.User;
+import entity.UserUpdate;
+import logger.Logg;
 
 public class UserHandler extends Thread {
 	private ConcurrentHashMap<String,String> passwordHashmap;
@@ -16,6 +23,7 @@ public class UserHandler extends Thread {
 	private ConcurrentHashMap<String,User> allUsers;
 	private ServerController serverController;
 	private HashMapHandler hashMapHandler;
+	private Logg logg;
 
 	/**
 	 * Contructor
@@ -35,7 +43,7 @@ public class UserHandler extends Thread {
 			passwordHashmap = hashMapHandler.loadPasswordHashMap();
 			connectedUsers = new ConcurrentHashMap<String,UserClient>();
 			allUsers = hashMapHandler.loadAllUsers();
-			System.out.println("Loaded backup");
+			logg.writeToLog("Loaded backup");
 			start();
 		}
 	}
@@ -46,7 +54,7 @@ public class UserHandler extends Thread {
 				Thread.sleep(60000);
 				hashMapHandler.savePasswordHashMap(passwordHashmap);
 				hashMapHandler.saveAllUsers(allUsers);
-				System.out.println("Backup users");
+				logg.writeToLog("Backup users");
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -88,7 +96,7 @@ public class UserHandler extends Thread {
 	public boolean attemptLogin(LoginRequest login, Socket socket, ObjectOutputStream oos, ObjectInputStream ois) {//Fixa try catch
 		try {
 			if(passwordHashmap.get(login.getName()).equals(login.getPassword())) {
-				System.out.println(login.getPassword());
+				logg.writeToLog(login.getPassword());
 				connectedUsers.put(login.getName(), new UserClient(serverController, socket, this, allUsers.get(login.getName()), oos, ois));
 				createStartUpdate(login.getName());
 				sendUserUpdate();
@@ -96,7 +104,7 @@ public class UserHandler extends Thread {
 			}
 		}
 		catch(NullPointerException e) {
-			System.err.println("Expected");
+			
 		}
 		return false;
 	} 	
@@ -115,7 +123,7 @@ public class UserHandler extends Thread {
 
 				for(int l = 0; members.size()>l; l++) {
 					if (members.get(l).getName().equals(user.getName())) {
-						System.out.println("Removed from group");
+						logg.writeToLog("Removed from group");
 						members.remove(l);
 						serverController.groupUpdate(serverController.getGroup(allUsers.get(user.getName()).getGroups().get(i)));
 						break;
@@ -129,11 +137,11 @@ public class UserHandler extends Thread {
 			allUsers.remove(user.getName());
 			connectedUsers.get(user.getName()).kill();
 			connectedUsers.remove(user.getName());
-			System.out.println("User removed");
+			logg.writeToLog("User removed");
 			return true;
 		}
 		this.send(user, new Response("delUserFailed", null));
-		System.out.println("User remove failed");
+		logg.writeToLog("User remove failed");
 		return false;
 	}
 	
@@ -171,12 +179,12 @@ public class UserHandler extends Thread {
 				onlineUsers.add(allUsers.get(onlineUserIterator.next()));
 			}
 		}catch(NoSuchElementException e) {
-			System.err.println("Expected");
+			
 		}
 		UserUpdate tempUserUpdate = new UserUpdate(onlineUsers);
 		for(int i = 0; i<connectedUsers.keySet().size();i++) {
 			send(new User(onlineUsers.get(i).getName()), tempUserUpdate);
-			System.out.println("UserUpdate sent");
+			logg.writeToLog("UserUpdate sent");
 		}
 	}
 	

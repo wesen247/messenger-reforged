@@ -2,13 +2,19 @@ package server;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import entity.*;
+import entity.Event;
+import entity.Group;
+import entity.GroupMessage;
+import entity.Response;
+import entity.User;
+import logger.Logg;
 
 
 public class GroupHandler extends Thread {
 	private ConcurrentHashMap<String,Group> groups;
 	private ServerController serverController;
 	private HashMapHandler hashMapHandler;
+	private Logg logg;
 	private ConcurrentHashMap<String,byte[]> files;
 
 	public static void main(String args[]) {
@@ -45,7 +51,7 @@ public class GroupHandler extends Thread {
 				Thread.sleep(60000);
 				hashMapHandler.saveGroups(groups);
 				hashMapHandler.saveFiles(files);
-				System.out.println("Backup groups");
+				logg.writeToLog("Backup was successful.");
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -69,21 +75,21 @@ public class GroupHandler extends Thread {
 	 */
 	public void addGroup(Group group) {
 		if(!groups.containsKey(group.getGroupName())) {
-			System.out.println("Group added");
+			logg.writeToLog("Group added");
 			groups.put(group.getGroupName(), group);
 			groupUpdate(group);
 		}else {
-			System.out.println("Group creation failed");
+			logg.writeToLog("Group creation failed");
 		}
 	}
 	public void addGroup(Group group, User user) {
 		if(!groups.containsKey(group.getGroupName())) {
-			System.out.println("Group added");
+			logg.writeToLog("Group added");
 			groups.put(group.getGroupName(), group);
 			groupUpdate(group);
 			serverController.send(user, new Response("createGroupSuccessful", "Create group successful"));
 		}else {
-			System.out.println("Group creation failed");
+			logg.writeToLog("Group creation failed");
 			serverController.send(user, new Response("groupCreateFailed", "Create group failed"));
 		}
 	}
@@ -95,7 +101,7 @@ public class GroupHandler extends Thread {
 	 */
 	public void groupUpdate(Group group) {
 		for(int i = 0; i < group.getGroupMembers().size(); i++) {
-			System.out.println("Skickar grupp uppdatering till " 
+			logg.writeToLog("Skickar grupp uppdatering till " 
 						+ group.getGroupMembers().get(i).getName() );
 			serverController.send(group.getGroupMembers().get(i), group);
 		}
@@ -108,7 +114,7 @@ public class GroupHandler extends Thread {
 	 * @author André
 	 */
 	public void addMember(Group group, User user) {
-		System.out.println(user.getName() + " Added to " + group.getGroupName());
+		logg.writeToLog(user.getName() + " Added to " + group.getGroupName());
 		groups.get(group.getGroupName()).addMember(user);
 		groupUpdate(groups.get(group.getGroupName()));
 	}
@@ -121,7 +127,7 @@ public class GroupHandler extends Thread {
 	 */
 	public synchronized void addEvent(String groupName, Event event) {
 		if(groups.containsKey(groupName)) {
-			System.out.println("Added group event to group" + groupName);
+			logg.writeToLog("Added group event to group" + groupName);
 			groups.get(groupName).addEvent(event);
 			groupUpdate(groups.get(groupName));
 		}
@@ -134,7 +140,7 @@ public class GroupHandler extends Thread {
 	 */
 	public void newMessage(GroupMessage message) {
 		groups.get(message.getReceiver().getGroupName()).getGroupMessages().add(message);
-		System.out.println("Number of messages in group "+groups.get(message.getReceiver().getGroupName()).getGroupMessages().size());
+		logg.writeToLog("Number of messages in group "+groups.get(message.getReceiver().getGroupName()).getGroupMessages().size());
 		Group group = groups.get(message.getReceiver().getGroupName());
 		for(int i = 0; i<group.getGroupMembers().size();i++) {
 			serverController.send(group.getGroupMembers().get(i), message);
@@ -163,5 +169,4 @@ public class GroupHandler extends Thread {
 	public void sendFile(String request, User user) {
 		serverController.send(user, new Response("file",files.get(request)));
 	}
-
 }

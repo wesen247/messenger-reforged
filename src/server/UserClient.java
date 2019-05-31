@@ -1,15 +1,18 @@
 package server;
 
 import java.io.IOException;
-import entity.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import entity.User;
+import logger.Logg;
 
 public class UserClient {
 	private ServerController serverController;
 	private Buffer<Object> sendBuffer;
 	private UserHandler userHandler;
+	private Logg logg;
 	private User user;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
@@ -79,7 +82,7 @@ public class UserClient {
 					serverController.newObjectFromUser(incomming);
 				}
 			} catch (ClassNotFoundException | IOException e) {
-				System.err.println(user.getName()+" Disconnected");
+				logg.writeToLog(user.getName()+" Disconnected");
 				userHandler.disconnect(user.getName());
 			}
 		}
@@ -99,7 +102,7 @@ public class UserClient {
 					oos.flush();
 				}
 			} catch (IOException | InterruptedException e) {
-				System.err.println(user.getName()+" Socket stängde");
+				logg.writeToLog(user.getName()+" Socket stängde");
 			}
 		}
 	}

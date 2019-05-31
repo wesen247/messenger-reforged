@@ -8,9 +8,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import entity.*;
+
+import entity.AddObjectRequest;
+import entity.CreateUserRequest;
+import entity.Event;
+import entity.Group;
+import entity.GroupMessage;
+import entity.LoginRequest;
+import entity.ObjectRequest;
+import entity.PrivateMessage;
+import entity.Response;
+import entity.User;
+import logger.Logg;
 
 public class ServerController {
+	private Logg logg;
 	private UserHandler userHandler;
 	private GroupHandler groupHandler;
 	private Buffer<Runnable> taskBuffer;
@@ -38,7 +50,7 @@ public class ServerController {
 
 		for(int i = 0; i < 5 + maximumUsers * 2; i++) {
 			new Worker().start();
-			System.out.println("New worker started " + i);
+			logg.writeToLog("New worker started " + i);
 		}
 		addTask(connect = new IncommningConnections());
 	}
@@ -59,7 +71,7 @@ public class ServerController {
 	 * @author André	
 	 */
 	public void addTask(Runnable task) {
-		System.out.println("Task added to buffer");
+		logg.writeToLog("Task added to buffer");
 		taskBuffer.put(task);
 	}
 
@@ -78,7 +90,7 @@ public class ServerController {
 	 */
 	public void newObjectFromUser(Object incomming) {
 		try {
-			System.out.println("Servercontroller motagit object");
+			logg.writeToLog("Servercontroller motagit object");
 			if(incomming instanceof AddObjectRequest) {
 				AddObjectRequest request = (AddObjectRequest) incomming;
 				String[] splitType = request.getType().split(":");
@@ -141,7 +153,7 @@ public class ServerController {
 			while(true) {
 				try {
 					taskBuffer.get().run();
-					System.out.println("tråd klar med task");
+					logg.writeToLog("tråd klar med task");
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -173,9 +185,9 @@ public class ServerController {
 				serverSocket = new ServerSocket(5343);
 				Runnable runnable;
 				while(true) {
-					System.out.println("Lyssnar efter användare");
+					logg.writeToLog("Lyssnar efter användare");
 					runnable = new LoginHandler(serverSocket.accept());
-					System.out.println("Användare hittad");
+					logg.writeToLog("Användare hittad");
 					addTask(runnable);
 				}
 			} catch (IOException e) {
@@ -198,7 +210,7 @@ public class ServerController {
 		private ObjectInputStream ois;
 		private ObjectOutputStream oos;
 		public LoginHandler(Socket socket) {
-			System.out.println("LoginHandler skapad");
+			logg.writeToLog("LoginHandler skapad");
 			this.socket = socket;		
 		}
 		public void run() {
@@ -211,38 +223,38 @@ public class ServerController {
 				e1.printStackTrace();
 			}
 			boolean accepted = false;
-			System.out.println("Lyssnar på login eller användare från klient");
+			logg.writeToLog("Lyssnar på login eller användare från klient");
 			Object fromUser;
 			try {
 				while(!accepted) {
 					fromUser = ois.readObject();
-					System.out.println("LoginHandler: Objekt Motaget");
+					logg.writeToLog("LoginHandler: Objekt Motaget");
 					if(fromUser instanceof CreateUserRequest) {
-						System.out.println("LoginHandler: Type CreateUserRequest");
+						logg.writeToLog("LoginHandler: Type CreateUserRequest");
 						CreateUserRequest createUser = (CreateUserRequest) fromUser;
 						if(createUser.getName().length() > 2 && createUser.getPassword().length() > 2 && userHandler.newUser(createUser, socket, oos, ois)) {
 							accepted = true;
-							System.out.println("LoginHandler: CreateUserRequest lyckad");
+							logg.writeToLog("LoginHandler: CreateUserRequest lyckad");
 						}else {
-							System.out.println("LoginHandler: CreateUserRequest misslyckad");
+							logg.writeToLog("LoginHandler: CreateUserRequest misslyckad");
 							oos.writeObject(new Response("createUserFailed", "User creation failed"));
 							oos.flush();
 						}
 					}
 					else if(fromUser instanceof LoginRequest) {
-						System.out.println("LoginHandler: Type LoginRequest");
+						logg.writeToLog("LoginHandler: Type LoginRequest");
 						if(userHandler.attemptLogin((LoginRequest) fromUser, socket, oos, ois)) {
 							accepted = true;
-							System.out.println("LoginHandler: LoginRequest godkänd");
+							logg.writeToLog("LoginHandler: LoginRequest godkänd");
 						}else {
-							System.out.println("LoginHandler: LoginRequest misslyckad");
+							logg.writeToLog("LoginHandler: LoginRequest misslyckad");
 							oos.writeObject(new Response("loginFailed", "Login failed"));
 							oos.flush();
 						}
 					}
 				}
 			} catch (ClassNotFoundException | IOException e) {
-				System.err.println("Användare avbröt inloggning");
+				logg.writeToLog("Användare avbröt inloggning");
 			}
 		}
 	}

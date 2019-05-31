@@ -1,15 +1,15 @@
 package server;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
-import entity.*;
+import entity.Group;
+import entity.User;
+import logger.Logg;
 
 /**This class is used to save and load the
  * ConcurrentHashMap's used by the program.
@@ -21,6 +21,7 @@ public class HashMapHandler {
 		private ConcurrentHashMap<String,User> allUsers = new ConcurrentHashMap<String,User>();
 		private ConcurrentHashMap<String,Group> groups = new ConcurrentHashMap<String,Group>();
 		private ConcurrentHashMap<String,byte[]> files = new ConcurrentHashMap<String,byte[]>();
+		private Logg logg;
 		private String username = System.getProperty("user.name");
 		
 		
@@ -35,8 +36,7 @@ public class HashMapHandler {
 				allUsers = (ConcurrentHashMap<String,User>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
-				e.printStackTrace();
-				System.err.println("All users was not loaded succesfully: " + e);
+				logg.writeToLog("All users was not loaded succesfully: " + e);
 			}
 			return allUsers;
 		}
@@ -52,8 +52,7 @@ public class HashMapHandler {
 				oos.flush();
 				oos.close();
 			} catch (IOException e) {
-				e.printStackTrace();
-				System.err.println("All users was not saved succesfully: " + e);
+				logg.writeToLog("All users was not saved succesfully: " + e);
 			}
 		}
 		
@@ -101,7 +100,7 @@ public class HashMapHandler {
 				groups = (ConcurrentHashMap<String,Group>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
-				System.err.println("Groups was not loaded succesfully: " + e);
+				logg.writeToLog("Groups was not loaded succesfully: " + e);
 			}
 			return groups;
 		}
@@ -117,8 +116,7 @@ public class HashMapHandler {
 				oos.flush();
 				oos.close();
 			} catch (IOException e) {
-				e.printStackTrace();
-				System.err.println("Groups was not saved succesfully: " + e);
+				logg.writeToLog("Groups was not saved succesfully: " + e);
 			}
 		}
 		
@@ -132,7 +130,7 @@ public class HashMapHandler {
 				files = (ConcurrentHashMap<String,byte[]>) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
-				System.err.println("Files was not loaded succesfully: " + e);
+				logg.writeToLog("Files was not loaded succesfully: " + e);
 			}
 			return files;
 		}
@@ -148,13 +146,7 @@ public class HashMapHandler {
 				oos.flush();
 				oos.close();
 			} catch (IOException e) {
-				e.printStackTrace();
-				System.err.println("Files was not saved succesfully: " + e);
+				logg.writeToLog("Files was not saved succesfully: " + e);
 			}
-		}
-		
-		
-		public static void main(String args[]) {
-			HashMapHandler hmh = new HashMapHandler();
 		}
 }
