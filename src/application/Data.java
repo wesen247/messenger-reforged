@@ -391,7 +391,7 @@ public class Data {
 							Main.showLogin();
 							Main.getDeleteUserStage().close();
 						} catch (IOException | NullPointerException e) {
-							e.printStackTrace();
+							System.err.println(e);
 						}
 					}
 				});
